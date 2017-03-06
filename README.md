@@ -1,6 +1,7 @@
 # View Section and Popup Manager (VSPM)
 <p>Frontend multilevel subpage manager developed according to MVC pattern.<br />
-VSPM is (c) 2009-2017 Tomasz Luczynski</p><br />
+VSPM is (c) 2009-2017 Tomasz Luczynski<br />
+Licensed under the MIT License</p><br />
 
 <p>Uses external libraries listed below licensed under MIT license (SWFAddress, Tweener) or Apache 2.0 License (AppMeasurement, Google Analytics):</p>
 <p><b>SWFAddress 2.4</b>: Deep linking for Flash and Ajax (http://www.asual.com/swfaddress/)<br />

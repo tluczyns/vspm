@@ -12,6 +12,6 @@ SWFAddress is (c) 2006-2009 Rostislav Hristov and contributors<br />
 @version		1.33.74<br />
 </p>
 <p>
-Uses <b>AppMeasurement.swc</b> library as part of Adobe Marketing Cloud software (https://github.com/Adobe-Marketing-Cloud)<br />
-Uses <b>analytics.swc</b> (ActionScript 3 API for Google Analytics) library (https://developers.google.com/analytics/devguides/collection/other/flashTrackingIntro, https://code.google.com/archive/p/gaforflash/)
+<b>AppMeasurement.swc</b> library as part of Adobe Marketing Cloud software (https://github.com/Adobe-Marketing-Cloud)<br />
+<b>analytics.swc</b> library as part of Google Analytics Tracking for Adobe Flash (https://developers.google.com/analytics/devguides/collection/other/flashTrackingIntro, https://code.google.com/archive/p/gaforflash/)
 </p>

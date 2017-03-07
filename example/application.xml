@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<application xmlns="http://ns.adobe.com/air/application/23.0">
+	
+	<id>MultiGalleryShowcase</id> 
+	<versionNumber>1.0</versionNumber> 
+	<filename>VSPMShowcase</filename> 
+	
+	<name>VSPMShowcase</name> 
+	<description></description> 
+	<copyright></copyright> 
+	
+	<initialWindow>
+		<title>VSPMShowcase</title> 
+		<content>VSPMShowcase.swf</content> 
+		<systemChrome>standard</systemChrome> 
+		<transparent>false</transparent> 
+		<visible>true</visible> 
+		<minimizable>true</minimizable> 
+		<maximizable>true</maximizable> 
+		<resizable>true</resizable> 
+		<depthAndStencil>true</depthAndStencil>
+		<renderMode>direct</renderMode> 
+	</initialWindow> 
+	
+	<!-- 
+	More options:
+	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
+	-->
+</application>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+			
+		<title>View Section & Popup Manager (VSPM) exampl</title>
+		<meta name="title" content="View Section & Popup Manager (VSPM) exampl" />
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width">
+		
+		<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js'></script>
+		<script type="text/javascript" src="js/swfaddress.js"></script>
+		<script type="text/javascript">
+			var params = {
+				menu: "false",
+				scale: "noScale",
+				allowFullscreen: "true",
+				allowScriptAccess: "always",
+				bgcolor: "#ffffff",
+				wmode: "direct"
+			};
+			swfobject.embedSWF("VSPMExample.swf", "flashContent", "490", "660", "18", "expressInstall.swf", {}, params);
+		</script>
+		<style type="text/css">
+			html, body {width: 100%; height: 100%; margin:0; padding: 0px; background: #444444;} 
+			body {font-family: arial; sans-serif; font-size: 10; color: white; text-align: center; overflow: hidden;}
+			#containerFlashContent {
+				width: 490px; 
+				height: 550px; 
+				position: absolute; 
+				left: 50%; 
+				top: 44%; 
+				margin-left: -245px; 
+				margin-top: -330px;
+			}
+			a:link, a:visited {
+				color: #cccccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="containerFlashContent">
+			<p>View Section & Popup Manager (VSPM) example<br />
+			Frontend multilevel subpage manager framework developed according to MVC pattern.<br />
+			(with changeable url in address bar and working back/next buttons; page structure based on {xml/content.xml} file).<br /></p>
+			<div id="flashContent">
+				<p><a href="//www.adobe.com/go/getflashplayer">
+					<img src="//www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Download Adobe Flash player" /></a>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

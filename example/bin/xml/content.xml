@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<content>
+	<fg>
+		<header isPopup="1" label="Header (f.e. menu)\n(click to invoke Welcome Popup)" color="0x999999" isNotOmniture="1" dataClick='{"ivw": 1}' />
+		<welcome isPopup="1" isNotOmniture="1" label="Welcome Popup\n(click to close it) " color="0xffcc00" objParamsWithValuesToShow='{"ivw": 1}' dataClick='{"ivw": 0}' />
+	</fg>
+	<main isSection="1" isOnlyForwardOmniture="1" label="Main Page" color="0xff0000" indSectionTarget="main/subpage0"> 
+		<subpage isSection="1" isOnlyForwardOmniture="1" label="Sub Page 1" color="0x00ff00" indSectionTarget="main/subpage0/tile0"> 
+			<tile isSection="1" label="Tile 1" color="0x0066ff" indSectionTarget="main/subpage0/tile1" />
+			<tile isSection="1" label="Tile 2" color="0x00ffff" indSectionTarget="main/subpage0/tile2" />
+			<tile isSection="1" label="Tile 3" color="0xff00ff" indSectionTarget="main/subpage1" />
+		</subpage>
+			<subpage isSection="1" isOnlyForwardOmniture="1" label="Sub Page 2" color="0x00ff00" indSectionTarget="main/subpage1/tile0"> 
+			<tile isSection="1" label="Tile 1" color="0x0099ff" indSectionTarget="main/subpage1/tile1" />
+			<tile isSection="1" label="Tile 2" color="0x00ffff" indSectionTarget="main/subpage1/tile2" />
+			<tile isSection="1" label="Tile 3" color="0xff00ff" indSectionTarget="main/subpage0" />
+		</subpage>
+	</main>
+		
+	<ga value="UA-39635581-1" />
+	<omniture>
+		<account>omnitureaccount0,omnitureaccount1</account>
+		<charSet>UTF-8</charSet>
+		<movieID>vspm_showcase</movieID>
+		<currencyCode>PLN</currencyCode>
+		<pageURL>programuje.pl/portfolio_arch/tl/VSPMShowcase</pageURL>
+		<trackClickMap>true</trackClickMap>
+		<country>pl</country>
+		<language>pl</language>
+		<campaignName>vspm_showcase</campaignName>
+		<division>local</division>
+	</omniture>	
+</content>

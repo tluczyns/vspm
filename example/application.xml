@@ -3,15 +3,15 @@
 	
 	<id>MultiGalleryShowcase</id> 
 	<versionNumber>1.0</versionNumber> 
-	<filename>VSPMShowcase</filename> 
+	<filename>VSPMExample</filename> 
 	
-	<name>VSPMShowcase</name> 
+	<name>VSPMExample</name> 
 	<description></description> 
 	<copyright></copyright> 
 	
 	<initialWindow>
-		<title>VSPMShowcase</title> 
-		<content>VSPMShowcase.swf</content> 
+		<title>VSPMExample</title> 
+		<content>VSPMExample.swf</content> 
 		<systemChrome>standard</systemChrome> 
 		<transparent>false</transparent> 
 		<visible>true</visible> 

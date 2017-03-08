@@ -106,7 +106,7 @@
 		public function setLoadProgress(ratioLoaded: Number): void {
 			this.updateAndCheckIsFinished();
 			Tweener.removeTweens(this);
-			Tweener.addTween(this, {ratioProgress: ratioLoaded, time: this.timeFramesTweenPercent, onUpdate: this.updateAndCheckIsFinished});
+			Tweener.addTween(this, {ratioProgress: ratioLoaded, time: this.timeFramesTweenPercent, transition: "easeOutCubic", onUpdate: this.updateAndCheckIsFinished});
 		}
 		
 		private function updateAndCheckIsFinished(): void {
@@ -115,7 +115,10 @@
 		}
 		
 		protected function update(): void {
-			if (this.tfPercent) this.tfPercent.text = String(Math.round(this.ratioProgress * 100)) + "%";
+			if (this.tfPercent) {
+				this.tfPercent.text = String(Math.round(this.ratioProgress * 100)) + "%";
+				this.tfPercent.x = this.basePosXTfPercent - this.tfPercent.width / 2;
+			}
 			//trace("this.ratioProgress:" + this.ratioProgress);
 		}
 		

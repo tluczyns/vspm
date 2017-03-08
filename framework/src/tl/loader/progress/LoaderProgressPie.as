@@ -11,7 +11,7 @@ package tl.loader.progress {
 		private var pie: Sprite;
 		private var maskPie: Sprite;
 
-		public function LoaderProgressPie(colorPie: uint, radiusPie: Number = 60, radiusStroke: Number = 10, tfPercent: TextField = null, isTLOrCenterAnchorPointWhenCenterOnStage: uint = 0, timeFramesTweenPercent: Number = 0.2): void {
+		public function LoaderProgressPie(colorPie: uint, radiusPie: Number = 60, radiusStroke: Number = 10, tfPercent: TextField = null, isTLOrCenterAnchorPointWhenCenterOnStage: uint = 0, timeFramesTweenPercent: Number = 1): void {
 			this.colorPie = colorPie;
 			this.radiusPie = radiusPie;
 			this.radiusStroke = radiusStroke;

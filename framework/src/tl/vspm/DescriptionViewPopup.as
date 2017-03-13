@@ -16,9 +16,9 @@ package tl.vspm {
 		
 		public var objParamsWithValuesToShow: Object;
 		
-		public function DescriptionViewPopup(ind: String, nameClass: Class, content: ContentViewPopup, objParamsWithValuesToShow: Object, x: Number = 0, y: Number = 0, containerViewSection: DisplayObjectContainer = null): void {
+		public function DescriptionViewPopup(ind: String, nameClass: Class, content: ContentViewPopup, objParamsWithValuesToShow: Object, x: Number = 0, y: Number = 0, containerView: DisplayObjectContainer = null): void {
 			this.objParamsWithValuesToShow = objParamsWithValuesToShow || {};
-			super(ind, nameClass, content, x, y, containerViewSection); 
+			super(ind, nameClass, content, x, y, containerView); 
 		}
 		
 		override protected function getDictDescriptionViewInManager(): Dictionary { //DictionaryExt
@@ -33,7 +33,7 @@ package tl.vspm {
 				if (valueParam == undefined) valueParam = 0;
 				if ((!isNaN(Number(valueParam))) && (valueParam != "")) classValueParam = Number;
 				else classValueParam = String;
-				var valueParamModel: * = StateModel.parameters[param]
+				var valueParamModel: * = StateModel.parameters[param];
 				if (valueParamModel == undefined) valueParamModel = 0;
 				if (classValueParam(valueParamModel) != classValueParam(valueParam)) isHideShow = 0;
 			}

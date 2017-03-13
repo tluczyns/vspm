@@ -99,7 +99,7 @@ package tl.vspm {
 			return xmlSection;
 		}
 		
-		static public function addToArrDescriptionSubViewSection(indSection: String, descriptionViewSection: DescriptionViewSection): void {
+		static private function addToArrDescriptionSubViewSection(indSection: String, descriptionViewSection: DescriptionViewSection): void {
 			var arrDescriptionSubViewSection: Array = LoaderXMLContentView.dictIndViewSectionToArrDescriptionSubViewSection[indSection];
 			if (!arrDescriptionSubViewSection) arrDescriptionSubViewSection = [];
 			var i: uint = 0;
@@ -107,7 +107,7 @@ package tl.vspm {
 				i++;
 			if (i < arrDescriptionSubViewSection.length) DescriptionViewSection(arrDescriptionSubViewSection[i]).addAdditionalContent(descriptionViewSection);
 			else arrDescriptionSubViewSection.push(descriptionViewSection);
-			LoaderXMLContentView.dictIndViewSectionToArrDescriptionSubViewSection[indSection] = arrDescriptionSubViewSection
+			LoaderXMLContentView.dictIndViewSectionToArrDescriptionSubViewSection[indSection] = arrDescriptionSubViewSection;
 		}
 		
 		private function getObjClassContentAndViewSection(suffIndSection: String): Object {

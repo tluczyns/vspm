@@ -560,7 +560,7 @@ package tl.vspm {
 			return strParameters;
 		}
 		
-		public static function setCurrentSwfAddressValueWithParameters(objParamsNewAndChanged: Object = null, isReplaceParams: Boolean = false): void {
+		public static function setCurrentValueWithParameters(objParamsNewAndChanged: Object = null, isReplaceParams: Boolean = false): void {
 			SWFAddress.setValueWithParameters(SWFAddress.getCurrentSwfAddress(), objParamsNewAndChanged, isReplaceParams);
 		}
 		
@@ -582,7 +582,6 @@ package tl.vspm {
 			SWFAddress.setValue(newValue);
 			if ((newValue == oldValue) && (ManagerSection.isForceRefresh)) 
 				SWFAddress.dispatchEvent(new SWFAddressEvent(SWFAddressEvent.CHANGE));
-			
 		}
 		
 		public static function setValueWithCurrentParameters(value: String): void {

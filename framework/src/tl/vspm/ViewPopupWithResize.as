@@ -26,7 +26,7 @@ package tl.vspm {
 			throw new Error("onStageResize must be implemented");
 		}
 		
-		override public function hideComplete(): void {
+		override protected function hideComplete(): void {
 			this.stage.removeEventListener(Event.RESIZE, this.onStageResize);			
 			super.hideComplete();
 		}

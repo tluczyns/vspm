@@ -1,5 +1,5 @@
 package tl.sound {
-	import base.sharedObjects.SharedObjectInstance;
+	import tl.sharedObjects.SharedObjectInstance;
 	import caurina.transitions.Tweener;
 	
 	public class SoundGlobalLevelVolume extends Object {

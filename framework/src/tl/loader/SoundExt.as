@@ -66,7 +66,7 @@
 		private function onLoadErrorDefault(errorEvent:IOErrorEvent): void {}		
 		
 		public function initAfterLoading(): void {
-			ModelSoundEngine.addEventListener(EventSoundEngine.VOLUME_RATIO_CHANGED, this.setVolumeGlobal);
+			ModelSoundEngine.addEventListener(EventSoundEngine.LEVEL_VOLUME_CHANGED, this.setVolumeGlobal);
 			this.setVolumeGlobal();
 			if (this.isToPlay) {
 				this.playExt();
@@ -149,7 +149,7 @@
 				this.removeLoadListeners();
 			}
 			catch (error:IOError) {}
-			ModelSoundEngine.removeEventListener(EventSoundEngine.VOLUME_RATIO_CHANGED, this.setVolumeGlobal);
+			ModelSoundEngine.removeEventListener(EventSoundEngine.LEVEL_VOLUME_CHANGED, this.setVolumeGlobal);
 			this.stop();
 			Tweener.removeTweens(this);
 		}

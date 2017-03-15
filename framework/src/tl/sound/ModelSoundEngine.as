@@ -28,7 +28,7 @@ package tl.sound {
 		
 		static public function set levelVolume(value: Number): void {
 			ModelSoundEngine._levelVolume = value;
-			ModelSoundEngine.dispatchEvent(EventSoundEngine.VOLUME_RATIO_CHANGED); 
+			ModelSoundEngine.dispatchEvent(EventSoundEngine.LEVEL_VOLUME_CHANGED); 
 		}
 
 		static public function get tweenLevelVolume(): Number { 
@@ -37,7 +37,7 @@ package tl.sound {
 		
 		static public function set tweenLevelVolume(value: Number): void {
 			ModelSoundEngine._tweenLevelVolume = value;
-			ModelSoundEngine.dispatchEvent(EventSoundEngine.TWEEN_VOLUME_RATIO_CHANGED); 
+			ModelSoundEngine.dispatchEvent(EventSoundEngine.TWEEN_LEVEL_VOLUME_CHANGED); 
 		}
 		
 		static public function get isSoundOffOn(): uint {

@@ -20,13 +20,11 @@ package tl.sound {
 		}
 		
 		private function onLevelVolumeChanged(e: EventSoundEngine): void {
-			
 			if (this.so) this.so.setPropValue("levelVolume", ModelSoundEngine.levelVolume);
 		}
 		
 		private function setSoundOffOnFade(e: EventSoundEngine): void {
-			if (ModelSoundEngine.isSoundOffOn) this.origLevelVolume = Math.max(0.5, ModelSoundEngine.levelVolume);
-			
+			if (ModelSoundEngine.isSoundOffOn == 0) this.origLevelVolume = Math.max(0.5, ModelSoundEngine.levelVolume);
 			ModelSoundEngine.tweenLevelVolume = [0, this.origLevelVolume][ModelSoundEngine.isSoundOffOn];
 		}
 		

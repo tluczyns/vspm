@@ -6,10 +6,8 @@ package tl.sound {
 		//events to sound engine
 		static public const SOUND_OFF_ON_STATE_CHANGED: String = "soundOffOnStateChanged";
 		//events from sound engine
-		static public const VOLUME_RATIO_CHANGED: String = "volumeRatioChanged";
-		static public const TWEEN_VOLUME_RATIO_CHANGED: String = "tweenVolumeRatioChanged";
-		
-		
+		static public const LEVEL_VOLUME_CHANGED: String = "levelVolumeChanged";
+		static public const TWEEN_LEVEL_VOLUME_CHANGED: String = "tweenLevelVolumeChanged";
 		
 		public function EventSoundEngine(type: String, bubbles: Boolean = false) {
 			super(type, bubbles);

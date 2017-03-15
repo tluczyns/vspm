@@ -6,8 +6,8 @@ package tl.sound {
 		
 		static private var modelDispatcher: EventDispatcher = new EventDispatcher();
 		
-		static private var _volumeRatio: Number	= 1;
-		static private var _tweenVolumeRatio: Number;
+		static private var _levelVolume: Number	= 1;
+		static private var _tweenLevelVolume: Number;
 		static private var _isSoundOffOn: uint = 1;
 		
 		static public function addEventListener(type: String, func: Function, priority: int = 0): void {
@@ -22,21 +22,21 @@ package tl.sound {
 			ModelSoundEngine.modelDispatcher.dispatchEvent(new EventSoundEngine(type));
 		}
 		
-		static public function get volumeRatio(): Number { 
-			return ModelSoundEngine._volumeRatio;
+		static public function get levelVolume(): Number { 
+			return ModelSoundEngine._levelVolume;
 		}
 		
-		static public function set volumeRatio(value: Number): void {
-			ModelSoundEngine._volumeRatio = value;
+		static public function set levelVolume(value: Number): void {
+			ModelSoundEngine._levelVolume = value;
 			ModelSoundEngine.dispatchEvent(EventSoundEngine.VOLUME_RATIO_CHANGED); 
 		}
 
-		static public function get tweenVolumeRatio(): Number { 
-			return ModelSoundEngine._tweenVolumeRatio;
+		static public function get tweenLevelVolume(): Number { 
+			return ModelSoundEngine._tweenLevelVolume;
 		}
 		
-		static public function set tweenVolumeRatio(value: Number): void {
-			ModelSoundEngine._tweenVolumeRatio = value;
+		static public function set tweenLevelVolume(value: Number): void {
+			ModelSoundEngine._tweenLevelVolume = value;
 			ModelSoundEngine.dispatchEvent(EventSoundEngine.TWEEN_VOLUME_RATIO_CHANGED); 
 		}
 		

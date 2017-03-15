@@ -101,7 +101,7 @@
 		//set volume
 		
 		private function setVolumeGlobal(e: EventSoundEngine = null): void { 
-			this.setVolume(ModelSoundEngine.volumeRatio, true);
+			this.setVolume(ModelSoundEngine.levelVolume, true);
 		}
 
 		private function setVolumeSelf(): void { 
@@ -111,7 +111,7 @@
 		public function setVolume(volume: Number, isGlobal: Boolean = false): void {
 			if (!isGlobal) {
 				this.initVolume = volume;
-				volume *= ModelSoundEngine.volumeRatio;
+				volume *= ModelSoundEngine.levelVolume;
 			} else {
 				volume *= this.initVolume;
 			}
@@ -137,7 +137,7 @@
 			var numFramesChangeVolume: uint = Math.abs(Math.round(Math.abs(destVolume - currVolume) / stepChangeVolume));
 			ease = ease || "linear";
 			Tweener.removeTweens(this);
-			Tweener.addTween(this, {initVolume: destVolume, time: numFramesChangeVolume, useFrames: true, transition: ease, onUpdate: this.setVolumeSelf, onUpdateScope: this, onComplete: onComplete, onCompleteParams: onCompleteParams});
+			Tweener.addTween(this, {initVolume: destVolume, time: numFramesChangeVolume, useFrames: true, transition: ease, onUpdate: this.setVolumeSelf, onComplete: onComplete, onCompleteParams: onCompleteParams});
 			return numFramesChangeVolume;
 		}
 		

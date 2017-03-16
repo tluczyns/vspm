@@ -21,7 +21,7 @@
 		private var prevRatioLoadedElement: Number;
 		private var _basePosXTfPercent: Number;
 		
-		public function LoaderProgress(tfPercent: TextField = null, isTLOrCenterAnchorPointWhenCenterOnStage: uint = 0, timeFramesTweenPercent: Number = 1): void {
+		public function LoaderProgress(tfPercent: TextField = null, isTLOrCenterAnchorPointWhenCenterOnStage: uint = 0, timeFramesTweenPercent: Number = 0.5): void {
 			this.timeFramesTweenPercent = timeFramesTweenPercent;
 			this.isTLOrCenterAnchorPointWhenCenterOnStage = isTLOrCenterAnchorPointWhenCenterOnStage;
 			this.initTfPercent(tfPercent);

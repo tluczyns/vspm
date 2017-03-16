@@ -10,7 +10,7 @@ package tl.loader.progress {
 		private var maskBar: Shape;
 		private var isVerticalHorizontal: uint;
 		
-		public function LoaderProgressBar(bg: Sprite, bar: Sprite, isVerticalHorizontal: uint, tfPercent: TextField = null, isTLOrCenterAnchorPointWhenCenterOnStage: uint = 0, timeFramesTweenPercent: Number = 1): void {
+		public function LoaderProgressBar(bg: Sprite, bar: Sprite, isVerticalHorizontal: uint, tfPercent: TextField = null, isTLOrCenterAnchorPointWhenCenterOnStage: uint = 0, timeFramesTweenPercent: Number = 0.5): void {
 			this.bg = bg;
 			this.bar = bar;
 			this.isVerticalHorizontal = isVerticalHorizontal;

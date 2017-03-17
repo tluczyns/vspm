@@ -31,7 +31,7 @@ package vspmExample.viewPopup {
 		private function onClick(e: MouseEvent):void {
 			//SWFAddress.setPathWithParameters(this.content.indSectionTarget, JSON.parse(this.dataClick2), false);
 			//SWFAddress.setValue(this.content.indSectionTarget);
-			SWFAddress.setCurrentSwfAddressValueWithParameters(JSON.parse(this.content.dataClick), false);
+			SWFAddress.setCurrentValueWithParameters(JSON.parse(this.content.dataClick), false);
 		}
 		
 		private function removeTileColorAndLabel(): void {

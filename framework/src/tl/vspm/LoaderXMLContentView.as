@@ -89,7 +89,7 @@ package tl.vspm {
 						if (xmlListSubSectionWithSameName.length() == 1) LoaderXMLContentView.dictIndToAliasIndSection[indSubSectionWithWoNum + "0"] = indSubSectionAlias;
 						LoaderXMLContentView.dictAliasIndToIndSection[indSubSectionAlias] = indSubSectionWithWoNum;
 						descriptionSubViewSection = new DescriptionViewSection(indSubSection, objClasses.classViewSection, contentSubViewSection, (xmlListSubSectionWithSameName.length() == 1) ? -1 : j);
-						LoaderXMLContentView.addToArrDescriptionSubViewSection(predIndSection, descriptionSubViewSection)
+						LoaderXMLContentView.addToArrDescriptionSubViewSection(predIndSection, descriptionSubViewSection);
 						order++;
 						if (!uint(xmlListSubSectionWithSameName[j].@isSectionAndContent)) xmlListSubSectionWithSameName[j] = "empty";
 					}

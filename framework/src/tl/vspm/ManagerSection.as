@@ -178,7 +178,7 @@ package tl.vspm {
 			if (value != ManagerSection._currIndSection) {
 				var oldIndSection: String = ManagerSection._currIndSection;
 				ManagerSection._currIndSection = value;
-				StateModel.dispatchEvent(EventStateModel.CHANGE_CURR_SECTION, {currIndSection: value, oldIndSection: oldIndSection, newIndSection: value}); 
+				StateModel.dispatchEvent(EventStateModel.CHANGE_CURR_SECTION, {currIndSection: value, oldIndSection: oldIndSection, newIndSection: ManagerSection.newIndSection});
 			}
 		}
 		

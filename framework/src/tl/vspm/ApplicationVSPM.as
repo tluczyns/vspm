@@ -53,7 +53,7 @@ package tl.vspm {
 		protected function initViews(startIndSection: String = ""): void {
 			var classContainerApplication: Class;
 			try {
-				classContainerApplication = Class(getDefinitionByName(this.prefixClass + ".ContainerApplication"));
+				classContainerApplication = Class(getDefinitionByName(this.prefixClass + ".container.ContainerApplication"));
 			} catch (e: Error) {
 				classContainerApplication = ContainerApplicationVSPM;
 			}

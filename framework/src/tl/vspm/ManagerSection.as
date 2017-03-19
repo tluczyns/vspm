@@ -34,7 +34,7 @@ package tl.vspm {
 		public static function init(dspObjContainerSection: DisplayObjectContainer, startIndSection: String = ""): void {
 			ManagerSection.dspObjContainerSection = dspObjContainerSection;
 			ManagerSection.startIndSection = startIndSection || ManagerSection.startIndSection;
-			StateModel.addEventListener(EventStateModel.START_CHANGE_SECTION, ManagerSection.changeSection, -1);
+			StateModel.addEventListener(EventStateModel.START_CHANGE_SECTION, ManagerSection.changeSection, -10);
 			StateModel.init();
 		}
 		

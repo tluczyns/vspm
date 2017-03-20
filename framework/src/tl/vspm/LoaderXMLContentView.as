@@ -22,6 +22,7 @@ package tl.vspm {
 		private var prefixClass: String;
 		static public var content: Object;
 		static public var dictIndViewSectionToArrDescriptionSubViewSection: Dictionary = new Dictionary();
+		static public var isUseAliasIndSection: Boolean = true;
 		static public var dictIndToAliasIndSection: Dictionary;
 		static public var dictAliasIndToIndSection: Dictionary;
 		
@@ -43,8 +44,10 @@ package tl.vspm {
 		}
 		
 		private function initDictIndAliasViewSection(): void {
-			if (!LoaderXMLContentView.dictIndToAliasIndSection) LoaderXMLContentView.dictIndToAliasIndSection = new Dictionary();
-			if (!LoaderXMLContentView.dictAliasIndToIndSection) LoaderXMLContentView.dictAliasIndToIndSection = new Dictionary();
+			if (LoaderXMLContentView.isUseAliasIndSection) {
+				if (!LoaderXMLContentView.dictIndToAliasIndSection) LoaderXMLContentView.dictIndToAliasIndSection = new Dictionary();
+				if (!LoaderXMLContentView.dictAliasIndToIndSection) LoaderXMLContentView.dictAliasIndToIndSection = new Dictionary();
+			}
 		}
 		
 		private function createObjFromXMLContent(xmlContent: XML): void {
@@ -85,9 +88,11 @@ package tl.vspm {
 						xmlSubSection = this.parseXMLSection(xmlSubSection, indSubSectionWithWoNum, indSubSectionAlias, depth + 1);
 						var descriptionSubViewSection: DescriptionViewSection;
 						var contentSubViewSection: ContentViewSection = new objClasses.classContentViewSection(xmlSubSection, order, depth);
-						LoaderXMLContentView.dictIndToAliasIndSection[indSubSectionWithWoNum] = indSubSectionAlias;
-						if (xmlListSubSectionWithSameName.length() == 1) LoaderXMLContentView.dictIndToAliasIndSection[indSubSectionWithWoNum + "0"] = indSubSectionAlias;
-						LoaderXMLContentView.dictAliasIndToIndSection[indSubSectionAlias] = indSubSectionWithWoNum;
+						if (LoaderXMLContentView.isUseAliasIndSection) {
+							dictIndToAliasIndSection[indSubSectionWithWoNum] = indSubSectionAlias;
+							if (xmlListSubSectionWithSameName.length() == 1) LoaderXMLContentView.dictIndToAliasIndSection[indSubSectionWithWoNum + "0"] = indSubSectionAlias;
+							LoaderXMLContentView.dictAliasIndToIndSection[indSubSectionAlias] = indSubSectionWithWoNum;
+						}
 						descriptionSubViewSection = new DescriptionViewSection(indSubSection, objClasses.classViewSection, contentSubViewSection, (xmlListSubSectionWithSameName.length() == 1) ? -1 : j);
 						LoaderXMLContentView.addToArrDescriptionSubViewSection(predIndSection, descriptionSubViewSection);
 						order++;

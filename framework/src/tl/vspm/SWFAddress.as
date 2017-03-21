@@ -564,6 +564,12 @@ package tl.vspm {
 			SWFAddress.setValueWithParameters(SWFAddress.getCurrentSwfAddress(), objParamsNewAndChanged, isReplaceParams);
 		}
 		
+		public static function setCurrentValueWithOneParameter(nameParam: String, valueParam: * , isReplaceParams: Boolean = false): void {
+			var objParams: Object = {};
+			objParams[nameParam] = valueParam;
+			SWFAddress.setCurrentValueWithParameters(objParams, isReplaceParams);
+		}
+		
 		public static function setPathWithParameters(path: String, objParamsNewAndChanged: Object = null, isReplaceParams: Boolean = false): void {
 			SWFAddress.setValueWithParameters(SWFAddress.getPath(path), objParamsNewAndChanged, isReplaceParams);
 		}	

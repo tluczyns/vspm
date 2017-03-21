@@ -28,15 +28,24 @@ package tl.types {
 			return objPopulate;
 		}
 		
-		static public function compare(obj1: Object, obj2: Object): Boolean {
-			var count: uint = 0;
-			for (var s: String in obj1) {
-				count++;
-				if (obj2[s] == undefined) return false;
-				if (!ObjectUtils.compare(obj1[s], obj2[s])) return false;
+		static public function equals(obj1: Object, obj2: Object): Boolean {
+			var prop: String;
+			var isEquals: Boolean;
+			for (prop in obj1)
+				isEquals = isEquals && (!((obj1[prop] == undefined) || (!ObjectUtils.equals(obj1[prop], obj2[prop]))));
+			for (prop in obj2)
+				isEquals = isEquals && (!((obj2[prop] == undefined) || (!ObjectUtils.equals(obj1[prop], obj2[prop]))));
+			return isEquals;
+		}
+		
+		static public function toString(obj: Object): String {
+			var str: String = "{";
+			for (var prop: String in obj) {
+				str += (prop + ": " + obj[prop] + ",");
 			}
-			if ((count == 0) && (obj1 != obj2)) return false;
-			return true;
+			if (str.length > 1) str = str.substr(0, str.length - 1);
+			str += "}";
+			return str
 		}
 		
 	}

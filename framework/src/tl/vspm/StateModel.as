@@ -12,6 +12,7 @@ package tl.vspm {
 	import flash.events.EventDispatcher;
 	//import com.google.analytics.GATracker;
 	//import tl.omniture.OmnitureTracker;
+	import tl.types.ObjectUtils;
 
 	public class StateModel extends Singleton {
 		
@@ -68,8 +69,9 @@ package tl.vspm {
 				}
 			}
 			if ((indSection == "") && (ManagerSection.startIndSection != "")) SWFAddress.setValue(ManagerSection.startIndSection);
-			else StateModel.dispatchEvent(EventStateModel.START_CHANGE_SECTION, {oldIndSection: ManagerSection.currIndSection, currIndSection: indSection, newIndSection: indSection});
-			StateModel.dispatchEvent(EventStateModel.PARAMETERS_CHANGE, {oldParameters: oldParameters, newParameters: StateModel._parameters, oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
+			else StateModel.dispatchEvent(EventStateModel.START_CHANGE_SECTION, {oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
+			if (!ObjectUtils.compare(oldParameters, StateModel._parameters)
+				StateModel.dispatchEvent(EventStateModel.PARAMETERS_CHANGE, {oldParameters: oldParameters, newParameters: StateModel._parameters, oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
 		}
 		
 	}

@@ -28,6 +28,17 @@ package tl.types {
 			return objPopulate;
 		}
 		
+		static public function compare(obj1: Object, obj2: Object): Boolean {
+			var count: uint = 0;
+			for (var s: String in obj1) {
+				count++;
+				if (obj2[s] == undefined) return false;
+				if (!ObjectUtils.compare(obj1[s], obj2[s])) return false;
+			}
+			if ((count == 0) && (obj1 != obj2)) return false;
+			return true;
+		}
+		
 	}
 	
 }

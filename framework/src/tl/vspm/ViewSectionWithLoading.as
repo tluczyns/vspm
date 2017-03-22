@@ -41,19 +41,6 @@ package tl.vspm {
 			return true;
 		}
 		
-		protected function initAfterLoading(): void {
-			trace("initAfterLoading: override this");
-		}
-		
-		private function showAfterLoading(): void {
-			this.hideShow(1);
-		}
-		
-		protected function finishLoading(): void {
-			this.isHideShowAfterHidePreloader = 1;
-			this.isNoneLoadingHidepreloaderLoaded = 2;
-		}
-		
 		private function get isNoneLoadingHidepreloaderLoaded(): uint {
 			return this._isNoneLoadingHidepreloaderLoaded;
 		}
@@ -83,6 +70,19 @@ package tl.vspm {
 		
 		protected function abortLoading(): void {
 			trace("abortLoading: override this");
+		}
+		
+		protected function initAfterLoading(): void {
+			trace("initAfterLoading: override this");
+		}
+		
+		private function showAfterLoading(): void {
+			this.hideShow(1);
+		}
+		
+		protected function finishLoading(): void {
+			this.isHideShowAfterHidePreloader = 1;
+			this.isNoneLoadingHidepreloaderLoaded = 2;
 		}
 		
 		private function hideAfterLoading(): void {

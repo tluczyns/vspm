@@ -48,7 +48,7 @@ package tl.vspm {
 			if (!ManagerSection._dictDescriptionViewSection[newIndSection]) {
 				if (newIndSection.charAt(newIndSection.length - 1) == "0") newIndSection = newIndSection.substring(0, newIndSection.length - 1); //normalizeNewIndSectionWhenOnlyOneDescriptionWithNum
 			}
-			trace("changeSection:", newIndSection, ManagerSection._dictDescriptionViewSection[newIndSection], ManagerSection.currIndSection)
+			//trace("changeSection:", newIndSection, ManagerSection._dictDescriptionViewSection[newIndSection], ManagerSection.currIndSection)
 			//C.log("changeSection:" + newIndSection+ ", " +  ManagerSection._dictDescriptionViewSection[newIndSection] + ", " + ManagerSection.currIndSection)
 			if ((ManagerSection._dictDescriptionViewSection) && (ManagerSection._dictDescriptionViewSection[newIndSection] != undefined)) {
 				if ((newIndSection != ManagerSection.currIndSection) || (ManagerSection.isForceRefresh)) ManagerSection.oldIndSection = ManagerSection.currIndSection;

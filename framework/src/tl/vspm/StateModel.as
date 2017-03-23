@@ -55,7 +55,6 @@ package tl.vspm {
 			var oldParameters: Object = StateModel._parameters;
 			StateModel._parameters = SWFAddress.getParametersObject();
 			var currentSwfAddressPath: String = SWFAddress.getPath();
-			//trace("SWFAddress.getValue():", SWFAddress.getValue())
 			var indSectionAlias: String = ManagerSection.joinIndSectionFromArrElement(ManagerSection.splitIndSectionFromStr(currentSwfAddressPath));
 			var indSection: String;
 			if ((LoaderXMLContentView.dictAliasIndToIndSection) && (LoaderXMLContentView.dictAliasIndToIndSection[indSectionAlias])) indSection = LoaderXMLContentView.dictAliasIndToIndSection[indSectionAlias];
@@ -69,10 +68,13 @@ package tl.vspm {
 				}
 			}
 			if ((indSection == "") && (ManagerSection.startIndSection != "")) SWFAddress.setValue(ManagerSection.startIndSection);
-			else if (ManagerSection.currIndSection != indSection) StateModel.dispatchEvent(EventStateModel.START_CHANGE_SECTION, {oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
-			//trace("oldParameters:", ObjectUtils.toString(oldParameters), "StateModel._parameters:", ObjectUtils.toString(StateModel._parameters), !ObjectUtils.equals(oldParameters, StateModel._parameters))
-			if (!ObjectUtils.equals(oldParameters, StateModel._parameters))
-				StateModel.dispatchEvent(EventStateModel.PARAMETERS_CHANGE, {oldParameters: oldParameters, newParameters: StateModel._parameters, oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
+			else {
+				if (ManagerSection.newIndSection != indSection)
+					StateModel.dispatchEvent(EventStateModel.START_CHANGE_SECTION, {oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
+				//trace("oldParameters:", ObjectUtils.toString(oldParameters), "StateModel._parameters:", ObjectUtils.toString(StateModel._parameters), !ObjectUtils.equals(oldParameters, StateModel._parameters))
+				if (!ObjectUtils.equals(oldParameters, StateModel._parameters))
+					StateModel.dispatchEvent(EventStateModel.CHANGE_PARAMETERS, {oldParameters: oldParameters, newParameters: StateModel._parameters, oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
+			}
 		}
 		
 	}

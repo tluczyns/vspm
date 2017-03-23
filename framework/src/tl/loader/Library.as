@@ -1,6 +1,8 @@
 package tl.loader {
 	import tl.types.Singleton;
 	import flash.display.DisplayObject;
+	import flash.display.MovieClip;
+	import flash.media.Sound;
 	import flash.display.BitmapData;
 	import flash.system.ApplicationDomain;
 	import flash.display.Bitmap;
@@ -29,25 +31,30 @@ package tl.loader {
 		
 		public static function getMovieClip(nameClass: String, ... params): * {
 			var classDef: Class = Library.getClassDefinition(nameClass);
+			var mc: *;
 			if (classDef) {
-				var mc: *;
-				if (params.length) mc = new classDef(params);
-				else mc = new classDef();
-				return mc;
-			} else {
-				trace("### ELEMENT |",nameClass,"| NIE ISTNIEJE W BIBLIOTECE")
-				return null;
-			}
+				try {
+					if (params.length) mc = new classDef(params);
+					else mc = new classDef();
+					if (!((mc is MovieClip) || (mc is Sound))) throw new Error()
+				} catch (e: Error) {
+					trace("### ELEMENT |",nameClass,"| NIE JEST MOVIECLIPEM")
+				}
+			} else trace("### ELEMENT |", nameClass, "| NIE ISTNIEJE W BIBLIOTECE")
+			return mc;
 		}
 		
 		public static function getBitmapData(nameClass: String): BitmapData {
 			var classDef: Class = Library.getClassDefinition(nameClass);
+			var bmpData: BitmapData;
 			if (classDef) {
-				return(new classDef(0, 0));
-			}else {
-				trace("### ELEMENT |",nameClass,"| NIE ISTNIEJE W BIBLIOTECE")
-				return null;
-			}
+				try {
+					bmpData = new classDef(0, 0);
+				} catch (e: Error) {
+					trace("### ELEMENT |",nameClass,"| NIE JEST BITMAPDATĄ")
+				}
+			} else trace("### ELEMENT |",nameClass,"| NIE ISTNIEJE W BIBLIOTECE")
+			return bmpData;
 		}
 		
 		public static function getBitmap(nameClass: String): Bitmap {
@@ -57,7 +64,7 @@ package tl.loader {
 		}
 		
 		public static function getDisplayObject(nameClass: String): DisplayObject {
-			var dspObj: DisplayObject = Library.getMovieClip(nameClass)
+			var dspObj: DisplayObject = Library.getMovieClip(nameClass);
 			if (!dspObj) dspObj = Library.getBitmap(nameClass);
 			return dspObj;
 		}

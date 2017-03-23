@@ -21,7 +21,7 @@ package tl.vspm {
 		
 		static public function init(dspObjContainerPopup: DisplayObjectContainer): void {
 			ManagerPopup.dspObjContainerPopup = dspObjContainerPopup;
-			StateModel.addEventListener(EventStateModel.PARAMETERS_CHANGE, ManagerPopup.checkAndHideOrShowPopupsOnParametersChange);
+			StateModel.addEventListener(EventStateModel.CHANGE_PARAMETERS, ManagerPopup.checkAndHideOrShowPopupsOnParametersChange);
 		}
 		
 		static private function checkAndHideOrShowPopupsOnParametersChange(e: EventStateModel):void {

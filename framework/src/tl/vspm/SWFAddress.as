@@ -526,7 +526,7 @@ package tl.vspm {
             return names;
         }
 
-		//T£
+		//TŁ
 	
 		public static function getParametersObject(): Object {
 			var arrParamName: Array = SWFAddress.getParameterNames();
@@ -560,6 +560,10 @@ package tl.vspm {
 			return strParameters;
 		}
 		
+		public static function setPathWithParameters(path: String, objParamsNewAndChanged: Object = null, isReplaceParams: Boolean = false): void {
+			SWFAddress.setValueWithParameters(SWFAddress.getPath(path), objParamsNewAndChanged, isReplaceParams);
+		}	
+		
 		public static function setCurrentValueWithParameters(objParamsNewAndChanged: Object = null, isReplaceParams: Boolean = false): void {
 			SWFAddress.setValueWithParameters(SWFAddress.getCurrentSwfAddress(), objParamsNewAndChanged, isReplaceParams);
 		}
@@ -569,10 +573,6 @@ package tl.vspm {
 			objParams[nameParam] = valueParam;
 			SWFAddress.setCurrentValueWithParameters(objParams, isReplaceParams);
 		}
-		
-		public static function setPathWithParameters(path: String, objParamsNewAndChanged: Object = null, isReplaceParams: Boolean = false): void {
-			SWFAddress.setValueWithParameters(SWFAddress.getPath(path), objParamsNewAndChanged, isReplaceParams);
-		}	
 		
 		public static function setValueWithParameters(value: String, objParamsNewAndChanged: Object = null, isReplaceParams: Boolean = false): void {
 			objParamsNewAndChanged = objParamsNewAndChanged || {}
@@ -588,6 +588,12 @@ package tl.vspm {
 			SWFAddress.setValue(newValue);
 			if ((newValue == oldValue) && (ManagerSection.isForceRefresh)) 
 				SWFAddress.dispatchEvent(new SWFAddressEvent(SWFAddressEvent.CHANGE));
+		}
+		
+		public static function setValueWithOneParameter(value: String, nameParam: String, valueParam: * , isReplaceParams: Boolean = false): void {
+			var objParams: Object = {};
+			objParams[nameParam] = valueParam;
+			SWFAddress.setValueWithParameters(value, objParams, isReplaceParams);
 		}
 		
 		public static function setValueWithCurrentParameters(value: String): void {

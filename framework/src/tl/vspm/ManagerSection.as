@@ -79,7 +79,7 @@ package tl.vspm {
 				} else {
 					var newIndSection: String = ManagerSection.newIndSection;
 					ManagerSection.newIndSection = null;
-					StateModel.dispatchEvent(EventStateModel.CHANGE_SECTION, {oldIndSection: ManagerSection.oldIndSection, newIndSection: newIndSection}); 
+					StateModel.dispatchEvent(EventStateModel.CHANGE_SECTION, {oldIndSection: ManagerSection.oldIndSection, currIndSection: ManagerSection.currIndSection, newIndSection: newIndSection}); 
 				}
 			}
 		}

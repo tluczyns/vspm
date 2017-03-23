@@ -69,7 +69,7 @@ package tl.vspm {
 				}
 			}
 			if ((indSection == "") && (ManagerSection.startIndSection != "")) SWFAddress.setValue(ManagerSection.startIndSection);
-			else StateModel.dispatchEvent(EventStateModel.START_CHANGE_SECTION, {oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
+			else if (ManagerSection.currIndSection != indSection) StateModel.dispatchEvent(EventStateModel.START_CHANGE_SECTION, {oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
 			//trace("oldParameters:", ObjectUtils.toString(oldParameters), "StateModel._parameters:", ObjectUtils.toString(StateModel._parameters), !ObjectUtils.equals(oldParameters, StateModel._parameters))
 			if (!ObjectUtils.equals(oldParameters, StateModel._parameters))
 				StateModel.dispatchEvent(EventStateModel.PARAMETERS_CHANGE, {oldParameters: oldParameters, newParameters: StateModel._parameters, oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});

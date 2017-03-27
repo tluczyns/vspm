@@ -1,7 +1,7 @@
 package tl.types {
 	import tl.types.Singleton;
 	
-	public class ObjectUtils extends Singleton{
+	public class ObjectUtils extends Singleton {
 		
 		static public function cloneObj(objSrc: Object): Object {
 			var objClone: Object = {};

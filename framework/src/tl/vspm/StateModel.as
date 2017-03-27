@@ -44,7 +44,6 @@ package tl.vspm {
 		}
 		
 		static public function trackPageview(indPage: String): void {
-			//trace("trackPageview:", indPage)
 			if (StateModel.gaTracker) StateModel.gaTracker["trackPageview"](indPage);
 			if (StateModel.omnitureTracker) StateModel.omnitureTracker["trackPageview"](indPage);
 		}

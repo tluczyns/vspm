@@ -61,7 +61,7 @@ package tl.vspm {
 			this.addChild(this.containerApplication);
 			ManagerPopup.init(containerApplication.containerViewPopup);
 			ManagerSection.init(containerApplication.containerViewSection, startIndSection);
-			Metrics.createArrMetricsFromContent(LoaderXMLContentView.content);
+			Metrics.createArrMetricsFromContent(LoaderXMLContentView.content, this.stage);
 		}
 		
 	}

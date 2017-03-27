@@ -564,14 +564,24 @@ package tl.vspm {
 			SWFAddress.setValueWithParameters(SWFAddress.getPath(path), objParamsNewAndChanged, isReplaceParams);
 		}	
 		
+		public static function setCurrentValueWithOneParameter(nameParam: String, valueParam: *, isReplaceParams: Boolean = false): void {
+			var objParams: Object = {};
+			objParams[nameParam] = valueParam;
+			SWFAddress.setCurrentValueWithParameters(objParams, isReplaceParams);
+		}
+		
 		public static function setCurrentValueWithParameters(objParamsNewAndChanged: Object = null, isReplaceParams: Boolean = false): void {
 			SWFAddress.setValueWithParameters(SWFAddress.getCurrentSwfAddress(), objParamsNewAndChanged, isReplaceParams);
 		}
 		
-		public static function setCurrentValueWithOneParameter(nameParam: String, valueParam: * , isReplaceParams: Boolean = false): void {
+		public static function setValueWithOneParameter(value: String, nameParam: String, valueParam: * , isReplaceParams: Boolean = false): void {
 			var objParams: Object = {};
 			objParams[nameParam] = valueParam;
-			SWFAddress.setCurrentValueWithParameters(objParams, isReplaceParams);
+			SWFAddress.setValueWithParameters(value, objParams, isReplaceParams);
+		}
+		
+		public static function setValueWithCurrentParameters(value: String): void {
+			SWFAddress.setValueWithParameters(value, {}, false);
 		}
 		
 		public static function setValueWithParameters(value: String, objParamsNewAndChanged: Object = null, isReplaceParams: Boolean = false): void {
@@ -588,16 +598,6 @@ package tl.vspm {
 			SWFAddress.setValue(newValue);
 			if ((newValue == oldValue) && (ManagerSection.isForceRefresh)) 
 				SWFAddress.dispatchEvent(new SWFAddressEvent(SWFAddressEvent.CHANGE));
-		}
-		
-		public static function setValueWithOneParameter(value: String, nameParam: String, valueParam: * , isReplaceParams: Boolean = false): void {
-			var objParams: Object = {};
-			objParams[nameParam] = valueParam;
-			SWFAddress.setValueWithParameters(value, objParams, isReplaceParams);
-		}
-		
-		public static function setValueWithCurrentParameters(value: String): void {
-			SWFAddress.setValueWithParameters(value, {}, false);
 		}
 		
 	}

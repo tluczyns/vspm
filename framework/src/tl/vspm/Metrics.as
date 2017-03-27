@@ -9,6 +9,7 @@
  */
 package tl.vspm {
 	import flash.display.Sprite;
+	import flash.display.Stage;
 	import com.google.analytics.GATracker;
 
 	public class Metrics extends Sprite {
@@ -22,24 +23,31 @@ package tl.vspm {
 		public var type: String;
 		public var data: Object;
 		
-		static internal function createArrMetricsFromContent(content: Object): void {
+		static internal function createArrMetricsFromContent(content: Object, stage: Stage): void {
 			Metrics.ARR_METRICS = [];
 			for (var i: uint = 0; i < Metrics.ARR_POSSIBLE_TYPE.length; i++) {
 				var possibleType: String = Metrics.ARR_POSSIBLE_TYPE[i];
-				if (content[possibleType]) Metrics.ARR_METRICS.push(new Metrics(possibleType, content[possibleType]));
+				if (content[possibleType]) {
+					var metrics: Metrics = new Metrics();
+					stage.addChild(metrics);
+					metrics.init(possibleType, content[possibleType]);
+					Metrics.ARR_METRICS.push(metrics);
+				}
 			}
 		}
 		
-		public function Metrics(type: String, dataPrimitive: Object): void {
+		public function Metrics(): void {}
+		
+		private function init(type: String, dataPrimitive: Object): void {
 			if (Metrics.ARR_POSSIBLE_TYPE.indexOf(type) != -1) {
 				this.type = type;
 				if (this.type == Metrics.GA) this.data = String(dataPrimitive.value);
 				else if (this.type == Metrics.OMNITURE) this.data = dataPrimitive;
 				if (this.data) {
-					try {
+					//try {
 						if (this.type == Metrics.GA) StateModel.gaTracker = new GATracker(this, String(this.data));
 						else if (this.type == Metrics.OMNITURE) StateModel.omnitureTracker = new OmnitureTracker(this.data);
-					} catch (e: Error) {}
+					//} catch (e: Error) {}
 				} else throw new Error("No data in given metrics!");
 			} else throw new Error("Metrics is not of possible types!");
 		}

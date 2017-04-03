@@ -41,6 +41,7 @@ package tl.vspm {
 			this.loaderXMLContent.removeEventListener(EventLoaderXML.XML_LOADED, this.initOnXMLContentLoaded);
 			this.registerFonts();
 			this.loadImgs();
+			this.initContainers();
 			this.initViews();
 		}
 		
@@ -50,7 +51,7 @@ package tl.vspm {
 			LoaderImgs.instance.loadImgs();
 		}
 		
-		protected function initViews(startIndSection: String = ""): void {
+		protected function initContainers(): void {
 			var classContainerApplication: Class;
 			try {
 				classContainerApplication = Class(getDefinitionByName(this.prefixClass + ".container.ContainerApplication"));
@@ -59,6 +60,9 @@ package tl.vspm {
 			}
 			this.containerApplication = new classContainerApplication();
 			this.addChild(this.containerApplication);
+		}
+		
+		protected function initViews(startIndSection: String = ""): void {
 			ManagerPopup.init(containerApplication.containerViewPopup);
 			ManagerSection.init(containerApplication.containerViewSection, startIndSection);
 			Metrics.createArrMetricsFromContent(LoaderXMLContentView.content, this.stage);

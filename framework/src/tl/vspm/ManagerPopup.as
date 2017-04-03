@@ -27,7 +27,7 @@ package tl.vspm {
 		static private function checkAndHideOrShowPopupsOnParametersChange(e: EventStateModel):void {
 			for (var ind: String in ManagerPopup._dictDescriptionViewPopup) {
 				var descriptionViewPopup: DescriptionViewPopup = ManagerPopup._dictDescriptionViewPopup[ind];
-				descriptionViewPopup.checkAndHideShowView();
+				descriptionViewPopup.checkAndHideShowView(e.data.oldParameters);
 			}
 		}
 		

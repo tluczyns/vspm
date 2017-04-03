@@ -25,7 +25,7 @@ package tl.vspm {
 			return ManagerPopup.dictDescriptionViewPopup;
 		}
 		
-		internal function checkAndHideShowView(): void {
+		private function isHideShowForParameters(parameters: Object): uint {
 			var isHideShow: uint = 1;
 			for (var param: String in this.objParamsWithValuesToShow) {
 				var valueParam: * = this.objParamsWithValuesToShow[param];
@@ -33,13 +33,21 @@ package tl.vspm {
 				if (valueParam == undefined) valueParam = 0;
 				if ((!isNaN(Number(valueParam))) && (valueParam != "")) classValueParam = Number;
 				else classValueParam = String;
-				var valueParamModel: * = StateModel.parameters[param];
+				var valueParamModel: * = parameters[param];
 				if (valueParamModel == undefined) valueParamModel = 0;
 				if (classValueParam(valueParamModel) != classValueParam(valueParam)) isHideShow = 0;
 			}
-			if (isHideShow == 0) { 
-				if (this.view) this.view.hide();
-			} else if (isHideShow == 1) this.createView();
+			return isHideShow;
+		}
+		
+		internal function checkAndHideShowView(oldParameters: Object): void {
+			var isHideShowForOldParameters: uint = this.isHideShowForParameters(oldParameters);
+			var isHideShow: uint = this.isHideShowForParameters(StateModel.parameters);
+			if (isHideShow != isHideShowForOldParameters) {
+				if (isHideShow == 0) { 
+					if (this.view) this.view.hide();
+				} else if (isHideShow == 1) this.createView();
+			}
 		}
 		
 		override protected function createViewInstance(): View { //ViewPopup

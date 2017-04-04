@@ -18,20 +18,22 @@ package tl.vspm {
 		static private const OMNITURE: String = "omniture";
 		static private const ARR_POSSIBLE_TYPE: Array = [GA, OMNITURE];
 		
-		static public var ARR_METRICS: Array;
+		static internal var vecMetrics: Vector.<Metrics>;
 		
-		public var type: String;
-		public var data: Object;
+		private var type: String;
+		private var data: Object;
+		private var isOnlyForwardTrack: Boolean;
+		private var tracker: *;
 		
-		static internal function createArrMetricsFromContent(content: Object, stage: Stage): void {
-			Metrics.ARR_METRICS = [];
+		static internal function createVecMetricsFromContent(content: Object, stage: Stage): void {
+			Metrics.vecMetrics = new Vector.<Metrics>();
 			for (var i: uint = 0; i < Metrics.ARR_POSSIBLE_TYPE.length; i++) {
 				var possibleType: String = Metrics.ARR_POSSIBLE_TYPE[i];
 				if (content[possibleType]) {
 					var metrics: Metrics = new Metrics();
 					stage.addChild(metrics);
 					metrics.init(possibleType, content[possibleType]);
-					Metrics.ARR_METRICS.push(metrics);
+					Metrics.vecMetrics.push(metrics);
 				}
 			}
 		}
@@ -43,13 +45,21 @@ package tl.vspm {
 				this.type = type;
 				if (this.type == Metrics.GA) this.data = String(dataPrimitive.value);
 				else if (this.type == Metrics.OMNITURE) this.data = dataPrimitive;
+				this.isOnlyForwardTrack = Boolean(uint(dataPrimitive.isOnlyForwardTrack));
 				if (this.data) {
 					//try {
-						if (this.type == Metrics.GA) StateModel.gaTracker = new GATracker(this, String(this.data));
-						else if (this.type == Metrics.OMNITURE) StateModel.omnitureTracker = new OmnitureTracker(this.data);
+						if (this.type == Metrics.GA) this.tracker = new GATracker(this, String(this.data));
+						else if (this.type == Metrics.OMNITURE) this.tracker = new OmnitureTracker(this.data);
 					//} catch (e: Error) {}
 				} else throw new Error("No data in given metrics!");
 			} else throw new Error("Metrics is not of possible types!");
+		}
+		
+		internal function trackView(indView: String, isBackwardForward: uint): void {
+			if (!this.isOnlyForwardTrack || isBackwardForward == 1) {
+				//trace("trackPageview:", indView)
+				this.tracker.trackPageview(indView);
+			}
 		}
 		
 	}

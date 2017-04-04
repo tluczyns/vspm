@@ -67,7 +67,7 @@ package tl.vspm {
 		}
 		
 		private function trackPageView(): void {
-			if (!uint(this.content.isNotTrack)) 
+			if (!uint(this.content.isNotTrack))
 				StateModel.trackPageview("popup_" + this.ind);
 		}
 		

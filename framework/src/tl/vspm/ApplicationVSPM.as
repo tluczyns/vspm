@@ -65,7 +65,7 @@ package tl.vspm {
 		protected function initViews(startIndSection: String = ""): void {
 			ManagerPopup.init(containerApplication.containerViewPopup);
 			ManagerSection.init(containerApplication.containerViewSection, startIndSection);
-			Metrics.createArrMetricsFromContent(LoaderXMLContentView.content, this.stage);
+			Metrics.createVecMetricsFromContent(LoaderXMLContentView.content, this.stage);
 		}
 		
 	}

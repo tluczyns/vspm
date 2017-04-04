@@ -18,9 +18,7 @@ package tl.vspm {
 		
 		private static var dispatcher: EventDispatcher = new EventDispatcher();
 		
-		private static var _parameters: Object	= {}
-		public static var gaTracker: *; //GATracker;
-		public static var omnitureTracker: *; //OmnitureTracker;
+		private static var _parameters: Object = {}
 		
 		public static function init(): void {
 			if (!SWFAddress.hasEventListener(SWFAddressEvent.CHANGE))
@@ -43,9 +41,9 @@ package tl.vspm {
 			return StateModel._parameters;
 		}
 		
-		static public function trackPageview(indPage: String): void {
-			if (StateModel.gaTracker) StateModel.gaTracker["trackPageview"](indPage);
-			if (StateModel.omnitureTracker) StateModel.omnitureTracker["trackPageview"](indPage);
+		static public function trackPageview(indView: String, isForward: Boolean = true): void {
+			for (var i: uint = 0; i < Metrics.vecMetrics.length; i++)
+				Metrics.vecMetrics[i].trackView(indView, uint(isForward));
 		}
 		
 		private static function handleSWFAddress(e: SWFAddressEvent): void {
@@ -62,17 +60,18 @@ package tl.vspm {
 				var descriptionViewSection: DescriptionViewSection = ManagerSection.dictDescriptionViewSection[indSection];
 				if (descriptionViewSection) {
 					var contentViewSection: ContentViewSection = ContentViewSection(descriptionViewSection.content);
-					if ((contentViewSection) && (!uint(contentViewSection.isNotTrack)) && (!((uint(contentViewSection.isOnlyForwardTrack)) && (ManagerSection.isEqualsElementsIndSection(indSection, ManagerSection.currIndSection)))))
-						StateModel.trackPageview(indSectionAlias);
+					var isForward: Boolean = !ManagerSection.isEqualsElementsIndSection(indSection, ManagerSection.currIndSection);
+					if (!contentViewSection || (!uint(contentViewSection.isNotTrack) && (!uint(contentViewSection.isOnlyForwardTrack) || isForward)))
+						StateModel.trackPageview(indSectionAlias, isForward);
 				}
 			}
 			if ((indSection == "") && (ManagerSection.startIndSection != "")) SWFAddress.setValue(ManagerSection.startIndSection);
 			else {
-				if (ManagerSection.newIndSection != indSection)
-					StateModel.dispatchEvent(EventStateModel.START_CHANGE_SECTION, {oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
 				//trace("oldParameters:", ObjectUtils.toString(oldParameters), "StateModel._parameters:", ObjectUtils.toString(StateModel._parameters), !ObjectUtils.equals(oldParameters, StateModel._parameters))
 				if (!ObjectUtils.equals(oldParameters, StateModel._parameters))
 					StateModel.dispatchEvent(EventStateModel.CHANGE_PARAMETERS, {oldParameters: oldParameters, newParameters: StateModel._parameters, oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
+				if (ManagerSection.newIndSection != indSection)
+					StateModel.dispatchEvent(EventStateModel.START_CHANGE_SECTION, {oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
 			}
 		}
 		

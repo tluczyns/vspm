@@ -21,11 +21,12 @@
 			var arrWord: Array = str.split(" ");
 			var strModified: String = "";
 			for (var i: uint = 0; i < arrWord.length; i++) {
+				var word: String = arrWord[i];
 				if (i != arrWord.length - 1) {
-					if (arrWord[i].length == 1) strModified += (arrWord[i] + String.fromCharCode(160));//\u00A0
-					else strModified += (arrWord[i] + " ");
+					if ((word.length == 1) || ((word.length == 2) && (new RegExp("[,.:;!?]")).test(word.charAt(1)))) strModified += (word + String.fromCharCode(160));//\u00A0
+					else strModified += (word + " ");
 				} else {
-					strModified += arrWord[i];
+					strModified += word;
 				}
 			}
 			return strModified;

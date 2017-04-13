@@ -38,9 +38,9 @@ package tl.loader {
 					else mc = new classDef();
 					if (!((mc is MovieClip) || (mc is Sound))) throw new Error()
 				} catch (e: Error) {
-					trace("### ELEMENT |",nameClass,"| NIE JEST MOVIECLIPEM")
+					trace("Element |",nameClass,"| is not a movieclip.")
 				}
-			} else trace("### ELEMENT |", nameClass, "| NIE ISTNIEJE W BIBLIOTECE")
+			} else trace("Element |", nameClass, "| not exists in library.")
 			return mc;
 		}
 		
@@ -51,9 +51,9 @@ package tl.loader {
 				try {
 					bmpData = new classDef(0, 0);
 				} catch (e: Error) {
-					trace("### ELEMENT |",nameClass,"| NIE JEST BITMAPDATĄ")
+					trace("Element |",nameClass,"| is not a BitmapData.")
 				}
-			} else trace("### ELEMENT |",nameClass,"| NIE ISTNIEJE W BIBLIOTECE")
+			} else trace("Element |",nameClass,"| not exists in library.")
 			return bmpData;
 		}
 		

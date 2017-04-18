@@ -31,9 +31,9 @@ package tl.vspm {
 			this.loadXMLContent(pathAssets + "xml/" + filenameXML);
 		}
 		
-		protected function loadXMLContent(pathXML: String): void {
+		protected function loadXMLContent(pathXML: String, strKeyEncryption: String = ""): void {
 			this.loaderXMLContent = new LoaderXMLContentView(this.prefixClass);
-			this.loaderXMLContent.loadXML(pathXML);
+			this.loaderXMLContent.loadXML(pathXML, strKeyEncryption);
 			this.loaderXMLContent.addEventListener(EventLoaderXML.XML_LOADED, this.initOnXMLContentLoaded);
 		}
 		

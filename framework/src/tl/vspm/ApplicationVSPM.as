@@ -27,8 +27,8 @@ package tl.vspm {
 			this.prefixClass = nameClassApplication.substr(0, nameClassApplication.indexOf('::'));
 		}
 		
-		public function init(pathAssets: String = "", filenameXML: String = "content.xml"): void {
-			this.loadXMLContent(pathAssets + "xml/" + filenameXML);
+		public function init(pathAssets: String = "", pathFileXML: String = "xml/content.xml"): void {
+			this.loadXMLContent(pathAssets + pathFileXML);
 		}
 		
 		protected function loadXMLContent(pathXML: String, strKeyEncryption: String = ""): void {

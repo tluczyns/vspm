@@ -75,7 +75,7 @@
 		
 		//play and stop
 		
-		public function playExt(onSoundComplete: Function = null, startTime:Number = 0, loops:int = 0, sndTransform:SoundTransform = null): SoundChannel {
+		public function playExt(onSoundComplete: Function = null, startTime: Number = 0, loops: int = 0, sndTransform: SoundTransform = null): SoundChannel {
 			this.onSoundComplete = onSoundComplete || this.onSoundCompleteDefault;
 			this.stop();
 			this.channel = this.play(startTime, loops, sndTransform);
@@ -116,9 +116,11 @@
 				volume *= this.initVolume;
 			}
 			//trace("volume:" + volume + ", isGlobal:" + isGlobal)
-			var soundTransform: SoundTransform = new SoundTransform();
-			soundTransform.volume = volume;
-			if (this.channel != null) this.channel.soundTransform = soundTransform;
+			if (this.channel != null) {
+				var soundTransform: SoundTransform = new SoundTransform();
+				soundTransform.volume = volume;	
+				this.channel.soundTransform = soundTransform;
+			}
 		}
 
 		public function setSoundOffOnFade(isSoundOffOn: Number, stepChangeVolume: Number = 0.1, onComplete: Function = null, onCompleteParams: Array = null): void {

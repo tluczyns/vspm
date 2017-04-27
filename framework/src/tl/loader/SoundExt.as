@@ -1,18 +1,20 @@
 ﻿package tl.loader {
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
+	import tl.sound.IModelSoundControl;
+	import tl.sound.DictModelSoundControl;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
 	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
-	import tl.sound.ModelSoundEngine;
-	import tl.sound.EventSoundEngine;
+	import tl.sound.EventSoundControl;
 	import flash.media.SoundTransform;
 	import caurina.transitions.Tweener;
 	import flash.errors.IOError;
 	
 	public dynamic class SoundExt extends Sound {
 		public var channel: SoundChannel;
+		private var modelSoundControl: IModelSoundControl;
 		public var isLoop: Boolean;
 		public var initVolume: Number;
 		private var origVolume: Number;
@@ -21,10 +23,12 @@
 		private var onLoadProgress: Function;
 		private var onLoadError: Function;
 		private var onSoundComplete: Function;
+		
 		public var positionPause: int = 0;
 		
 		public function SoundExt(objSoundExt: Object = null) {
 			objSoundExt = objSoundExt || {};
+			this.modelSoundControl = objSoundExt.modelSoundControl || DictModelSoundControl.getInstance();
 			this.isLoop = Boolean(objSoundExt.isLoop);
 			this.initVolume = this.origVolume = (objSoundExt.initVolume != undefined) ? objSoundExt.initVolume : 1;
 			this.isToPlay = Boolean(objSoundExt.isToPlay);
@@ -66,7 +70,7 @@
 		private function onLoadErrorDefault(errorEvent:IOErrorEvent): void {}		
 		
 		public function initAfterLoading(): void {
-			ModelSoundEngine.addEventListener(EventSoundEngine.LEVEL_VOLUME_CHANGED, this.setVolumeGlobal);
+			this.modelSoundControl.addEventListener(EventSoundControl.LEVEL_VOLUME_CHANGED, this.setVolumeGlobal);
 			this.setVolumeGlobal();
 			if (this.isToPlay) {
 				this.playExt();
@@ -100,8 +104,8 @@
 		
 		//set volume
 		
-		private function setVolumeGlobal(e: EventSoundEngine = null): void { 
-			this.setVolume(ModelSoundEngine.levelVolume, true);
+		private function setVolumeGlobal(e: EventSoundControl = null): void { 
+			this.setVolume(this.modelSoundControl.levelVolume, true);
 		}
 
 		private function setVolumeSelf(): void { 
@@ -111,7 +115,7 @@
 		public function setVolume(volume: Number, isGlobal: Boolean = false): void {
 			if (!isGlobal) {
 				this.initVolume = volume;
-				volume *= ModelSoundEngine.levelVolume;
+				volume *= this.modelSoundControl.levelVolume;
 			} else {
 				volume *= this.initVolume;
 			}
@@ -151,7 +155,7 @@
 				this.removeLoadListeners();
 			}
 			catch (error:IOError) {}
-			ModelSoundEngine.removeEventListener(EventSoundEngine.LEVEL_VOLUME_CHANGED, this.setVolumeGlobal);
+			this.modelSoundControl.removeEventListener(EventSoundControl.LEVEL_VOLUME_CHANGED, this.setVolumeGlobal);
 			this.stop();
 			Tweener.removeTweens(this);
 		}

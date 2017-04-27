@@ -6,7 +6,7 @@ package tl.types {
 	public dynamic class DictionaryExt extends Proxy {
 		
 		public var dictionary: Dictionary;
-		private var _arrNameProp: Array;
+		protected var _arrNameProp: Array;
 		
 		public function DictionaryExt(): void {
 			this.dictionary = new Dictionary();
@@ -29,7 +29,7 @@ package tl.types {
 			else return 0;
 		}
 		
-		override flash_proxy function nextName (index:int) : String {
+		override flash_proxy function nextName(index:int) : String {
 			return this._arrNameProp[index - 1];
 		}
 		

@@ -1,8 +1,8 @@
 ﻿package tl.loader {
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
-	import tl.sound.IModelSoundControl;
-	import tl.sound.DictModelSoundControl;
+	import tl.sound.ModelSoundControl;
+	import tl.sound.ModelSoundControlGlobal;
 	import flash.events.Event;
 	import flash.events.ProgressEvent;
 	import flash.events.IOErrorEvent;
@@ -12,26 +12,26 @@
 	import caurina.transitions.Tweener;
 	import flash.errors.IOError;
 	
+	import zajKompKlasa1.ConfigAll; //usunąć po projekcie
+	
 	public dynamic class SoundExt extends Sound {
 		public var channel: SoundChannel;
-		private var modelSoundControl: IModelSoundControl;
+		public var modelSoundControl: ModelSoundControl;
 		public var isLoop: Boolean;
 		public var initVolume: Number;
 		private var origVolume: Number;
-		private var isToPlay: Boolean;
 		private var onLoadComplete: Function;
 		private var onLoadProgress: Function;
 		private var onLoadError: Function;
+		private var isPlayFirstTime: Boolean;
 		private var onSoundComplete: Function;
-		
 		public var positionPause: int = 0;
 		
 		public function SoundExt(objSoundExt: Object = null) {
 			objSoundExt = objSoundExt || {};
-			this.modelSoundControl = objSoundExt.modelSoundControl || DictModelSoundControl.getInstance();
+			this.modelSoundControl = objSoundExt.modelSoundControl || ModelSoundControlGlobal.getModel(ConfigAll.NAME_MODEL_SOUND_CONTROL_GAMES) || ModelSoundControlGlobal.getModel(); //usunąć po projekcie ModelSoundControlGlobal.getModel(ConfigAll.NAME_MODEL_SOUND_CONTROL_GAMES)
 			this.isLoop = Boolean(objSoundExt.isLoop);
 			this.initVolume = this.origVolume = (objSoundExt.initVolume != undefined) ? objSoundExt.initVolume : 1;
-			this.isToPlay = Boolean(objSoundExt.isToPlay);
 			this.onLoadComplete = objSoundExt.onLoadComplete || this.onLoadCompleteDefault;
 			this.onLoadProgress = objSoundExt.onLoadProgress || this.onLoadProgressDefault;
 			this.onLoadError = objSoundExt.onLoadError || this.onLoadErrorDefault;
@@ -39,21 +39,15 @@
 			this.addEventListener(ProgressEvent.PROGRESS, this.onLoadProgress);
 			this.addEventListener(IOErrorEvent.IO_ERROR, this.onLoadError);
 			var urlRequest: URLRequest;
-			if (objSoundExt.url != null) {
-				urlRequest = new URLRequest(objSoundExt.url);
-				//urlRequest.useCache = true;
-			}
+			if (objSoundExt.url != null) urlRequest = new URLRequest(objSoundExt.url);
+			this.isPlayFirstTime = true;
 			super(urlRequest);
-			if (urlRequest == null) {
-				this.initAfterLoading();
-			}
 		}
 		
 		//loading and init
 		
 		private function onLoadCompleteDefault(event:Event): void {
 			this.removeLoadListeners();
-			this.initAfterLoading();
 		}
 		
 		private function removeLoadListeners(): void {
@@ -66,20 +60,17 @@
 			var ratioLoaded:Number = event.bytesLoaded / event.bytesTotal;
 			var percentLoaded: uint = Math.round(ratioLoaded * 100);
 		}
-	
-		private function onLoadErrorDefault(errorEvent:IOErrorEvent): void {}		
 		
-		public function initAfterLoading(): void {
-			this.modelSoundControl.addEventListener(EventSoundControl.LEVEL_VOLUME_CHANGED, this.setVolumeGlobal);
-			this.setVolumeGlobal();
-			if (this.isToPlay) {
-				this.playExt();
-			}
-		}
+		private function onLoadErrorDefault(errorEvent:IOErrorEvent): void {}		
 		
 		//play and stop
 		
 		public function playExt(onSoundComplete: Function = null, startTime: Number = 0, loops: int = 0, sndTransform: SoundTransform = null): SoundChannel {
+			if (this.isPlayFirstTime) {
+				this.isPlayFirstTime = false;
+				this.modelSoundControl.addEventListener(EventSoundControl.LEVEL_VOLUME_CHANGED, this.setVolumeGlobal);
+				this.setVolumeGlobal();
+			}
 			this.onSoundComplete = onSoundComplete || this.onSoundCompleteDefault;
 			this.stop();
 			this.channel = this.play(startTime, loops, sndTransform);

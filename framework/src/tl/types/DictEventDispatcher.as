@@ -1,16 +1,17 @@
 package tl.types {
-	import flash.events.Event;
 	import tl.types.DictionaryExt;
+	import flash.events.IEventDispatcher;
 	import flash.utils.Dictionary;
 	import com.adobe.crypto.MD5;
 	import tl.other.Tricks;
 	import flash.events.EventDispatcher;
+	import flash.events.Event;
 	import tl.vspm.EventModel;
 	import flash.utils.flash_proxy;
 	
 	use namespace flash_proxy;
 	
-	public dynamic class DictEventDispatcher extends DictionaryExt {
+	public dynamic class DictEventDispatcher extends DictionaryExt implements IEventDispatcher {
 		  
 		private var _dictDescriptionEventListener: Dictionary;
 		
@@ -33,7 +34,7 @@ package tl.types {
 			}
 		}
 		
-		public function dispatchEvent(event:Event): Boolean {
+		public function dispatchEvent(event: Event): Boolean {
 			for each (var dispatcher: EventDispatcher in this)
 				dispatcher.dispatchEvent(event);
 			return true;
@@ -57,10 +58,6 @@ package tl.types {
 		public function willTrigger (type:String) : Boolean {
 			//to do
 			return false;
-		}
-		
-		override flash_proxy function getProperty(name: *): * {//(name: String): EventDispatcher {
-			return super.getProperty(name);
 		}
 		
 		override flash_proxy function deleteProperty (name: *): Boolean {//(name: String)

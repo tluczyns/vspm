@@ -18,7 +18,7 @@ package tl.sharedObjects {
 		}
 		
 		public function getPropValue(propName: String, defaultValue: * = undefined): * {
-			return ((this.so != null) && (this.so.data[propName])) ? this.so.data[propName] : defaultValue;
+			return ((this.so != null) && (this.so.data[propName] != undefined)) ? this.so.data[propName] : defaultValue;
 		}
 		
 		public function clear(): void {

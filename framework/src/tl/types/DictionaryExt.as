@@ -23,6 +23,10 @@ package tl.types {
 			this.dictionary[name] = value;
 		}
 		
+		override flash_proxy function callProperty(name:*, ...rest): * {
+			return name.toString();
+		}   
+		
 		//klasa DictionaryExt (w przeciwieństwie do klasy Dictionary) w pętli for..in wyświetla elementy w kolejności takiej jakiej zostały dodane do słownika (a w klasie Dictionary jest losowa kolejność)
 		override flash_proxy function nextNameIndex(index: int) : int {
 			if (index < this._arrNameProp.length) return index + 1;

@@ -1,5 +1,6 @@
 package tl.loader {
 	import tl.loader.progress.ILoaderProgress;
+	import tl.types.ArrayUtils;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import tl.loader.LoaderExt;
@@ -52,7 +53,7 @@ package tl.loader {
 		}
 		
 		public function bringToFrontInLoadQueue(url: String): void {
-			var indObjLoadContentInLoadQueue: int = this.arrLoadContent.getElementIndexByProperty("url", url);
+			var indObjLoadContentInLoadQueue: int = ArrayUtils.getElementIndexByProperty(this.arrLoadContent, "url", url);
 			if ((indObjLoadContentInLoadQueue != -1) && (indObjLoadContentInLoadQueue > this.numContentToLoad) && (this.numContentToLoad + 1 < this.arrLoadContent.length))
 				this.arrLoadContent.splice(this.numContentToLoad + 1, 0, this.arrLoadContent.splice(indObjLoadContentInLoadQueue, 1)[0]);
 		}

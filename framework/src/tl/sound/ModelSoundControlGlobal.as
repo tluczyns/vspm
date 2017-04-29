@@ -23,7 +23,7 @@ package tl.sound {
 				}
 				this.isSoundOffOn = uint(maxLevelVolumeModelSoundControl > 0);
 				ModelSoundControlGlobal._instance = this;
-			} else throw new Error("ModelSoundControlGlobal is a singleten class!");
+			} //else throw new Error("ModelSoundControlGlobal is a singleten class!");
 		}
 		
 		override public function set levelVolume(value: Number): void {

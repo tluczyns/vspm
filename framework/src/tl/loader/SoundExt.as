@@ -29,7 +29,7 @@
 		
 		public function SoundExt(objSoundExt: Object = null) {
 			objSoundExt = objSoundExt || {};
-			this.modelSoundControl = objSoundExt.modelSoundControl || ModelSoundControlGlobal.getModel(ConfigAll.NAME_MODEL_SOUND_CONTROL_GAMES) || ModelSoundControlGlobal.getModel(); //usunąć po projekcie ModelSoundControlGlobal.getModel(ConfigAll.NAME_MODEL_SOUND_CONTROL_GAMES)
+			this.modelSoundControl = objSoundExt.modelSoundControl || ModelSoundControlGlobal.getModel(ConfigAll.NAME_MODEL_SOUND_CONTROL_CONTAINER) || ModelSoundControlGlobal.getModel(); //usunąć po projekcie ModelSoundControlGlobal.getModel(ConfigAll.NAME_MODEL_SOUND_CONTROL_CONTAINER)
 			this.isLoop = Boolean(objSoundExt.isLoop);
 			this.initVolume = this.origVolume = (objSoundExt.initVolume != undefined) ? objSoundExt.initVolume : 1;
 			this.onLoadComplete = objSoundExt.onLoadComplete || this.onLoadCompleteDefault;
@@ -117,7 +117,7 @@
 				this.channel.soundTransform = soundTransform;
 			}
 		}
-
+		
 		public function setSoundOffOnFade(isSoundOffOn: Number, stepChangeVolume: Number = 0.1, onComplete: Function = null, onCompleteParams: Array = null): void {
 			var destVolume: Number;
 			if (isSoundOffOn == 0) {

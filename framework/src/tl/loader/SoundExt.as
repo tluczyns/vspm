@@ -16,7 +16,7 @@
 	
 	public dynamic class SoundExt extends Sound {
 		public var channel: SoundChannel;
-		public var modelSoundControl: ModelSoundControl;
+		private var _modelSoundControl: ModelSoundControl;
 		public var isLoop: Boolean;
 		public var initVolume: Number;
 		private var origVolume: Number;
@@ -29,7 +29,7 @@
 		
 		public function SoundExt(objSoundExt: Object = null) {
 			objSoundExt = objSoundExt || {};
-			this.modelSoundControl = objSoundExt.modelSoundControl || ModelSoundControlGlobal.getModel(ConfigAll.NAME_MODEL_SOUND_CONTROL_CONTAINER) || ModelSoundControlGlobal.getModel(); //usunąć po projekcie ModelSoundControlGlobal.getModel(ConfigAll.NAME_MODEL_SOUND_CONTROL_CONTAINER)
+			this.modelSoundControl = objSoundExt.modelSoundControl || ModelSoundControlGlobal.getModel(ConfigAll.NAME_MODEL_SOUND_CONTROL_MUSIC_FX) || ModelSoundControlGlobal.getModel(); //usunąć po projekcie ModelSoundControlGlobal.getModel(ConfigAll.NAME_MODEL_SOUND_CONTROL_MUSIC_FX)
 			this.isLoop = Boolean(objSoundExt.isLoop);
 			this.initVolume = this.origVolume = (objSoundExt.initVolume != undefined) ? objSoundExt.initVolume : 1;
 			this.onLoadComplete = objSoundExt.onLoadComplete || this.onLoadCompleteDefault;
@@ -42,6 +42,16 @@
 			if (objSoundExt.url != null) urlRequest = new URLRequest(objSoundExt.url);
 			this.isPlayFirstTime = true;
 			super(urlRequest);
+		}
+		
+		//model sound control
+		
+		public function get modelSoundControl(): ModelSoundControl {
+			return this._modelSoundControl;
+		}
+		
+		public function set modelSoundControl(value: ModelSoundControl): void {
+			this._modelSoundControl = value;
 		}
 		
 		//loading and init

@@ -36,13 +36,17 @@
 							if (this.strKeyEncryption != "") {
 								var aes: ICipher = Crypto.getCipher("simple-aes-ecb", Hex.toArray(Hex.fromString(this.strKeyEncryption)), Crypto.getPad("pkcs5"));
 								
-								/*aes.encrypt(strOrBANode);
+								//uncomment when encrypt normal file, comment in encrypted mode
+								/*
+								aes.encrypt(strOrBANode);
 								var pathXMLAbsolute: String = File.applicationDirectory.nativePath + "\\" + StringUtils.replace(this.pathXML + "_aes", "/", "\\");
 								var fileXML: File = new File(pathXMLAbsolute);
 								var fileStreamXML: FileStream = new FileStream();
 								fileStreamXML.open(fileXML, FileMode.WRITE);
 								fileStreamXML.writeBytes(strOrBANode);
-								fileStreamXML.close();*/
+								fileStreamXML.close();
+								*/
+								//end comment
 								
 								aes.decrypt(strOrBANode);
 								strOrBANode.position = 0;

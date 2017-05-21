@@ -84,7 +84,7 @@
 			this.onSoundComplete = onSoundComplete || this.onSoundCompleteDefault;
 			this.stop();
 			this.channel = this.play(startTime, loops, sndTransform);
-			this.channel.addEventListener(Event.SOUND_COMPLETE, this.onSoundComplete);
+			if (this.channel) this.channel.addEventListener(Event.SOUND_COMPLETE, this.onSoundComplete);
 			this.setVolumeSelf();
 			return this.channel;
 		}

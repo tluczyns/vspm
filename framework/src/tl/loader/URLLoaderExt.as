@@ -60,7 +60,7 @@ package tl.loader {
             try {
 				this.load(request);
             } catch (error:Error) {
-                trace("Unable to load requested document.");
+                trace("Unable to load requested document:", error);
 				this.callbackEnd.callback([false, error].concat(this.callbackEnd.params));
             }
 		}

@@ -80,6 +80,7 @@ package tl.loader {
 		}
 		
 		private function onLoadError(errorEvent: IOErrorEvent): void {
+			trace("onLoadError:", errorEvent)
             var objLoadContent: Object = this.arrLoadContent[this.numContentToLoad];
 			objLoadContent.isLoaded = false;
 			if ((this.onElementLoadCompleteHandler != null) && (this.onElementLoadCompleteScope != null)) 

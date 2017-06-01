@@ -77,7 +77,7 @@ package tl.sound {
 		static public function getModel(name: String = ""): ModelSoundControl {
 			var model: ModelSoundControl;
 			if (name == "") model = ModelSoundControlGlobal._instance;
-			else model = ModelSoundControlGlobal._instance.dictModelSoundControl[name];
+			else if (ModelSoundControlGlobal._instance) model = ModelSoundControlGlobal._instance.dictModelSoundControl[name];
 			return model;
 		}
 		

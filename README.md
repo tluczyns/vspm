@@ -1,5 +1,5 @@
 # View Section & Popup Manager (VSPM)
-<p>Frontend multilevel subpage manager framework developed according to MVC pattern.<br />
+<p>Frontend multilevel singlepage manager framework developed according to MVC pattern.<br />
 (with changeable url in address bar and working back/next buttons; page structure based on {xml/content.xml} file).<br />
 
 VSPM is (c) 2009-2017 Tomasz Luczynski<br />

@@ -14,26 +14,30 @@
 		private var arrWeightContentToLoad: Array;
 		private var numContentToLoad: int;
 		
-		public var tfPercent: TextField;
+		protected var containerElements: Sprite;
+		protected var tfPercent: TextField;
 		private var timeFramesTweenPercent: Number;
 		private var isTLOrCenterAnchorPointWhenCenterOnStage: uint;
 		public var ratioProgress: Number;
 		private var prevRatioLoadedElement: Number;
 		private var _basePosXTfPercent: Number;
 		
+		
 		public function LoaderProgress(tfPercent: TextField = null, isTLOrCenterAnchorPointWhenCenterOnStage: uint = 0, timeFramesTweenPercent: Number = 0.5): void {
 			this.timeFramesTweenPercent = timeFramesTweenPercent;
 			this.isTLOrCenterAnchorPointWhenCenterOnStage = isTLOrCenterAnchorPointWhenCenterOnStage;
+			this.createContainerElements();
 			this.initTfPercent(tfPercent);
 			this.ratioProgress = this.prevRatioLoadedElement = 0;
 			this.arrWeightContentToLoad = [];
 			this.numContentToLoad = -1;
-			this.setLoadProgress(0);
 			this.addEventListener(Event.ADDED_TO_STAGE, this.onAddedToStage);
 			this.addEventListener(Event.REMOVED_FROM_STAGE, this.onRemovedFromStage);
 		}
 		
 		private function onAddedToStage(e: Event): void {
+			this.containerElements.x = [0, - this.containerElements.width / 2][isTLOrCenterAnchorPointWhenCenterOnStage];
+			this.setLoadProgress(0);
 			this.stage.addEventListener(Event.RESIZE, this.onStageResize);
 			this.stage.dispatchEvent(new Event(Event.RESIZE));
 		}
@@ -47,6 +51,18 @@
 			this.y = (this.stage.stageHeight - [this.height, 0][this.isTLOrCenterAnchorPointWhenCenterOnStage]) / 2;
 		}
 		
+		//container elements
+		
+		private function createContainerElements(): void {
+			this.containerElements = new Sprite();
+			this.addChild(this.containerElements);
+		}
+		
+		private function removeContainerElements(): void {
+			this.removeChild(this.containerElements);
+			this.containerElements = null;
+		}
+		
 		//textfield percent
 		
 		protected function initTfPercent(tfPercent: TextField = null): void {
@@ -55,14 +71,14 @@
 				tfPercent.x = Math.round(tfPercent.x);
 				tfPercent.y = Math.round(tfPercent.y);
 				this.tfPercent.text = "0 %";
-				this.addChild(this.tfPercent);
+				this.containerElements.addChild(this.tfPercent);
 				this.basePosXTfPercent = this.tfPercent.x + this.tfPercent.width / 2;
 			}
 		}
 		
 		private function removeTfPercent(): void {
 			if (this.tfPercent) {
-				this.removeChild(this.tfPercent);
+				this.containerElements.removeChild(this.tfPercent);
 				this.tfPercent = null;
 			}
 		}
@@ -130,6 +146,7 @@
 			this.removeEventListener(Event.REMOVED_FROM_STAGE, this.onRemovedFromStage);
 			Tweener.removeTweens(this);
 			this.removeTfPercent();
+			this.removeContainerElements();
 		}
 		
 	}

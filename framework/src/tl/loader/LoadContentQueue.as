@@ -132,7 +132,7 @@ package tl.loader {
 		
 		private function getContentTypeFromUrl(url: String): int {
 			var arrExtensionImage: Array = ["png", "jpg", "jpeg", "gif"];
-			var arrExtensionMovie: Array = ["swf"];
+			var arrExtensionMovie: Array = ["swf", "ne"];
 			var arrExtensionSound: Array = ["mp3", "wav"];
 			var arrExtensionServerData: Array = ["xml", "php"];
 			var isFoundType: Boolean = false;

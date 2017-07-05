@@ -11,13 +11,13 @@ package tl.loader {
 
     public class URLLoaderExt extends URLLoader {
 		
-		private var callbackEnd: FunctionCallback;
+		private var callback: FunctionCallback;
 		private var onLoadProgress: Function;
         private var timerTimeout:Timer;
     	
     	function URLLoaderExt(objLoaderExt: Object): void {
 			var timeTimeout: uint = (objLoaderExt.timeTimeout != undefined) ? objLoaderExt.timeTimeout : 60000;
-			this.callbackEnd = objLoaderExt.callbackEnd;
+			this.callback = objLoaderExt.callback;
 			this.onLoadProgress = objLoaderExt.onLoadProgress || this.onLoadProgressDefault;
 			var url: String = objLoaderExt.url;
 			var arrObjHeader: Array = objLoaderExt.arrObjHeader || [];
@@ -61,10 +61,10 @@ package tl.loader {
 				this.load(request);
             } catch (error:Error) {
                 trace("Unable to load requested document:", error);
-				this.callbackEnd.callback([false, error].concat(this.callbackEnd.params));
+				this.callback.call([false, error].concat(this.callback.params));
             }
 		}
-      
+	  
     	private function createTimeoutForNetOperation(timeTimeout:Number = 30000): void {
             this.timerTimeout = new Timer(timeTimeout, 1);
             this.timerTimeout.addEventListener("timer", this.onTimeout);
@@ -74,7 +74,7 @@ package tl.loader {
 		private function onTimeout(event:TimerEvent):void {
             trace("onTimeout");
 			this.destroy();
-			this.callbackEnd.callback([false, event].concat(this.callbackEnd.params));
+			this.callback.call([false, event].concat(this.callback.params));
         }
     	
 		private function removeTimeoutForNetOperation(): void {
@@ -87,14 +87,14 @@ package tl.loader {
 			this.addEventListener(Event.COMPLETE, this.onLoadComplete);
             this.addEventListener(SecurityErrorEvent.SECURITY_ERROR, this.onLoadError);
             this.addEventListener(IOErrorEvent.IO_ERROR, this.onLoadError);
-			//this.addEventListener (HTTPStatusEvent.HTTP_RESPONSE_STATUS, this.onHTTPStatus);
+			this.addEventListener(HTTPStatusEvent.HTTP_STATUS, this.onHTTPStatus);
         }
 
 		private function removeListeners(): void {
 			this.removeEventListener(Event.COMPLETE, this.onLoadComplete);
 			this.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, this.onLoadError);
 			this.removeEventListener(IOErrorEvent.IO_ERROR, this.onLoadError);
-			//this.removeEventListener (HTTPStatusEvent.HTTP_RESPONSE_STATUS, this.onHTTPStatus);
+			this.removeEventListener (HTTPStatusEvent.HTTP_STATUS, this.onHTTPStatus);
         }
 		
         private function onLoadComplete(event: Event):void {
@@ -108,7 +108,7 @@ package tl.loader {
 			} catch (error:Error) {  
 				vars = String(event.target.data)
 			}
-			this.callbackEnd.callback([true, vars].concat(this.callbackEnd.params));
+			this.callback.call([true, vars].concat(this.callback.params));
         }
 
 		private function onLoadProgressDefault(event:ProgressEvent): void {
@@ -122,12 +122,12 @@ package tl.loader {
             trace("onLoadError: " + event);
 			this.dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS, false, false, 0, 1));
             this.destroy();
-			this.callbackEnd.callback([false, event].concat(this.callbackEnd.params));
+			this.callback.call([false, event].concat(this.callback.params));
         }
 		
-		/*private function onHTTPStatus(event: HTTPStatusEvent):void {
-			trace("onHTTPStatus: " + event);
-		}*/
+		private function onHTTPStatus(event: HTTPStatusEvent):void {
+			//trace("onHTTPStatus: " + event.status);
+		}
 		
     	public function generateRandomPassword(countChars: uint): String {
     		var numChar: uint;

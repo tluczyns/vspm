@@ -33,7 +33,8 @@ package tl.loader {
 				request.data = variables;
 			}
 			var context:LoaderContext = new LoaderContext(checkPolicyFile, ApplicationDomain.currentDomain); //SecurityDomain.currentDomain
-            this.load(request, context);
+            trace("request:", request)
+			this.load(request, context);
 		}
 			
 		private function onLoadCompleteDefault(event:Event): void {
@@ -54,7 +55,8 @@ package tl.loader {
 			this.contentLoaderInfo.removeEventListener(Event.COMPLETE, this.onLoadComplete);
 			this.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, this.onLoadProgress);
             this.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, this.onLoadError);
-			try {this.close();} catch (e: Error) {}
+			if (this.content) this.unloadAndStop();
+			else try {this.close();} catch (e: Error) {}
 		}
 		
 	}

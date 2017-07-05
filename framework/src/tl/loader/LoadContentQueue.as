@@ -109,7 +109,7 @@ package tl.loader {
 				} else if (objLoadContent.type == LoadContentQueue.SOUND) {
 					objLoadContent.content = new SoundExt({url: objLoadContent.url, isToPlay: false, onLoadComplete: this.onLoadComplete, onLoadProgress: onLoadProgress, onLoadError: this.onLoadError});
 				} else if (objLoadContent.type == LoadContentQueue.SERVER_DATA) {
-					var callbackEnd: FunctionCallback = new FunctionCallback(function(isLoaded: Boolean, data: *, ...args): void {
+					var callback: FunctionCallback = new FunctionCallback(function(isLoaded: Boolean, data: *, ...args): void {
 						var objLoadContent: Object = this.arrLoadContent[this.numContentToLoad];
 						if (isLoaded) {
 							objLoadContent.content = data;
@@ -118,7 +118,7 @@ package tl.loader {
 							this.onLoadError(null);
 						}
 					}, this);
-					objLoadContent.urlLoaderExt = new URLLoaderExt({url: objLoadContent.url, isGetPost: 1, isTextBinaryVariables: objLoadContent.isDataTextBinaryVariables, timeTimeout: [60000, 10000000][uint(objLoadContent.isDataTextBinaryVariables == 1)], callbackEnd: callbackEnd, onLoadProgress: onLoadProgress});
+					objLoadContent.urlLoaderExt = new URLLoaderExt({url: objLoadContent.url, isGetPost: 1, isTextBinaryVariables: objLoadContent.isDataTextBinaryVariables, timeTimeout: [60000, 10000000][uint(objLoadContent.isDataTextBinaryVariables == 1)], callback: callback, onLoadProgress: onLoadProgress});
 				} else this.onLoadError(null);
 				if (objLoadContent.loaderProgress) objLoadContent.loaderProgress.initNextLoad();
 			} else {

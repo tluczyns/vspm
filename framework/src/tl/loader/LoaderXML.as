@@ -27,7 +27,7 @@
 				this.isLoaded = false;
 				this.isLoading = true;
 				this.isAbort = false;
-				var callbackEnd: FunctionCallback = new FunctionCallback(function(isLoaded: Boolean, strOrBANode: *, ...args): void {
+				var callback: FunctionCallback = new FunctionCallback(function(isLoaded: Boolean, strOrBANode: *, ...args): void {
 					this.isLoading = false;
 					if (!this.isAbort) {
 						//trace("isLoaded:" + isLoaded)
@@ -59,7 +59,7 @@
 						} else this.dispatchEvent(new EventLoaderXML(EventLoaderXML.XML_NOT_LOADED));
 					}
 				}, this);
-				var urlLoaderExt: URLLoaderExt = new URLLoaderExt({url: pathXML, isGetPost: 0, callbackEnd: callbackEnd, isTextBinaryVariables: uint(this.strKeyEncryption != "")});
+				var urlLoaderExt: URLLoaderExt = new URLLoaderExt({url: pathXML, isGetPost: 0, callback: callback, isTextBinaryVariables: uint(this.strKeyEncryption != "")});
 			}
 		}
 		

@@ -12,7 +12,7 @@
 			this.params = params;
 		}
 		
-		public function callback(params: Array = null): void {
+		public function call(params: Array = null): void {
 			this.func.apply(this.scope, params || this.params);
 		}
 		

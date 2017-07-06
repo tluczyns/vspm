@@ -4,10 +4,10 @@
 	import com.hurlant.crypto.symmetric.ICipher;
 	import com.hurlant.crypto.Crypto;
 	import com.hurlant.util.Hex;
-	import flash.filesystem.File; //
+	//import flash.filesystem.File; //
 	import tl.types.StringUtils; //
-	import flash.filesystem.FileMode; //
-	import flash.filesystem.FileStream; //
+	//import flash.filesystem.FileMode; //
+	//import flash.filesystem.FileStream; //
 	import flash.utils.ByteArray;
 
 	public class LoaderXML extends EventDispatcher {

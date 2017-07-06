@@ -2,6 +2,7 @@ package tl.loader {
 	import tl.loader.progress.ILoaderProgress;
 	import tl.types.ArrayUtils;
 	import flash.events.Event;
+	import flash.display.AVM1Movie;
 	import flash.events.IOErrorEvent;
 	import tl.loader.LoaderExt;
 	import tl.loader.SoundExt;
@@ -71,7 +72,8 @@ package tl.loader {
 			if ((objLoadContent.type == LoadContentQueue.IMAGE) || ((objLoadContent.type == LoadContentQueue.SWF) /*&& (objLoadContent.content.contentLoaderInfo.actionScriptVersion == 3)*/)) {
 				objLoadContent.width = objLoadContent.content.contentLoaderInfo.width;
 				objLoadContent.height = objLoadContent.content.contentLoaderInfo.height;
-				objLoadContent.content = objLoadContent.content.content;
+				if (!(objLoadContent.content.content is AVM1Movie))
+					objLoadContent.content = objLoadContent.content.content;
 			}
 			objLoadContent.isLoaded = true;
 			if ((this.onElementLoadCompleteHandler != null) && (this.onElementLoadCompleteScope != null) && (!this.isStopLoading)) 

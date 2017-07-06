@@ -33,7 +33,6 @@ package tl.loader {
 				request.data = variables;
 			}
 			var context:LoaderContext = new LoaderContext(checkPolicyFile, ApplicationDomain.currentDomain); //SecurityDomain.currentDomain
-            trace("request:", request)
 			this.load(request, context);
 		}
 			

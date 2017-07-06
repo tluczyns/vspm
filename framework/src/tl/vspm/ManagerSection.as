@@ -61,7 +61,7 @@ package tl.vspm {
 		
 		public static function startSection(): void {
 			//trace("start:" + ManagerSection.currIndSection + ", " +  ManagerSection.newIndSection); //,isSetNewIndSectionToNullWhenEqualsCurrIndSection);
-			//C.log("start:" + ManagerSection.currIndSection + ", " +  ManagerSection.newIndSection)
+			//C.log("start:" + ManagerSection.currIndSection + ", " +  ManagerSection.newIndSection); //,isSetNewIndSectionToNullWhenEqualsCurrIndSection);
 			ManagerSection.isForceRefresh = false;
 			if (ManagerSection.newIndSection != null) {
 				if (ManagerSection.currIndSection != ManagerSection.newIndSection) {

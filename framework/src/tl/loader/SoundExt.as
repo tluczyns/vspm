@@ -12,8 +12,6 @@
 	import caurina.transitions.Tweener;
 	import flash.errors.IOError;
 	
-	import zajKompKlasa1.ConfigAll; //usunąć po projekcie
-	
 	public dynamic class SoundExt extends Sound {
 		public var channel: SoundChannel;
 		private var _modelSoundControl: ModelSoundControl;
@@ -29,7 +27,7 @@
 		
 		public function SoundExt(objSoundExt: Object = null) {
 			objSoundExt = objSoundExt || {};
-			this.modelSoundControl = objSoundExt.modelSoundControl || ModelSoundControlGlobal.getModel(ConfigAll.NAME_MODEL_SOUND_CONTROL_MUSIC_FX) || ModelSoundControlGlobal.getModel(); //usunąć po projekcie ModelSoundControlGlobal.getModel(ConfigAll.NAME_MODEL_SOUND_CONTROL_MUSIC_FX)
+			this.modelSoundControl = objSoundExt.modelSoundControl || ModelSoundControlGlobal.getModel();
 			this.isLoop = Boolean(objSoundExt.isLoop);
 			this.initVolume = this.origVolume = (objSoundExt.initVolume != undefined) ? objSoundExt.initVolume : 1;
 			this.onLoadComplete = objSoundExt.onLoadComplete || this.onLoadCompleteDefault;

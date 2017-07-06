@@ -18,7 +18,7 @@ package tl.vspm {
 		
 		protected var prefixClass: String;
 		protected var loaderXMLContent: LoaderXMLContentView;
-		private var containerApplication: ContainerApplicationVSPM;
+		protected var containerApplication: ContainerApplicationVSPM;
 		
 		public function ApplicationVSPM(): void {
 			Library.addSwf(this);

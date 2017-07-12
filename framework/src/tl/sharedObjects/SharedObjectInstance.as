@@ -21,13 +21,10 @@ package tl.sharedObjects {
 			return ((this.so != null) && (this.so.data[propName] != undefined)) ? this.so.data[propName] : defaultValue;
 		}
 		
-		public function clear(): void {
-			this.so.close();
-		}
-		
-		public function close(): void {
+		public function destroy(): void {
 			this.so.flush();
 			this.so.close();
+			this.so = null;
 		}
 		
 	}

@@ -36,7 +36,7 @@ package tl.vspm {
 			var xmlContent: XML = this.parseXMLSection(xmlNode, "", "", 0);
 			this.createObjFromXMLContent(xmlContent);
 			new DescriptionViewSection("empty", ViewSectionEmpty, null, -1);
-			if ((xmlNode.@isSection) || (xmlNode.@isSectionAndContent)) {
+			if ((xmlNode.@isSection == 1) || (xmlNode.@isSectionAndContent == 1)) {
 				var objClasses: Object = this.getObjClassContentAndViewSection(xmlNode.name());
 				if (objClasses.classViewSection)
 					new DescriptionViewSection("", objClasses.classViewSection, new objClasses.classContentViewSection(xmlContent), -1);

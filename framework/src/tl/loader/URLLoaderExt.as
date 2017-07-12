@@ -22,7 +22,7 @@ package tl.loader {
 			var url: String = objLoaderExt.url;
 			var arrObjHeader: Array = objLoaderExt.arrObjHeader || [];
 			var variables: * = objLoaderExt.variables || new URLVariables();
-			var objParams: Object = objLoaderExt.objParams || { };
+			var objParams: Object = objLoaderExt.objParams || {};
 			var addRandomValue: Boolean = (objLoaderExt.addRandomValue != undefined) ? objLoaderExt.addRandomValue : false;
 			var isGetPost: uint = (objLoaderExt.isGetPost != undefined) ? objLoaderExt.isGetPost : 1;
 			var isTextBinaryVariables: uint = (objLoaderExt.isTextBinaryVariables != undefined) ? objLoaderExt.isTextBinaryVariables : 0;
@@ -34,13 +34,13 @@ package tl.loader {
 			var request:URLRequest = new URLRequest(url);
 			//{name: "pragma", value: "no-cache"}
 			var i: uint;
+			var arrHeader: Array = [];
 			for (i = 0; i < arrObjHeader.length; i++) {
                 var objHeader: Object = arrObjHeader[i];
 				var header:URLRequestHeader = new URLRequestHeader(objHeader.name, objHeader.value);
-				request.requestHeaders.push(header);
+				arrHeader.push(header);
             }
-			if (variables == null) variables = new URLVariables();
-			if (objParams == null) objParams = {};
+			request.requestHeaders = arrHeader;
 			if (objParams is Array) {
 				var arrParams: Array = objParams as Array;
 				var objParamsFromArray: Object = {};
@@ -50,13 +50,16 @@ package tl.loader {
 				}	
 				objParams = objParamsFromArray;
 			}
-			for (var nameParam: String in objParams) {
+			for (var nameParam: String in objParams)
 				variables[nameParam] = objParams[nameParam];
+			if (arrHeader.length > 0) {
+				isGetPost = 1; //Due to a bug in Flash, a URLRequest with a GET request will not properly send headers.
+				addRandomValue = true; //Due to a bug in Flash, a URLRequest without a valid parameter will not properly send headers.
 			}
 			if (addRandomValue) variables["random"] = Math.random() * 10000000;
-            request.data = variables;
-            request.method = [URLRequestMethod.GET, URLRequestMethod.POST][isGetPost];
-			this.dataFormat = [URLLoaderDataFormat.TEXT, URLLoaderDataFormat.BINARY, URLLoaderDataFormat.VARIABLES][isTextBinaryVariables];
+			request.data = variables;
+			request.method = [URLRequestMethod.GET, URLRequestMethod.POST][isGetPost];
+            this.dataFormat = [URLLoaderDataFormat.TEXT, URLLoaderDataFormat.BINARY, URLLoaderDataFormat.VARIABLES][isTextBinaryVariables];
             try {
 				this.load(request);
             } catch (error:Error) {

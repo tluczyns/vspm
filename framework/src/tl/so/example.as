@@ -1,4 +1,4 @@
-import tl.sharedObjects.SharedObjectExpireInstance;
+import tl.so.SharedObjectExpireInstance;
 
 this.checkValue = function(classMain) {
 	trace(classMain.so.getPropValue("aaa"))

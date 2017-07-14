@@ -1,6 +1,6 @@
 package tl.sound {
 	import flash.events.EventDispatcher;
-	import tl.sharedObjects.SharedObjectInstance;
+	import tl.so.SharedObjectInstance;
 	import tl.vspm.EventModel;
 	import caurina.transitions.Tweener;
 

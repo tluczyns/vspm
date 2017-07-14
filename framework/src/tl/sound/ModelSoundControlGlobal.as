@@ -1,6 +1,6 @@
 package tl.sound {
 	import flash.utils.Dictionary;
-	import tl.sharedObjects.SharedObjectInstance;
+	import tl.so.SharedObjectInstance;
 	
 	public class ModelSoundControlGlobal extends ModelSoundControl {
 		

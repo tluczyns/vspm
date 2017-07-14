@@ -1,4 +1,4 @@
-package tl.sharedObjects {
+package tl.so {
 	import flash.net.SharedObject;
 	
 	public class SharedObjectExpireInstance extends SharedObjectInstance {

@@ -19,6 +19,8 @@ package tl.vspm {
 
 	public class LoaderXMLContentView extends LoaderXML {
 		
+		static public const NAME_SECTION_EMPTY: String = "empty";
+		
 		private var prefixClass: String;
 		static public var content: Object;
 		static public var dictIndViewSectionToArrDescriptionSubViewSection: Dictionary = new Dictionary();
@@ -35,7 +37,7 @@ package tl.vspm {
 			this.parseXMLPopup(xmlNode);
 			var xmlContent: XML = this.parseXMLSection(xmlNode, "", "", 0);
 			this.createObjFromXMLContent(xmlContent);
-			new DescriptionViewSection("empty", ViewSectionEmpty, null, -1);
+			new DescriptionViewSection(LoaderXMLContentView.NAME_SECTION_EMPTY, ViewSectionEmpty, null, -1);
 			if ((xmlNode.@isSection == 1) || (xmlNode.@isSectionAndContent == 1)) {
 				var objClasses: Object = this.getObjClassContentAndViewSection(xmlNode.name());
 				if (objClasses.classViewSection)

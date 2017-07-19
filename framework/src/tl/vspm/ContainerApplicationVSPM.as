@@ -24,13 +24,18 @@ package tl.vspm {
 			this.createFg();
 		}
 		
+		protected function createBg(): void {
+			this.bg = new classBg();
+			this.addChild(this.bg);
+		}
+		
 		protected function get classBg(): Class {
 			return Sprite;
 		}
 		
-		protected function createBg(): void {
-			this.bg = new classBg();
-			this.addChild(this.bg);
+		protected function removeBg(): void {
+			this.removeChild(this.bg);
+			this.bg = null;
 		}
 		
 		protected function get classContainerViewSection(): Class {
@@ -46,6 +51,11 @@ package tl.vspm {
 			return Sprite;
 		}
 		
+		protected function removeContainerViewSection(): void {
+			this.removeChild(this.containerViewSection);
+			this.containerViewSection = null;
+		}
+		
 		protected function createContainerViewPopup(): void {
 			this.containerViewPopup = new classContainerViewPopup();
 			this.addChild(this.containerViewPopup);
@@ -55,9 +65,26 @@ package tl.vspm {
 			return Sprite;
 		}
 		
+		protected function removeContainerViewPopup(): void {
+			this.removeChild(this.containerViewPopup);
+			this.containerViewPopup = null;
+		}
+		
 		protected function createFg(): void {
 			this.fg = new classFg();
 			this.addChild(this.fg);
+		}
+		
+		protected function removeFg(): void {
+			this.removeChild(this.fg);
+			this.fg = null;
+		}
+		
+		public function destroy(): void {
+			this.removeFg();
+			this.removeContainerViewPopup();
+			this.removeContainerViewSection();
+			this.removeBg();
 		}
 		
 	}

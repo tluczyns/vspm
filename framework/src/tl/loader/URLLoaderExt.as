@@ -57,7 +57,7 @@ package tl.loader {
 				addRandomValue = true; //Due to a bug in Flash, a URLRequest without a valid parameter will not properly send headers.
 			}
 			if (addRandomValue) data["random"] = Math.random() * 10000000;
-			request.data = data;
+			if (data.toString()) request.data = data;
 			request.method = [URLRequestMethod.GET, URLRequestMethod.POST][isGetPost];
             this.dataFormat = [URLLoaderDataFormat.TEXT, URLLoaderDataFormat.BINARY, URLLoaderDataFormat.VARIABLES][isTextBinaryVariables];
             try {

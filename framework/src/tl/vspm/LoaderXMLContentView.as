@@ -13,10 +13,11 @@ package tl.vspm {
 	import tl.loader.URLLoaderExt;
 	import tl.types.ObjectUtils;
 	import tl.types.StringUtils;
-	import flash.utils.getDefinitionByName;
 	import tl.flashUtils.FlashUtils;
+	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
-
+	import flash.system.ApplicationDomain;
+	
 	public class LoaderXMLContentView extends LoaderXML {
 		
 		static public const NAME_SECTION_EMPTY: String = "empty";
@@ -119,13 +120,9 @@ package tl.vspm {
 		
 		private function getObjClassContentAndViewSection(suffIndSection: String): Object {
 			var suffIndSectionCode: String = StringUtils.toUpperCaseFromUnderscore(suffIndSection);
-			try {
-				var classContentViewSection: Class = Class(getDefinitionByName(this.prefixClass + ".content.Content" + suffIndSectionCode));
-			} catch (e: Error) { }
+			var classContentViewSection: Class = this.getClassDefinition(this.prefixClass + ".content.Content" + suffIndSectionCode);;
 			if ((!classContentViewSection) || (!FlashUtils.isSuperclass(classContentViewSection, ContentViewSection))) classContentViewSection = ContentViewSection;
-			try {
-				var classViewSection: Class = Class(getDefinitionByName(this.prefixClass + ".viewSection.ViewSection" + suffIndSectionCode));
-			} catch (e: Error) { }
+			var classViewSection: Class = this.getClassDefinition(this.prefixClass + ".viewSection.ViewSection" + suffIndSectionCode);
 			return {classContentViewSection: classContentViewSection, classViewSection: classViewSection};
 		}
 		
@@ -163,14 +160,21 @@ package tl.vspm {
 		
 		private function getObjClassContentAndViewPopup(suffIndPopup: String): Object {
 			var suffIndPopupCode: String = StringUtils.toUpperCaseFromUnderscore(suffIndPopup);
-			try {
-				var classContentViewPopup: Class = Class(getDefinitionByName(this.prefixClass + ".content.ContentPopup" + suffIndPopupCode));
-			} catch (e: Error) { }
+			var classContentViewPopup: Class = this.getClassDefinition(this.prefixClass + ".content.ContentPopup" + suffIndPopupCode);
 			if ((!classContentViewPopup) || (!FlashUtils.isSuperclass(classContentViewPopup, ContentViewPopup))) classContentViewPopup = ContentViewPopup;
-			try {
-				var classViewPopup: Class = Class(getDefinitionByName(this.prefixClass + ".viewPopup.ViewPopup" + suffIndPopupCode));
-			} catch (e: Error) { }
+			var classViewPopup: Class = this.getClassDefinition(this.prefixClass + ".viewPopup.ViewPopup" + suffIndPopupCode);
 			return {classContentViewPopup: classContentViewPopup, classViewPopup: classViewPopup};
+		}
+		
+		//helper
+		
+		private function getClassDefinition(nameClass: String): Class {
+			var classDefinition: Class = null;
+			try {
+				if (ApplicationDomain.currentDomain.hasDefinition(nameClass))
+					classDefinition = Class(getDefinitionByName(nameClass));
+			} catch (e: Error) { }
+			return classDefinition;
 		}
 		
 	}

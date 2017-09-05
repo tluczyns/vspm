@@ -4,7 +4,7 @@
 	import flash.text.TextField;
 	import flash.events.ProgressEvent;
 	import caurina.transitions.Tweener;
-	import tl.loader.LoadContentQueue;
+	import tl.loader.QueueLoadContent;
 
 	public class LoaderProgress extends Sprite implements ILoaderProgress {
 		
@@ -127,7 +127,7 @@
 		
 		private function updateAndCheckIsFinished(): void {
 			this.update();
-			if (this.ratioProgress == 1) this.dispatchEvent(new Event(LoadContentQueue.FINISHED_PROGRESS));
+			if (this.ratioProgress == 1) this.dispatchEvent(new Event(QueueLoadContent.FINISHED_PROGRESS));
 		}
 		
 		protected function update(): void {

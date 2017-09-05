@@ -8,7 +8,7 @@ package tl.loader {
 	import tl.loader.SoundExt;
 	import tl.utils.FunctionCallback;
 	
-	public class LoadContentQueue extends Object {
+	public class QueueLoadContent extends Object {
 		
 		static public const FINISHED_PROGRESS: String = "finishedProgress";
 		
@@ -30,7 +30,7 @@ package tl.loader {
 		
 		//public var percentLoadingAsset: Number, percentLoadingTotal: Number; //for use for external preloaders
 		
-		public function LoadContentQueue(onAllLoadCompleteHandler: Function, onAllLoadCompleteScope: Object, loaderProgress: ILoaderProgress = null, onElementLoadCompleteHandler: Function = null, onElementLoadCompleteScope: Object = null, isClearAfterAllLoadComplete: Boolean = true): void {
+		public function QueueLoadContent(onAllLoadCompleteHandler: Function, onAllLoadCompleteScope: Object, loaderProgress: ILoaderProgress = null, onElementLoadCompleteHandler: Function = null, onElementLoadCompleteScope: Object = null, isClearAfterAllLoadComplete: Boolean = true): void {
 			this._isLoading = false;
 			this.arrLoadContent = [];
 			this.numContentToLoad = -1;
@@ -45,7 +45,7 @@ package tl.loader {
 		public function addToLoadQueue(url: String, weight: Number = 1, isDataTextBinaryVariables: uint = 0, isStartLoading: Boolean = false, loaderProgress: ILoaderProgress = null): uint {
 			url = url || "";
 			loaderProgress = loaderProgress || this.loaderProgress;
-			var newObjLoadContent: Object = {url: url, weight: weight, type: (isDataTextBinaryVariables == 1) ? LoadContentQueue.SERVER_DATA : this.getContentTypeFromUrl(url), isDataTextBinaryVariables: isDataTextBinaryVariables, isLoaded: false, loaderProgress: loaderProgress, content: null}
+			var newObjLoadContent: Object = {url: url, weight: weight, type: (isDataTextBinaryVariables == 1) ? QueueLoadContent.SERVER_DATA : this.getContentTypeFromUrl(url), isDataTextBinaryVariables: isDataTextBinaryVariables, isLoaded: false, loaderProgress: loaderProgress, content: null}
 			this.arrLoadContent.push(newObjLoadContent);
 			newObjLoadContent.indLoadContent = this.arrLoadContent.length - 1;
 			if (loaderProgress) loaderProgress.addWeightContent(weight);
@@ -69,7 +69,7 @@ package tl.loader {
 		private function onLoadComplete(event: Event): void {
 			var objLoadContent: Object = this.arrLoadContent[this.numContentToLoad];
 			objLoadContent = this.checkAndCorrectTypeFromLoadedContent(objLoadContent);
-			if ((objLoadContent.type == LoadContentQueue.IMAGE) || ((objLoadContent.type == LoadContentQueue.SWF) /*&& (objLoadContent.content.contentLoaderInfo.actionScriptVersion == 3)*/)) {
+			if ((objLoadContent.type == QueueLoadContent.IMAGE) || ((objLoadContent.type == QueueLoadContent.SWF) /*&& (objLoadContent.content.contentLoaderInfo.actionScriptVersion == 3)*/)) {
 				objLoadContent.width = objLoadContent.content.contentLoaderInfo.width;
 				objLoadContent.height = objLoadContent.content.contentLoaderInfo.height;
 				if (!(objLoadContent.content.content is AVM1Movie))
@@ -93,7 +93,7 @@ package tl.loader {
 		private function onAllLoadComplete(e: Object = null): void {
 			if (this.onAllLoadCompleteHandler != null) this.onAllLoadCompleteHandler.apply(this.onAllLoadCompleteScope, [this.arrLoadContent]);
 			if (this.isClearAfterAllLoadComplete) {
-				if (this.loaderProgress) this.loaderProgress["removeEventListener"](LoadContentQueue.FINISHED_PROGRESS, this.onAllLoadComplete);
+				if (this.loaderProgress) this.loaderProgress["removeEventListener"](QueueLoadContent.FINISHED_PROGRESS, this.onAllLoadComplete);
 				for (var i: uint = 0; i < this.arrLoadContent.length; i++) this.arrLoadContent[i] = null;
 				this.arrLoadContent = [];
 			}
@@ -106,11 +106,11 @@ package tl.loader {
 				var objLoadContent: Object = this.arrLoadContent[this.numContentToLoad];
 				var onLoadProgress: Function;
 				if (objLoadContent.loaderProgress) onLoadProgress = objLoadContent.loaderProgress.onLoadProgress;
-				if ((objLoadContent.type == LoadContentQueue.IMAGE) || (objLoadContent.type == LoadContentQueue.SWF)) {
+				if ((objLoadContent.type == QueueLoadContent.IMAGE) || (objLoadContent.type == QueueLoadContent.SWF)) {
 					objLoadContent.content = new LoaderExt({url: objLoadContent.url, onLoadComplete: this.onLoadComplete, onLoadProgress: onLoadProgress, onLoadError: this.onLoadError});
-				} else if (objLoadContent.type == LoadContentQueue.SOUND) {
+				} else if (objLoadContent.type == QueueLoadContent.SOUND) {
 					objLoadContent.content = new SoundExt({url: objLoadContent.url, isToPlay: false, onLoadComplete: this.onLoadComplete, onLoadProgress: onLoadProgress, onLoadError: this.onLoadError});
-				} else if (objLoadContent.type == LoadContentQueue.SERVER_DATA) {
+				} else if (objLoadContent.type == QueueLoadContent.SERVER_DATA) {
 					var callback: FunctionCallback = new FunctionCallback(function(isLoaded: Boolean, data: *, ...args): void {
 						var objLoadContent: Object = this.arrLoadContent[this.numContentToLoad];
 						if (isLoaded) {
@@ -127,7 +127,7 @@ package tl.loader {
 				this._isLoading = false;
 				if (this.loaderProgress) {
 					this.loaderProgress.setLoadProgress(1);
-					this.loaderProgress["addEventListener"](LoadContentQueue.FINISHED_PROGRESS, this.onAllLoadComplete);
+					this.loaderProgress["addEventListener"](QueueLoadContent.FINISHED_PROGRESS, this.onAllLoadComplete);
 				} else this.onAllLoadComplete();
 			}
         }
@@ -157,17 +157,17 @@ package tl.loader {
 			if (isFoundType) {
 				return type;
 			} else {
-				return LoadContentQueue.SERVER_DATA;
+				return QueueLoadContent.SERVER_DATA;
 			}
 		}
 		
 		private function checkAndCorrectTypeFromLoadedContent(objLoadContent: Object): Object {
-			if ((objLoadContent.type == LoadContentQueue.IMAGE) || (objLoadContent.type == LoadContentQueue.SWF)) {
+			if ((objLoadContent.type == QueueLoadContent.IMAGE) || (objLoadContent.type == QueueLoadContent.SWF)) {
 				switch (objLoadContent.content.contentLoaderInfo.contentType) {
-					case "application/x-shockwave-flash": objLoadContent.type = LoadContentQueue.SWF; break;
-					case "image/jpeg": objLoadContent.type = LoadContentQueue.IMAGE; break;
-					case "image/gif": objLoadContent.type = LoadContentQueue.IMAGE; break;
-					case "image/png": objLoadContent.type = LoadContentQueue.IMAGE; break;
+					case "application/x-shockwave-flash": objLoadContent.type = QueueLoadContent.SWF; break;
+					case "image/jpeg": objLoadContent.type = QueueLoadContent.IMAGE; break;
+					case "image/gif": objLoadContent.type = QueueLoadContent.IMAGE; break;
+					case "image/png": objLoadContent.type = QueueLoadContent.IMAGE; break;
 				}
 			}
 			return objLoadContent;
@@ -177,11 +177,11 @@ package tl.loader {
 			this.isStopLoading = true;
 			if (this.isLoading) {
 				var objLoadContent: Object = this.arrLoadContent[this.numContentToLoad];
-				if ((objLoadContent.type == LoadContentQueue.IMAGE) || (objLoadContent.type == LoadContentQueue.SWF)) {
+				if ((objLoadContent.type == QueueLoadContent.IMAGE) || (objLoadContent.type == QueueLoadContent.SWF)) {
 					objLoadContent.content.destroy();
-				} else if (objLoadContent.type == LoadContentQueue.SOUND) {
+				} else if (objLoadContent.type == QueueLoadContent.SOUND) {
 					objLoadContent.content.destroy();
-				} else if (objLoadContent.type == LoadContentQueue.SERVER_DATA) {
+				} else if (objLoadContent.type == QueueLoadContent.SERVER_DATA) {
 					objLoadContent.urlLoaderExt.destroy();
 				}
 				this._isLoading = false;

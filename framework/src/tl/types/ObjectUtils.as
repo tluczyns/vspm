@@ -12,20 +12,20 @@ package tl.types {
 			return objClone;
 		}
 		
-		static public function populateObj(objSrc: Object, objPopulate: Object): Object {
-			for (var prop: String in objSrc) {
-				if (typeof(objSrc[prop]) == "object") {
-					if (objSrc[prop] is Array) {
-						if (!objPopulate[prop]) objPopulate[prop] = [];
-						else if (!(objPopulate[prop] is Array)) objPopulate[prop] = [objPopulate[prop]];
-						for (var i: uint = 0; i < objSrc[prop].length; i++) {
-							if (objPopulate[prop].indexOf(objSrc[prop][i]) == -1) objPopulate[prop].push(objSrc[prop][i]);
+		static public function populateObj(objBase: Object, objPopulate: Object): Object {
+			for (var prop: String in objPopulate) {
+				if (typeof(objPopulate[prop]) == "object") {
+					if (objPopulate[prop] is Array) {
+						if (!objBase[prop]) objBase[prop] = [];
+						else if (!(objBase[prop] is Array)) objBase[prop] = [objBase[prop]];
+						for (var i: int = objPopulate[prop].length - 1; i >= 0; i--) {
+							if (objBase[prop].indexOf(objPopulate[prop][i]) == -1) objBase[prop].unshift(objPopulate[prop][i]);
 						}
-					} else objPopulate[prop] = ObjectUtils.populateObj(objSrc[prop], objPopulate[prop] || {});
-				} else objPopulate[prop] = objSrc[prop];
+					} else objBase[prop] = ObjectUtils.populateObj(objBase[prop] || {}, objPopulate[prop]);
+				} else objBase[prop] = objPopulate[prop];
 				
 			}
-			return objPopulate;
+			return objBase;
 		}
 		
 		static public function equals(obj1: Object, obj2: Object): Boolean {

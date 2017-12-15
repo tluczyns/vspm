@@ -36,7 +36,10 @@ package tl.loader {
 				try {
 					if (params.length) mc = new classDef(params);
 					else mc = new classDef();
-					if (!((mc is MovieClip) || (mc is Sound))) throw new Error()
+					if (!((mc is MovieClip) || (mc is Sound))) {
+						mc = null;
+						throw new Error()
+					}
 				} catch (e: Error) {
 					trace("Element |",nameClass,"| is not a movieclip.")
 				}
@@ -64,6 +67,7 @@ package tl.loader {
 		}
 		
 		public static function getDisplayObject(nameClass: String): DisplayObject {
+			trace("Library.getMovieClip(nameClass):", (Library.getMovieClip(nameClass) is BitmapData))
 			var dspObj: DisplayObject = Library.getMovieClip(nameClass);
 			if (!dspObj) dspObj = Library.getBitmap(nameClass);
 			return dspObj;

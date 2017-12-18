@@ -67,7 +67,6 @@ package tl.loader {
 		}
 		
 		public static function getDisplayObject(nameClass: String): DisplayObject {
-			trace("Library.getMovieClip(nameClass):", (Library.getMovieClip(nameClass) is BitmapData))
 			var dspObj: DisplayObject = Library.getMovieClip(nameClass);
 			if (!dspObj) dspObj = Library.getBitmap(nameClass);
 			return dspObj;

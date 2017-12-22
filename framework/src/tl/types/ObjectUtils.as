@@ -13,6 +13,7 @@ package tl.types {
 		}
 		
 		static public function populateObj(objBase: Object, objPopulate: Object): Object {
+			objBase = objBase || {};
 			for (var prop: String in objPopulate) {
 				if (typeof(objPopulate[prop]) == "object") {
 					if (objPopulate[prop] is Array) {
@@ -21,7 +22,7 @@ package tl.types {
 						for (var i: int = objPopulate[prop].length - 1; i >= 0; i--) {
 							if (objBase[prop].indexOf(objPopulate[prop][i]) == -1) objBase[prop].unshift(objPopulate[prop][i]);
 						}
-					} else objBase[prop] = ObjectUtils.populateObj(objBase[prop] || {}, objPopulate[prop]);
+					} else objBase[prop] = ObjectUtils.populateObj(objBase[prop], objPopulate[prop]);
 				} else objBase[prop] = objPopulate[prop];
 				
 			}

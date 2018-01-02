@@ -54,8 +54,10 @@ package tl.loader {
 			this.contentLoaderInfo.removeEventListener(Event.COMPLETE, this.onLoadComplete);
 			this.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, this.onLoadProgress);
             this.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, this.onLoadError);
-			if (this.content) this.unloadAndStop();
-			else try {this.close();} catch (e: Error) {}
+			try {
+				if (this.content) this.unloadAndStop();
+				else this.close();
+			} catch (e: Error) {}
 		}
 		
 	}

@@ -66,19 +66,19 @@ package tl.types {
 			arr.splice(indexTo, 0, elementMoved);
 		}
 		
-		static public function generateRandomIndexArray(length: uint): Array {
+		static public function generateRandomIndexArray(length: uint, isForceMix: Boolean = true): Array {
 			var arrRandomIndex: Array = new Array();
 			for (var i: uint = 0; i < length; i++) {
 				var index: uint;
 				do {
 					index = Math.floor(Math.random() * length);
-				} while (arrRandomIndex.indexOf(index) > -1);
+				} while ((arrRandomIndex.indexOf(index) > -1) || (isForceMix && (arrRandomIndex.length < length - 1) && (index == arrRandomIndex.length)));
 				arrRandomIndex.push(index);
 			}
 			return arrRandomIndex;
 		}
 		
-		static public function generateRandomMixedArray(arrToMix: *): Array {
+		static public function generateRandomMixedArray(arrToMix: *, isForceMix: Boolean = true): Array {
 			var arrInd: Array = ArrayUtils.generateRandomIndexArray(arrToMix.length);
 			var arrMix: Array = new Array(arrToMix.length);
 			for (var i: uint = 0; i < arrToMix.length; i++)

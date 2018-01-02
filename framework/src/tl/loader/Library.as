@@ -36,7 +36,8 @@ package tl.loader {
 				try {
 					if (params.length) mc = new classDef(params);
 					else mc = new classDef();
-					if (!((mc is MovieClip) || (mc is Sound))) throw new Error()
+					if (!((mc is MovieClip) || (mc is Sound)))
+						mc = null;
 				} catch (e: Error) {
 					trace("Element |",nameClass,"| is not a movieclip.")
 				}

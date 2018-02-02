@@ -24,7 +24,7 @@ package tl.vspm {
 		
 		private var prefixClass: String;
 		static public var content: Object;
-		static public var dictIndViewSectionToArrDescriptionSubViewSection: Dictionary = new Dictionary();
+		static public var dictIndViewSectionToVecDescriptionSubViewSection: Dictionary = new Dictionary();
 		static public var isUseAliasIndSection: Boolean = true;
 		static public var dictIndToAliasIndSection: Dictionary;
 		static public var dictAliasIndToIndSection: Dictionary;
@@ -73,7 +73,7 @@ package tl.vspm {
 				}
 				//iterate through subsections
 				var order: uint = 0;
-				if (!LoaderXMLContentView.dictIndViewSectionToArrDescriptionSubViewSection[predIndSection]) LoaderXMLContentView.dictIndViewSectionToArrDescriptionSubViewSection[predIndSection] = [];
+				if (!LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[predIndSection]) LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[predIndSection] = new Vector.<DescriptionViewSection>();
 				for (i = 0; i < arrSuffIndSubSectionInXMLListSubSection.length; i++) {
 					suffIndSubSection = arrSuffIndSubSectionInXMLListSubSection[i];
 					var objClasses: Object = this.getObjClassContentAndViewSection(suffIndSubSection);
@@ -108,14 +108,13 @@ package tl.vspm {
 		}
 		
 		static private function addToArrDescriptionSubViewSection(indSection: String, descriptionViewSection: DescriptionViewSection): void {
-			var arrDescriptionSubViewSection: Array = LoaderXMLContentView.dictIndViewSectionToArrDescriptionSubViewSection[indSection];
-			if (!arrDescriptionSubViewSection) arrDescriptionSubViewSection = [];
+			var vecDescriptionSubViewSection: Array = LoaderXMLContentView.getVecDescriptionSubViewSectionForIndSection(indSection);
 			var i: uint = 0;
-			while ((i < arrDescriptionSubViewSection.length) && (DescriptionViewSection(arrDescriptionSubViewSection[i]).ind != descriptionViewSection.ind))
+			while ((i < vecDescriptionSubViewSection.length) && (DescriptionViewSection(vecDescriptionSubViewSection[i]).ind != descriptionViewSection.ind))
 				i++;
-			if (i < arrDescriptionSubViewSection.length) DescriptionViewSection(arrDescriptionSubViewSection[i]).addAdditionalContent(descriptionViewSection);
-			else arrDescriptionSubViewSection.push(descriptionViewSection);
-			LoaderXMLContentView.dictIndViewSectionToArrDescriptionSubViewSection[indSection] = arrDescriptionSubViewSection;
+			if (i < vecDescriptionSubViewSection.length) DescriptionViewSection(vecDescriptionSubViewSection[i]).addAdditionalContent(descriptionViewSection);
+			else vecDescriptionSubViewSection.push(descriptionViewSection);
+			LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[indSection] = vecDescriptionSubViewSection;
 		}
 		
 		private function getObjClassContentAndViewSection(suffIndSection: String): Object {
@@ -135,8 +134,8 @@ package tl.vspm {
 			return suffIndSectionAlias;
 		}
 		
-		static public function getArrDescriptionSubViewSectionForIndSection(indSection: String): Array {
-			return LoaderXMLContentView.dictIndViewSectionToArrDescriptionSubViewSection[indSection] || [];
+		static public function getVecDescriptionSubViewSectionForIndSection(indSection: String): Array {
+			return LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[indSection] || new Vector.<DescriptionViewSection>();
 		}
 		
 		//popup

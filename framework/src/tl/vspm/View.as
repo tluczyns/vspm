@@ -22,14 +22,17 @@ package tl.vspm {
 
 	public class View extends Sprite implements IViewSection {
 		
-		public var content: ContentView;
 		public var description: DescriptionView;
 		
 		protected var isHideShow: uint;
 		protected var tMaxHideShow: TimelineMax;
 		
-		public function View(content: ContentView): void {
-			this.content = content;
+		public function View(description: DescriptionView): void {
+			this.description = description;
+		}
+		
+		public function get content(): ContentView {
+			return this.description.content;
 		}
 		
 		public function init(): void {

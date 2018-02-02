@@ -11,11 +11,12 @@ package tl.vspm {
 	
 	public class ViewSection extends View {
 		
-		public var num: int;
+		public function ViewSection(description: DescriptionView): void {
+			super(description);
+		}
 		
-		public function ViewSection(content: ContentViewSection, num: int): void {
-			super(content);
-			this.num = num;
+		public function get num(): int {
+			return DescriptionViewSection(this.description).num;
 		}
 		
 		override protected function startAfterShow(): void {

@@ -28,10 +28,6 @@ package tl.vspm {
 			return ManagerSection.dictDescriptionViewSection;
 		}
 		
-		override protected function createViewInstance(): View { //ViewSection
-			return new this.nameClass(this.content, this.num);
-		}
-		
 		override protected function getDefaultContainerView(): DisplayObjectContainer {
 			return ManagerSection.dspObjContainerSection;
 		}

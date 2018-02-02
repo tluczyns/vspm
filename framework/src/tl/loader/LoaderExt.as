@@ -32,7 +32,10 @@ package tl.loader {
 				variables.nocache = new Date().getTime(); 
 				request.data = variables;
 			}
-			var context:LoaderContext = new LoaderContext(checkPolicyFile, ApplicationDomain.currentDomain); //SecurityDomain.currentDomain
+			var applicationDomain: ApplicationDomain;
+			if (uint(objLoaderExt.isApplicationDomainCurrentNew) == 1) applicationDomain = new ApplicationDomain();
+			else applicationDomain = ApplicationDomain.currentDomain; //SecurityDomain.currentDomain
+			var context: LoaderContext = new LoaderContext(checkPolicyFile, applicationDomain);
 			this.load(request, context);
 		}
 			

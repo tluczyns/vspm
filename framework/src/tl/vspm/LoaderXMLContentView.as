@@ -108,7 +108,7 @@ package tl.vspm {
 		}
 		
 		static private function addToArrDescriptionSubViewSection(indSection: String, descriptionViewSection: DescriptionViewSection): void {
-			var vecDescriptionSubViewSection: Array = LoaderXMLContentView.getVecDescriptionSubViewSectionForIndSection(indSection);
+			var vecDescriptionSubViewSection: Vector.<DescriptionViewSection> = LoaderXMLContentView.getVecDescriptionSubViewSectionForIndSection(indSection);
 			var i: uint = 0;
 			while ((i < vecDescriptionSubViewSection.length) && (DescriptionViewSection(vecDescriptionSubViewSection[i]).ind != descriptionViewSection.ind))
 				i++;
@@ -134,7 +134,7 @@ package tl.vspm {
 			return suffIndSectionAlias;
 		}
 		
-		static public function getVecDescriptionSubViewSectionForIndSection(indSection: String): Array {
+		static public function getVecDescriptionSubViewSectionForIndSection(indSection: String): Vector.<DescriptionViewSection> {
 			return LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[indSection] || new Vector.<DescriptionViewSection>();
 		}
 		

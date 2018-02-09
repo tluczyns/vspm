@@ -16,12 +16,14 @@ package tl.vspm {
 		
 		public var indBase: String;
 		public var num: int;
+		public var parent: DescriptionViewSection;
 		public var isEngaged: Boolean = false;
 		
-		public function DescriptionViewSection(ind: String, nameClass: Class, content: ContentViewSection, num: int, x: Number = 0, y: Number = 0, container: DisplayObjectContainer = null): void {
+		public function DescriptionViewSection(ind: String, nameClass: Class, content: ContentViewSection, num: int, parent: DescriptionViewSection = null, x: Number = 0, y: Number = 0, container: DisplayObjectContainer = null): void {
 			super(ind + ((num == -1) ? "" : String(num)), nameClass, content, x, y, container);
 			this.indBase = ind;
 			this.num = num;
+			this.parent = parent;
 		}
 		
 		override protected function getDictDescriptionViewInManager(): Dictionary { //DictionaryExt

@@ -1,20 +1,20 @@
 package tl.vspm.helper {
 	import flash.display.Sprite;
-	import tl.btn.BtnHit;
-	import tl.vspm.DescriptionView;
 	import tl.vspm.DescriptionViewSection;
-	import tl.vspm.EventModel;
-	import tl.vspm.EventStateModel;
-	import tl.vspm.LoaderXMLContentView;
+	import tl.btn.BtnHit;
 	import tl.vspm.ManagerSection;
+	import tl.vspm.LoaderXMLContentView;
 	import tl.vspm.StateModel;
-	import tl.vspm.View;
+	import tl.vspm.EventStateModel;
 	import tl.btn.InjectorBtnHitVSPM;
 	import tl.btn.EventBtnHit;
-	import tl.btn.InjectorBtnHit;
 	import tl.vspm.SWFAddress;
+	import tl.btn.InjectorBtnHit;
+	import tl.vspm.EventModel;
 	
 	public class Menu extends Sprite {
+		
+		static public const CHANGED_NUM_ACTIVE_BTN: String = "changedNumActiveBtn";
 		
 		private var vecDescriptionViewSectionForBtn: Vector.<DescriptionViewSection>;
 		private var lengthBaseIndSection: uint;
@@ -26,9 +26,10 @@ package tl.vspm.helper {
 		public function Menu(baseIndSection: String, suffIndSectionForBtn: String, isOpenSectionFromFirstBtn: Boolean = true): void {
 			this.isOpenSectionFromFirstBtn = isOpenSectionFromFirstBtn;
 			this.lengthBaseIndSection = ManagerSection.getLengthIndSection(baseIndSection);
-			this.vecDescriptionViewSectionForBtn = Vector.<DescriptionViewSection>(LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[baseIndSection]).map(function(descriptionViewSection: DescriptionViewSection, i: uint, vec: Vector.<DescriptionViewSection>): Boolean {
-				return (ManagerSection.getElementIndSection(this.lengthBaseIndSection, descriptionViewSection.ind) == suffIndSectionForBtn);
-			});
+			this.vecDescriptionViewSectionForBtn = Vector.<DescriptionViewSection>(LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[baseIndSection]).filter(function(descriptionViewSection: DescriptionViewSection, i: uint, vec: Vector.<DescriptionViewSection>): Boolean {
+				return (ManagerSection.getElementIndSection(this.lengthBaseIndSection, descriptionViewSection.indBase) == suffIndSectionForBtn);
+			}, this);
+			this.createBtns();
 			if (this.isOpenSectionFromFirstBtn) {
 				StateModel.addEventListener(EventStateModel.START_CHANGE_SECTION, this.checkAndOpenSectionFromFirstBtn);
 				StateModel.addEventListener(EventStateModel.CHANGE_SECTION, this.checkAndOpenSectionFromFirstBtn);
@@ -44,8 +45,8 @@ package tl.vspm.helper {
 			var descriptionViewSection: DescriptionViewSection;
 			for (var i: uint = 0; i < this.vecDescriptionViewSectionForBtn.length; i++) {
 				descriptionViewSection = this.vecDescriptionViewSectionForBtn[i];
-				var btn: BtnHit = this.getBtn(descriptionViewSection);
-				btn.addInjector(new InjectorBtnHitVSPM(descriptionViewSection ));
+				var btn: BtnHit = new classBtn(descriptionViewSection);
+				btn.addInjector(new InjectorBtnHitVSPM(descriptionViewSection));
 				this.arrangeBtn(btn);
 				btn.addEventListener(EventBtnHit.CLICKED, this.onBtnClicked);
 				this.addChild(btn);
@@ -53,24 +54,30 @@ package tl.vspm.helper {
 			}
 		}
 		
-		protected function getBtn(descriptionViewSection: DescriptionViewSection): BtnHit {
-			return null;
-		}
-		
 		protected function initArrangeBtns(): void {
 			
+		}
+		
+		protected function get classBtn(): Class {
+			throw new Error("'protected function get classBtn(): Class' must be implemented!");
 		}
 		
 		protected function arrangeBtn(btn: BtnHit): void {
 			
 		}
 		
-		protected function onBtnClicked(e: EventBtnHit): void {
-			SWFAddress.setValueWithParameters(this.getIndSectionForBtn(BtnHit(e.target)), {});
+		private function onBtnClicked(e: EventBtnHit): void {
+			this.setModelValue(this.getIndSectionForBtn(BtnHit(e.target)));
 		}
 		
-		protected function getIndSectionForBtn(btn: BtnHit): String {
-			var injectorVSPM: InjectorBtnHitVSPM = btn.vecInjector.filter(function(injector: InjectorBtnHit, num: uint, vec: * ) {trace("vec:", vec);  return injector is InjectorBtnHitVSPM})[0];
+		protected function setModelValue(indSection: String): void {
+			SWFAddress.setValueWithCurrentParameters(indSection);
+		}
+		
+		private function getIndSectionForBtn(btn: BtnHit): String {
+			var injectorVSPM: InjectorBtnHitVSPM = btn.vecInjector.filter(function(injector: InjectorBtnHit, num: uint, vecInjector: Vector.<InjectorBtnHit>): Boolean {
+				return injector is InjectorBtnHitVSPM;
+			})[0];
 			return injectorVSPM.descriptionView.ind;
 		}
 		
@@ -83,7 +90,6 @@ package tl.vspm.helper {
 				btn = null;
 			}
 			this.vecBtn = new <BtnHit>[];
-			this.sumWidth = 0;
 		}
 		
 		//open first btn
@@ -91,7 +97,7 @@ package tl.vspm.helper {
 		private function checkAndOpenSectionFromFirstBtn(e: EventStateModel = null): void {
 			var indSection: String = (e.type == EventStateModel.CHANGE_SECTION) ? ManagerSection.currIndSection : ManagerSection.newIndSection;
 			if ((ManagerSection.getElementIndSection(this.lengthBaseIndSection, indSection) == "") || (!ManagerSection.dictDescriptionViewSection[indSection]))
-				SWFAddress.setValueWithCurrentParameters(this.vecBtn[0].dispatchEvent(new EventBtnHit(EventBtnHit.CLICKED)));
+				this.setModelValue(this.getIndSectionForBtn(this.vecBtn[0]));
 		}
 		
 		//set btn active

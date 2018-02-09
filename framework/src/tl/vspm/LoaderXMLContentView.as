@@ -25,6 +25,7 @@ package tl.vspm {
 		private var prefixClass: String;
 		static public var content: Object;
 		static public var dictIndViewSectionToVecDescriptionSubViewSection: Dictionary = new Dictionary();
+		static public var dictIndViewSectionToDescriptionParentViewSection: Dictionary = new Dictionary();
 		static public var isUseAliasIndSection: Boolean = true;
 		static public var dictIndToAliasIndSection: Dictionary;
 		static public var dictAliasIndToIndSection: Dictionary;
@@ -39,11 +40,8 @@ package tl.vspm {
 			var xmlContent: XML = this.parseXMLSection(xmlNode, "", "", 0);
 			this.createObjFromXMLContent(xmlContent);
 			new DescriptionViewSection(LoaderXMLContentView.NAME_SECTION_EMPTY, ViewSectionEmpty, null, -1);
-			if ((xmlNode.@isSection == 1) || (xmlNode.@isSectionAndContent == 1)) {
-				var objClasses: Object = this.getObjClassContentAndViewSection(xmlNode.name());
-				if (objClasses.classViewSection)
-					new DescriptionViewSection("", objClasses.classViewSection, new objClasses.classContentViewSection(xmlContent), -1);
-			}
+			this.parseXMLSectionRoot(xmlNode, xmlContent);
+			LoaderXMLContentView.setDictIndViewSectionToDescriptionParentViewSection();
 		}
 		
 		private function initDictIndAliasViewSection(): void {
@@ -107,14 +105,12 @@ package tl.vspm {
 			return xmlSection;
 		}
 		
-		static private function addToArrDescriptionSubViewSection(indSection: String, descriptionViewSection: DescriptionViewSection): void {
-			var vecDescriptionSubViewSection: Vector.<DescriptionViewSection> = LoaderXMLContentView.getVecDescriptionSubViewSectionForIndSection(indSection);
-			var i: uint = 0;
-			while ((i < vecDescriptionSubViewSection.length) && (DescriptionViewSection(vecDescriptionSubViewSection[i]).ind != descriptionViewSection.ind))
-				i++;
-			if (i < vecDescriptionSubViewSection.length) DescriptionViewSection(vecDescriptionSubViewSection[i]).addAdditionalContent(descriptionViewSection);
-			else vecDescriptionSubViewSection.push(descriptionViewSection);
-			LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[indSection] = vecDescriptionSubViewSection;
+		private function parseXMLSectionRoot(xmlNode: XML, xmlContent: XML): void {
+			if ((xmlNode.@isSection == 1) || (xmlNode.@isSectionAndContent == 1)) {
+				var objClasses: Object = this.getObjClassContentAndViewSection(xmlNode.name());
+				if (objClasses.classViewSection)
+					new DescriptionViewSection("", objClasses.classViewSection, new objClasses.classContentViewSection(xmlContent), -1);
+			}
 		}
 		
 		private function getObjClassContentAndViewSection(suffIndSection: String): Object {
@@ -134,8 +130,24 @@ package tl.vspm {
 			return suffIndSectionAlias;
 		}
 		
-		static public function getVecDescriptionSubViewSectionForIndSection(indSection: String): Vector.<DescriptionViewSection> {
-			return LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[indSection] || new Vector.<DescriptionViewSection>();
+		static private function addToArrDescriptionSubViewSection(indSection: String, descriptionViewSection: DescriptionViewSection): void {
+			var vecDescriptionSubViewSection: Vector.<DescriptionViewSection> = LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[indSection] || new Vector.<DescriptionViewSection>();
+			var i: uint = 0;
+			while ((i < vecDescriptionSubViewSection.length) && (DescriptionViewSection(vecDescriptionSubViewSection[i]).ind != descriptionViewSection.ind))
+				i++;
+			if (i < vecDescriptionSubViewSection.length) DescriptionViewSection(vecDescriptionSubViewSection[i]).addAdditionalContent(descriptionViewSection);
+			else vecDescriptionSubViewSection.push(descriptionViewSection);
+			LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[indSection] = vecDescriptionSubViewSection;
+		}
+		
+		static private function setDictIndViewSectionToDescriptionParentViewSection(): void {
+			LoaderXMLContentView.dictIndViewSectionToDescriptionParentViewSection = new Dictionary();
+			for (var indSection: String in LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection) {
+				var vecDescriptionSubViewSection: Vector.<DescriptionViewSection> = LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[indSection];
+				for (var i: uint = 0; i < vecDescriptionSubViewSection.length; i++) {
+					LoaderXMLContentView.dictIndViewSectionToDescriptionParentViewSection[vecDescriptionSubViewSection[i].ind] = ManagerSection.dictDescriptionViewSection[indSection];
+				}
+			}
 		}
 		
 		//popup

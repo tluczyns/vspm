@@ -8,6 +8,7 @@ package tl.vspm.helper {
 	import tl.vspm.EventStateModel;
 	import tl.btn.InjectorBtnHitVSPM;
 	import tl.btn.EventBtnHit;
+	import flash.display.DisplayObjectContainer;
 	import tl.vspm.SWFAddress;
 	import tl.btn.InjectorBtnHit;
 	import tl.vspm.EventModel;
@@ -40,6 +41,7 @@ package tl.vspm.helper {
 		}
 		
 		private function createBtns(): void {
+			this.createContainerBtn();
 			this.vecBtn = new Vector.<BtnHit>(this.vecDescriptionViewSectionForBtn.length);
 			this.initArrangeBtns();
 			var descriptionViewSection: DescriptionViewSection;
@@ -47,24 +49,29 @@ package tl.vspm.helper {
 				descriptionViewSection = this.vecDescriptionViewSectionForBtn[i];
 				var btn: BtnHit = new classBtn(descriptionViewSection);
 				btn.addInjector(new InjectorBtnHitVSPM(descriptionViewSection));
-				this.arrangeBtn(btn);
+				this.arrangeBtn(btn, i);
 				btn.addEventListener(EventBtnHit.CLICKED, this.onBtnClicked);
-				this.addChild(btn);
+				this.containerBtns.addChild(btn);
 				this.vecBtn[i] = btn;
 			}
+			this.endArrangeBtns();
 		}
 		
-		protected function initArrangeBtns(): void {
-			
+		protected function createContainerBtn(): void {}
+		
+		protected function initArrangeBtns(): void {}
+		
+		protected function get containerBtns(): DisplayObjectContainer {
+			return this;
 		}
 		
 		protected function get classBtn(): Class {
 			throw new Error("'protected function get classBtn(): Class' must be implemented!");
 		}
 		
-		protected function arrangeBtn(btn: BtnHit): void {
-			
-		}
+		protected function arrangeBtn(btn: BtnHit, i: uint): void {}
+		
+		protected function endArrangeBtns(): void {}
 		
 		private function onBtnClicked(e: EventBtnHit): void {
 			this.setModelValue(this.getIndSectionForBtn(BtnHit(e.target)));
@@ -84,13 +91,16 @@ package tl.vspm.helper {
 		private function deleteBtns(): void {
 			for (var i: uint = 0; i < this.vecBtn.length; i++) {
 				var btn: BtnHit = this.vecBtn[i];
-				this.removeChild(btn);
+				this.containerBtns.removeChild(btn);
 				btn.removeEventListener(EventBtnHit.CLICKED, this.onBtnClicked);
 				btn.destroy();
 				btn = null;
 			}
 			this.vecBtn = new <BtnHit>[];
+			this.deleteContainerBtns();
 		}
+		
+		protected function deleteContainerBtns(): void {}
 		
 		//open first btn
 		

@@ -73,7 +73,7 @@ package tl.vspm.helper {
 		
 		protected function endArrangeBtns(): void {}
 		
-		private function onBtnClicked(e: EventBtnHit): void {
+		protected function onBtnClicked(e: EventBtnHit): void {
 			this.setModelValue(this.getIndSectionForBtn(BtnHit(e.target)));
 		}
 		
@@ -81,7 +81,7 @@ package tl.vspm.helper {
 			SWFAddress.setValueWithCurrentParameters(indSection);
 		}
 		
-		private function getIndSectionForBtn(btn: BtnHit): String {
+		public function getIndSectionForBtn(btn: BtnHit): String {
 			var injectorVSPM: InjectorBtnHitVSPM = btn.vecInjector.filter(function(injector: InjectorBtnHit, num: uint, vecInjector: Vector.<InjectorBtnHit>): Boolean {
 				return injector is InjectorBtnHitVSPM;
 			})[0];

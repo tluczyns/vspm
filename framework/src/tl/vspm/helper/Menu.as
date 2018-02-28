@@ -24,12 +24,16 @@ package tl.vspm.helper {
 		
 		public var vecBtn: Vector.<BtnHit>;
 		
-		public function Menu(baseIndSection: String, suffIndSectionForBtn: String, isOpenSectionFromFirstBtn: Boolean = true): void {
+		public function Menu(baseIndSection: String, suffIndSectionForBtn: String = "all", suffIndSectionToExclude: String = "", isOpenSectionFromFirstBtn: Boolean = true): void {
 			this.isOpenSectionFromFirstBtn = isOpenSectionFromFirstBtn;
 			this.lengthBaseIndSection = ManagerSection.getLengthIndSection(baseIndSection);
-			this.vecDescriptionViewSectionForBtn = Vector.<DescriptionViewSection>(LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[baseIndSection]).filter(function(descriptionViewSection: DescriptionViewSection, i: uint, vec: Vector.<DescriptionViewSection>): Boolean {
-				return (ManagerSection.getElementIndSection(this.lengthBaseIndSection, descriptionViewSection.indBase) == suffIndSectionForBtn);
-			}, this);
+			this.vecDescriptionViewSectionForBtn = Vector.<DescriptionViewSection>(LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[baseIndSection]);
+			if ((suffIndSectionForBtn != "all") || (suffIndSectionToExclude != "")) {
+				this.vecDescriptionViewSectionForBtn = this.vecDescriptionViewSectionForBtn.filter(function(descriptionViewSection: DescriptionViewSection, i: uint, vec: Vector.<DescriptionViewSection>): Boolean {
+					return (((suffIndSectionForBtn == "all") || (ManagerSection.getElementIndSection(this.lengthBaseIndSection, descriptionViewSection.indBase) == suffIndSectionForBtn))
+						 && ((suffIndSectionToExclude == "") || (ManagerSection.getElementIndSection(this.lengthBaseIndSection, descriptionViewSection.indBase) != suffIndSectionToExclude)));
+				}, this);
+			}
 			this.createBtns();
 			if (this.isOpenSectionFromFirstBtn) {
 				StateModel.addEventListener(EventStateModel.START_CHANGE_SECTION, this.checkAndOpenSectionFromFirstBtn);
@@ -47,6 +51,7 @@ package tl.vspm.helper {
 			var descriptionViewSection: DescriptionViewSection;
 			for (var i: uint = 0; i < this.vecDescriptionViewSectionForBtn.length; i++) {
 				descriptionViewSection = this.vecDescriptionViewSectionForBtn[i];
+				var classBtn: Class = this.getClassBtn(descriptionViewSection);
 				var btn: BtnHit = new classBtn(descriptionViewSection);
 				btn.addInjector(new InjectorBtnHitVSPM(descriptionViewSection));
 				this.arrangeBtn(btn, i);
@@ -65,8 +70,8 @@ package tl.vspm.helper {
 			return this;
 		}
 		
-		protected function get classBtn(): Class {
-			throw new Error("'protected function get classBtn(): Class' must be implemented!");
+		protected function getClassBtn(descriptionViewSection: DescriptionViewSection): Class {
+			throw new Error("'protected function getClassBtn(descriptionViewSection: DescriptionViewSection): Class' must be implemented!");
 		}
 		
 		protected function arrangeBtn(btn: BtnHit, i: uint): void {}

@@ -87,9 +87,9 @@ package tl.vspm.helper {
 		}
 		
 		public function getIndSectionForBtn(btn: BtnHit): String {
-			var injectorVSPM: InjectorBtnHitVSPM = btn.vecInjector.filter(function(injector: InjectorBtnHit, num: uint, vecInjector: Vector.<InjectorBtnHit>): Boolean {
+			var injectorVSPM: InjectorBtnHitVSPM = InjectorBtnHitVSPM(btn.vecInjector.filter(function(injector: InjectorBtnHit, num: uint, vecInjector: Vector.<InjectorBtnHit>): Boolean {
 				return injector is InjectorBtnHitVSPM;
-			})[0];
+			})[0]);
 			return injectorVSPM.descriptionView.ind;
 		}
 		

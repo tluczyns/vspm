@@ -25,7 +25,7 @@ package tl.vspm {
 		public var description: DescriptionView;
 		
 		protected var isHideShow: uint;
-		protected var tMaxHideShow: TimelineMax;
+		public var tMaxHideShow: TimelineMax;
 		
 		public function View(description: DescriptionView): void {
 			this.description = description;
@@ -59,7 +59,10 @@ package tl.vspm {
 		protected function hideShow(isHideShow: uint): void {
 			//Tweener.addTween(this, {alpha: isHideShow, time: 0.3, transition: "linear", onComplete: [this.hideComplete, this.startAfterShow][isHideShow]});
 			if (this.tMaxHideShow) this.hideShowTimelineMax(isHideShow);
-			else TweenMax.to(this, 0.3, {alpha: isHideShow, ease: Linear.easeNone, onComplete: [this.hideComplete, this.startAfterShow][isHideShow]});
+			else {
+				TweenMax.killTweensOf(this);
+				TweenMax.to(this, 0.3, {alpha: isHideShow, ease: Linear.easeNone, onComplete: [this.hideComplete, this.startAfterShow][isHideShow]});
+			}
 		}
 		
 		public function show(): void {

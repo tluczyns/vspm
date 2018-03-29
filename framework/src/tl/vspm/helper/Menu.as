@@ -17,7 +17,7 @@ package tl.vspm.helper {
 		
 		static public const CHANGED_NUM_ACTIVE_BTN: String = "changedNumActiveBtn";
 		
-		private var vecDescriptionViewSectionForBtn: Vector.<DescriptionViewSection>;
+		protected var vecDescriptionViewSectionForBtn: Vector.<DescriptionViewSection>;
 		private var lengthBaseIndSection: uint;
 		private var isOpenSectionFromFirstBtn: Boolean;
 		private var _numActiveBtn: int = -1;
@@ -135,6 +135,13 @@ package tl.vspm.helper {
 				this._numActiveBtn = value;
 				this.dispatchEvent(new EventModel(Menu.CHANGED_NUM_ACTIVE_BTN, value));
 			}
+		}
+		
+		//
+		
+		public function set isEnabled(value: Boolean): void {
+			for each (var btn: BtnHit in this.vecBtn)
+				btn.isEnabled = value;
 		}
 		
 		//

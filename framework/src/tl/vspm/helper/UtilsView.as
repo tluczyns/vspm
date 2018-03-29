@@ -1,5 +1,5 @@
 package tl.vspm.helper {
-	import mx.core.Singleton;
+	import tl.types.Singleton;
 	import tl.vspm.DescriptionViewSection;
 	import tl.vspm.ManagerSection;
 	import tl.vspm.LoaderXMLContentView;

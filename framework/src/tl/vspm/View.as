@@ -86,7 +86,10 @@ package tl.vspm {
 		
 		protected function hideComplete(): void {
 			//override it to remove elements
-			if (this.tMaxHideShow) this.tMaxHideShow.stop();
+			if (this.tMaxHideShow) {
+				this.tMaxHideShow.kill();
+				this.tMaxHideShow = null;
+			}
 		}
 		
 	}

@@ -56,6 +56,7 @@ package tl.vspm {
 			var indSection: String;
 			if ((LoaderXMLContentView.dictAliasIndToIndSection) && (LoaderXMLContentView.dictAliasIndToIndSection[indSectionAlias])) indSection = LoaderXMLContentView.dictAliasIndToIndSection[indSectionAlias];
 			else indSection = indSectionAlias;
+			
 			if ((indSection != "") && (indSection != ManagerSection.currIndSection)) {
 				var descriptionViewSection: DescriptionViewSection = ManagerSection.dictDescriptionViewSection[indSection];
 				if (descriptionViewSection) {
@@ -70,8 +71,10 @@ package tl.vspm {
 				//trace("oldParameters:", ObjectUtils.toString(oldParameters), "StateModel._parameters:", ObjectUtils.toString(StateModel._parameters), !ObjectUtils.equals(oldParameters, StateModel._parameters))
 				if (!ObjectUtils.equals(oldParameters, StateModel._parameters))
 					StateModel.dispatchEvent(EventStateModel.CHANGE_PARAMETERS, {oldParameters: oldParameters, newParameters: StateModel._parameters, oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
-				if (ManagerSection.newIndSection != indSection)
+				var newIndSection: String = ManagerSection.newIndSection ? ManagerSection.newIndSection : ManagerSection.currIndSection;
+				if (newIndSection != indSection) {
 					StateModel.dispatchEvent(EventStateModel.START_CHANGE_SECTION, {oldIndSection: ManagerSection.currIndSection, newIndSection: indSection});
+				}
 			}
 		}
 		

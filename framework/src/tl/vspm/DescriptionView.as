@@ -53,7 +53,7 @@ package tl.vspm {
 			throw new Error("getDefaultContainerView must be implemented");
 		}
 		
-		private function getContainerView(): DisplayObjectContainer {
+		public function getContainerView(): DisplayObjectContainer {
 			return (this.containerView != null) ? this.containerView : this.getDefaultContainerView();
 		}
 		

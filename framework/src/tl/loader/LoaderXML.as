@@ -4,10 +4,10 @@
 	import com.hurlant.crypto.symmetric.ICipher;
 	import com.hurlant.crypto.Crypto;
 	import com.hurlant.util.Hex;
-	//import flash.filesystem.File; //
-	//import tl.types.StringUtils; //
-	//import flash.filesystem.FileMode; //
-	//import flash.filesystem.FileStream; //
+	/*import flash.filesystem.File;
+	import tl.types.StringUtils;
+	import flash.filesystem.FileMode;
+	import flash.filesystem.FileStream;*/
 	import flash.utils.ByteArray;
 
 	public class LoaderXML extends EventDispatcher {
@@ -29,15 +29,15 @@
 							var aes: ICipher = Crypto.getCipher("simple-aes-ecb", Hex.toArray(Hex.fromString(this.strKeyEncryption)), Crypto.getPad("pkcs5"));
 							
 							//uncomment when encrypt normal file, comment in encrypted mode
-							/*
-							aes.encrypt(strOrBANode);
+							
+							/*aes.encrypt(strOrBANode);
 							var pathXMLAbsolute: String = File.applicationDirectory.nativePath + "\\" + StringUtils.replace(this.pathXML + "_aes", "/", "\\");
 							var fileXML: File = new File(pathXMLAbsolute);
 							var fileStreamXML: FileStream = new FileStream();
 							fileStreamXML.open(fileXML, FileMode.WRITE);
 							fileStreamXML.writeBytes(strOrBANode);
-							fileStreamXML.close();
-							*/
+							fileStreamXML.close();*/
+							
 							//end comment
 							
 							aes.decrypt(strOrBANode);

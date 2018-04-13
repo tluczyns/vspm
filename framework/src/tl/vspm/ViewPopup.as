@@ -11,8 +11,8 @@ package tl.vspm {
 	
 	public class ViewPopup extends View {
 		
-		public function ViewPopup(content: ContentViewPopup): void {
-			super(content);
+		public function ViewPopup(description: DescriptionView): void {
+			super(description);
 		}
 		
 		override protected function hideComplete(): void {

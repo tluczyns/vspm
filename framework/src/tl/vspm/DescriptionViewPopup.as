@@ -50,10 +50,6 @@ package tl.vspm {
 			}
 		}
 		
-		override protected function createViewInstance(): View { //ViewPopup
-			return new this.nameClass(this.content);
-		}
-		
 		override protected function getDefaultContainerView(): DisplayObjectContainer {
 			return ManagerPopup.dspObjContainerPopup;
 		}

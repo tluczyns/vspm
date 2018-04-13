@@ -11,8 +11,8 @@ package tl.vspm {
 	
 	public class ViewSectionEmpty extends ViewSection {
 		
-		public function ViewSectionEmpty(content: ContentViewSection, num: int): void {
-			super(content, num);
+		public function ViewSectionEmpty(description: DescriptionViewSection): void {
+			super(description);
 		}
 		
 		override public function init(): void {

@@ -16,16 +16,16 @@ package tl.vspm {
 	public class DescriptionView extends Object {
 		
 		public var ind: String;
-		public var nameClass: Class;
+		public var classView: Class;
 		public var content: ContentView;
 		public var x: Number;
 		public var y: Number;
 		public var containerView: DisplayObjectContainer;
 		public var view: View;
 		
-		public function DescriptionView(ind: String, nameClass: Class, content: ContentView, x: Number = 0, y: Number = 0, containerView: DisplayObjectContainer = null): void {
+		public function DescriptionView(ind: String, classView: Class, content: ContentView, x: Number = 0, y: Number = 0, containerView: DisplayObjectContainer = null): void {
 			this.ind = ind;
-			this.nameClass = nameClass;
+			this.classView = classView;
 			this.content = content;
 			this.x = x;
 			this.y = y;
@@ -45,27 +45,22 @@ package tl.vspm {
 		}
 		
 		internal function addAdditionalContent(descriptionView: DescriptionView): void {
-			if (!this.nameClass) this.nameClass = descriptionView.nameClass;
-			this.content = ContentView(ObjectUtils.populateObj(descriptionView.content, this.content));
-		}
-		
-		protected function createViewInstance(): View {
-			throw new Error("createViewInstance must be implemented");
+			if (!this.classView) this.classView = descriptionView.classView;
+			this.content = ContentView(ObjectUtils.populateObj(this.content, descriptionView.content));
 		}
 		
 		protected function getDefaultContainerView(): DisplayObjectContainer {
 			throw new Error("getDefaultContainerView must be implemented");
 		}
 		
-		private function getContainerView(): DisplayObjectContainer {
+		public function getContainerView(): DisplayObjectContainer {
 			return (this.containerView != null) ? this.containerView : this.getDefaultContainerView();
 		}
 		
 		public function createView(): void {
 			var containerView: DisplayObjectContainer = this.getContainerView();
-			if ((this.view == null) && (this.nameClass)) {
-				this.view = this.createViewInstance();
-				this.view.description = this;
+			if ((this.view == null) && (this.classView)) {
+				this.view = new this.classView(this);
 				this.view.x = this.x;
 				this.view.y = this.y;
 				containerView.addChild(this.view);

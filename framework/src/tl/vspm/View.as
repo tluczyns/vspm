@@ -22,14 +22,17 @@ package tl.vspm {
 
 	public class View extends Sprite implements IViewSection {
 		
-		public var content: ContentView;
 		public var description: DescriptionView;
 		
 		protected var isHideShow: uint;
-		protected var tMaxHideShow: TimelineMax;
+		public var tMaxHideShow: TimelineMax;
 		
-		public function View(content: ContentView): void {
-			this.content = content;
+		public function View(description: DescriptionView): void {
+			this.description = description;
+		}
+		
+		public function get content(): ContentView {
+			return this.description.content;
 		}
 		
 		public function init(): void {
@@ -56,7 +59,10 @@ package tl.vspm {
 		protected function hideShow(isHideShow: uint): void {
 			//Tweener.addTween(this, {alpha: isHideShow, time: 0.3, transition: "linear", onComplete: [this.hideComplete, this.startAfterShow][isHideShow]});
 			if (this.tMaxHideShow) this.hideShowTimelineMax(isHideShow);
-			else TweenMax.to(this, 0.3, {alpha: isHideShow, ease: Linear.easeNone, onComplete: [this.hideComplete, this.startAfterShow][isHideShow]});
+			else {
+				TweenMax.killTweensOf(this);
+				TweenMax.to(this, 0.3, {alpha: isHideShow, ease: Linear.easeNone, onComplete: [this.hideComplete, this.startAfterShow][isHideShow]});
+			}
 		}
 		
 		public function show(): void {
@@ -79,8 +85,15 @@ package tl.vspm {
 		}
 		
 		protected function hideComplete(): void {
+			this.destroy();
+		}
+		
+		protected function destroy(): void {
 			//override it to remove elements
-			if (this.tMaxHideShow) this.tMaxHideShow.stop();
+			if (this.tMaxHideShow) {
+				this.tMaxHideShow.kill();
+				this.tMaxHideShow = null;
+			}
 		}
 		
 	}

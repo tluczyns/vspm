@@ -12,8 +12,8 @@ package tl.vspm {
 	
 	public class ViewPopupWithResize extends ViewPopup {
 		
-		public function ViewPopupWithResize(content: ContentViewPopup): void {
-			super(content);
+		public function ViewPopupWithResize(description: DescriptionViewPopup): void {
+			super(description);
 		}
 		
 		override public function init(): void {

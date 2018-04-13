@@ -15,21 +15,19 @@ package tl.vspm {
 	public class DescriptionViewSection extends DescriptionView {
 		
 		public var indBase: String;
-		public var num: int;
+		public var num: uint;
+		public var parent: DescriptionViewSection;
 		public var isEngaged: Boolean = false;
 		
-		public function DescriptionViewSection(ind: String, nameClass: Class, content: ContentViewSection, num: int, x: Number = 0, y: Number = 0, container: DisplayObjectContainer = null): void {
+		public function DescriptionViewSection(ind: String, nameClass: Class, content: ContentViewSection, num: int, parent: DescriptionViewSection = null, x: Number = 0, y: Number = 0, container: DisplayObjectContainer = null): void {
 			super(ind + ((num == -1) ? "" : String(num)), nameClass, content, x, y, container);
 			this.indBase = ind;
-			this.num = num;
+			this.num = (num == -1) ? 0 : num;
+			this.parent = parent;
 		}
 		
 		override protected function getDictDescriptionViewInManager(): Dictionary { //DictionaryExt
 			return ManagerSection.dictDescriptionViewSection;
-		}
-		
-		override protected function createViewInstance(): View { //ViewSection
-			return new this.nameClass(this.content, this.num);
 		}
 		
 		override protected function getDefaultContainerView(): DisplayObjectContainer {

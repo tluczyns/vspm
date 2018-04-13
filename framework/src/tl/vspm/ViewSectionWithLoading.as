@@ -14,8 +14,8 @@ package tl.vspm {
 		private var _isNoneLoadingHidepreloaderLoaded: uint = 0;
 		private var isHideShowAfterHidePreloader: uint;
 		
-		public function ViewSectionWithLoading(content: ContentViewSection, num: int = 0): void {
-			super(content, num);
+		public function ViewSectionWithLoading(description: DescriptionViewSection): void {
+			super(description);
 		}
 		
 		override public function show(): void {

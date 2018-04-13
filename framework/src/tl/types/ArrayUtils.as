@@ -98,7 +98,12 @@ package tl.types {
 				while ((i < arr.length) && (arr[i] == arrToCompare[i])) i++;
 				return Boolean(i == arr.length);
 			} else return false
-			
+		}
+		
+		static public function convertToArray(iterable: *): Array {
+			var arr: Array = [];
+			for each (var elem: * in iterable) arr.push(elem);
+			return arr;
 		}
 		
 	}

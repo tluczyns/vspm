@@ -15,7 +15,7 @@ package tl.sound {
 				if (soName != "") so = new SharedObjectInstance(soName);
 				super("", so, stepChangeLevelVolume, 1);
 				var nameModelSoundControl: String;
-				var maxLevelVolumeModelSoundControl: Number = 0;
+				var maxLevelVolumeModelSoundControl: Number = [1, 0][uint(vecNameModelSoundControl.length > 0)];
 				for (var i: uint = 0; i < vecNameModelSoundControl.length; i++) {
 					nameModelSoundControl = vecNameModelSoundControl[i];
 					this.dictModelSoundControl[nameModelSoundControl] = new ModelSoundControl(nameModelSoundControl, so, stepChangeLevelVolume, this.levelVolume);
@@ -76,6 +76,7 @@ package tl.sound {
 		
 		static public function getModel(name: String = ""): ModelSoundControl {
 			var model: ModelSoundControl;
+			if (!ModelSoundControlGlobal._instance) new ModelSoundControlGlobal(new Vector.<String>());
 			if (name == "") model = ModelSoundControlGlobal._instance;
 			else if (ModelSoundControlGlobal._instance) model = ModelSoundControlGlobal._instance.dictModelSoundControl[name];
 			return model;

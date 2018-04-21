@@ -42,11 +42,11 @@ package tl.vspm {
 		
 		protected function hideShowTimelineMax(isHideShow: uint): void {
 			if (isHideShow == 0) {
-				if (this.tMaxHideShow.totalProgress() > 0) this.tMaxHideShow.reverse();
-				else this.hideComplete();
+				this.tMaxHideShow.reverse();
+				if (this.tMaxHideShow.totalProgress() == 0) this.hideComplete();
 			} else if (isHideShow == 1) {
-				if (this.tMaxHideShow.totalProgress() < 1) this.tMaxHideShow.play();
-				else this.startAfterShow();
+				this.tMaxHideShow.play();
+				if (this.tMaxHideShow.totalProgress() == 1) this.startAfterShow();
 			}
 		}
 		

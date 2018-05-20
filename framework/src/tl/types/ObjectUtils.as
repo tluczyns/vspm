@@ -6,7 +6,7 @@ package tl.types {
 		static public function cloneObj(objSrc: Object): Object {
 			var objClone: Object = {};
 			for (var prop: String in objSrc) {
-				if ((typeof(objSrc[prop]) == "object") && (!objSrc[prop] is Class)) objClone[prop] = ObjectUtils.cloneObj(objSrc[prop]);
+				if ((typeof(objSrc[prop]) == "object") && (!(objSrc[prop] is Class))) objClone[prop] = ObjectUtils.cloneObj(objSrc[prop]);
 				else objClone[prop] = objSrc[prop];
 			}
 			return objClone;
@@ -15,7 +15,7 @@ package tl.types {
 		static public function populateObj(objBase: Object, objPopulate: Object): Object {
 			objBase = objBase || {};
 			for (var prop: String in objPopulate) {
-				if ((typeof(objPopulate[prop]) == "object") && (!objPopulate[prop] is Class)) {
+				if ((typeof(objPopulate[prop]) == "object") && (!(objPopulate[prop] is Class))) {
 					if (objPopulate[prop] is Array) {
 						if (!objBase[prop]) objBase[prop] = [];
 						else if (!(objBase[prop] is Array)) objBase[prop] = [objBase[prop]];

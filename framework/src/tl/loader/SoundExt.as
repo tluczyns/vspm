@@ -7,8 +7,10 @@
 	import flash.events.ProgressEvent;
 	import flash.events.IOErrorEvent;
 	import flash.net.URLRequest;
-	import tl.sound.EventSoundControl;
 	import flash.media.SoundTransform;
+	import tl.sound.EventSoundControl;
+	import flash.utils.clearTimeout;
+	import flash.utils.setTimeout;
 	import caurina.transitions.Tweener;
 	import flash.errors.IOError;
 	
@@ -23,6 +25,7 @@
 		private var onLoadError: Function;
 		private var isPlayFirstTime: Boolean;
 		private var onSoundComplete: Function;
+		private var timeoutSoundComplete: uint;
 		public var positionPause: int = 0;
 		
 		public function SoundExt(objSoundExt: Object = null) {
@@ -79,10 +82,16 @@
 				this.modelSoundControl.addEventListener(EventSoundControl.LEVEL_VOLUME_CHANGED, this.setVolumeGlobal);
 				this.setVolumeGlobal();
 			}
+			clearTimeout(this.timeoutSoundComplete);
 			this.onSoundComplete = onSoundComplete || this.onSoundCompleteDefault;
 			this.stop();
 			this.channel = this.play(startTime, loops, sndTransform);
 			if (this.channel) this.channel.addEventListener(Event.SOUND_COMPLETE, this.onSoundComplete);
+			else if (this.onSoundComplete != this.onSoundCompleteDefault) {
+				clearTimeout(this.timeoutSoundComplete);
+				this.timeoutSoundComplete = setTimeout(this.onSoundComplete, 4000, null);
+				
+			}
 			this.setVolumeSelf();
 			return this.channel;
 		}
@@ -93,6 +102,8 @@
 				this.channel.removeEventListener(Event.SOUND_COMPLETE, this.onSoundComplete);
 				this.channel.stop();
 				this.channel = null;
+			} else {
+				clearTimeout(this.timeoutSoundComplete);
 			}
 		}
 		
@@ -156,6 +167,7 @@
 			catch (error:IOError) {}
 			this.modelSoundControl.removeEventListener(EventSoundControl.LEVEL_VOLUME_CHANGED, this.setVolumeGlobal);
 			this.stop();
+			clearTimeout(this.timeoutSoundComplete);
 			Tweener.removeTweens(this);
 		}
 		

@@ -68,6 +68,7 @@ package tl.sound {
 		private function onTweenLevelVolumeChanged(e: EventModel): void {
 			//if (this.origLevelVolume != this.tweenLevelVolume) this.origLevelVolume = Math.max(0.5, this.levelVolume);
 			var numFramesChangeLevelVolume: Number = Math.round(Math.abs(this.levelVolume - this.tweenLevelVolume) / this.stepChangeLevelVolume);
+			Tweener.removeTweens(this, "levelVolume");
 			Tweener.addTween(this, {levelVolume: this.tweenLevelVolume, time: numFramesChangeLevelVolume, useFrames: true, transition: "linear"});
 			if (this.so) this.so.setPropValue("levelVolume" + this.name, String(this.tweenLevelVolume));
 		}

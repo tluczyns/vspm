@@ -37,6 +37,10 @@ package tl.types {
 			return this._arrNameProp[index - 1];
 		}
 		
+		override flash_proxy function nextValue (index:int) : * {
+			return this[this._arrNameProp[index - 1]];
+		}
+		
 		public function get length(): uint {
 			return this._arrNameProp.length;
 		}

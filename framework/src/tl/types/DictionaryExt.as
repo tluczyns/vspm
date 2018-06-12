@@ -5,12 +5,14 @@ package tl.types {
 	
 	public dynamic class DictionaryExt extends Proxy {
 		
+		private var funcSort: Function;
 		public var dictionary: Dictionary;
 		protected var _arrNameProp: Array;
 		
-		public function DictionaryExt(): void {
+		public function DictionaryExt(funcSort: Function = null): void {
 			this.dictionary = new Dictionary();
 			this._arrNameProp = new Array();
+			this.funcSort = funcSort;
 		}
 		
 		override flash_proxy function getProperty(name: *): * {
@@ -20,12 +22,13 @@ package tl.types {
 		override flash_proxy function setProperty(name: *, value: *): void {
 			if ((value) && (!this.dictionary[name])) this._arrNameProp.push(name);
 			else if ((!value) && (this.dictionary[name])) this._arrNameProp.splice(this._arrNameProp.indexOf(name), 1);
+			if (this.funcSort != null) this._arrNameProp.sort(this.funcSort)
 			this.dictionary[name] = value;
 		}
 		
 		override flash_proxy function callProperty(name:*, ...rest): * {
 			return name.toString();
-		}   
+		}
 		
 		//klasa DictionaryExt (w przeciwieństwie do klasy Dictionary) w pętli for..in wyświetla elementy w kolejności takiej jakiej zostały dodane do słownika (a w klasie Dictionary jest losowa kolejność)
 		override flash_proxy function nextNameIndex(index: int) : int {

@@ -12,8 +12,8 @@ package tl.vspm {
 	
 	public class ViewSectionWithResize extends ViewSection {
 		
-		public function ViewSectionWithResize(content: ContentViewSection, num: int = 0): void {
-			super(content, num);
+		public function ViewSectionWithResize(description: DescriptionViewSection): void {
+			super(description);
 		}
 		
 		override public function init(): void {

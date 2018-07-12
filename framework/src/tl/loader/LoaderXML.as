@@ -18,7 +18,7 @@
 		
 		function LoaderXML(): void {}
 		
-		public function loadXML(pathXML: String, strKeyEncryption: String = ""): void {
+		public function loadXML(pathXML: String, strKeyEncryption: String = "", isReturnXMLOrString: uint = 0): void {
 			this.pathXML = pathXML;
 			if (!this.urlLoaderExt) {
 				this.strKeyEncryption = strKeyEncryption;
@@ -44,10 +44,13 @@
 							strOrBANode.position = 0;
 							strOrBANode = ByteArray(strOrBANode).readMultiByte(ByteArray(strOrBANode).length, "utf-8");
 						}
-						
-						var xmlNode: XML = new XML(strOrBANode)
-						this.parseXML(xmlNode);
-						this.dispatchEvent(new EventLoaderXML(EventLoaderXML.XML_LOADED, xmlNode));
+						var result: Object;
+						if (!isReturnXMLOrString) {
+							var xmlNode: XML = new XML(strOrBANode);
+							this.parseXML(xmlNode);
+							result = xmlNode;
+						} else result = strOrBANode;
+						this.dispatchEvent(new EventLoaderXML(EventLoaderXML.XML_LOADED, result));
 					} else this.dispatchEvent(new EventLoaderXML(EventLoaderXML.XML_NOT_LOADED));
 					this.removeLoaderXML();
 				}, this);

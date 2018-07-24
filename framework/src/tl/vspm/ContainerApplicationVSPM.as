@@ -33,7 +33,7 @@ package tl.vspm {
 			return Sprite;
 		}
 		
-		protected function removeBg(): void {
+		protected function deleteBg(): void {
 			this.removeChild(this.bg);
 			this.bg = null;
 		}
@@ -51,7 +51,7 @@ package tl.vspm {
 			return Sprite;
 		}
 		
-		protected function removeContainerViewSection(): void {
+		protected function deleteContainerViewSection(): void {
 			this.removeChild(this.containerViewSection);
 			this.containerViewSection = null;
 		}
@@ -65,7 +65,7 @@ package tl.vspm {
 			return Sprite;
 		}
 		
-		protected function removeContainerViewPopup(): void {
+		protected function deleteContainerViewPopup(): void {
 			this.removeChild(this.containerViewPopup);
 			this.containerViewPopup = null;
 		}
@@ -75,16 +75,16 @@ package tl.vspm {
 			this.addChild(this.fg);
 		}
 		
-		protected function removeFg(): void {
+		protected function deleteFg(): void {
 			this.removeChild(this.fg);
 			this.fg = null;
 		}
 		
 		public function destroy(): void {
-			this.removeFg();
-			this.removeContainerViewPopup();
-			this.removeContainerViewSection();
-			this.removeBg();
+			this.deleteFg();
+			this.deleteContainerViewPopup();
+			this.deleteContainerViewSection();
+			this.deleteBg();
 		}
 		
 	}

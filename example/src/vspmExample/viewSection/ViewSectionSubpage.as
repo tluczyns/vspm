@@ -1,10 +1,10 @@
 package vspmExample.viewSection {
-	import tl.vspm.ContentViewSection;
+	import tl.vspm.DescriptionViewSection;
 	
 	public class ViewSectionSubpage extends ViewSectionTile {
 		
-		public function ViewSectionSubpage(content: ContentViewSection, num: uint): void {
-			super(content, num);
+		public function ViewSectionSubpage(description: DescriptionViewSection): void {
+			super(description);
 		}
 		
 	}

@@ -37,7 +37,7 @@ package tl.vspm {
 		
 		public function init(): void {
 			//override it: add elements
-			//if (!this.tMaxHideShow) this.alpha = 0;
+			if (!this.tMaxHideShow) this.alpha = 0;
 		}
 		
 		protected function hideShowTimelineMax(isHideShow: uint): void {

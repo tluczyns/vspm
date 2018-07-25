@@ -1,5 +1,6 @@
 package vspmExample.viewSection {
 	import tl.vspm.ViewSection;
+	import tl.vspm.DescriptionViewSection;
 	import tl.vspm.ContentViewSection;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
@@ -11,8 +12,8 @@ package vspmExample.viewSection {
 		
 		private var tileColorAndLabel: TileColorAndLabel;
 		
-		public function ViewSectionTile(content: ContentViewSection, num: uint): void {
-			super(content, num);
+		public function ViewSectionTile(description: DescriptionViewSection): void {
+			super(description);
 		}
 			
 		override public function init(): void {

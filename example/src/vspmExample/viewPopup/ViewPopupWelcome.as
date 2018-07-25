@@ -1,11 +1,11 @@
 package vspmExample.viewPopup {
-	import tl.vspm.ContentViewPopup;
+	import tl.vspm.DescriptionViewPopup;
 	import vspmExample.viewSection.TileColorAndLabel;
 	
 	public class ViewPopupWelcome extends ViewPopupFg {
 		
-		public function ViewPopupWelcome(content: ContentViewPopup): void {
-			super(content);
+		public function ViewPopupWelcome(description: DescriptionViewPopup): void {
+			super(description);
 		}
 		
 		override protected function createTileColorAndLabel(): void {

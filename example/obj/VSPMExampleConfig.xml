@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'2017-03-17'</value>
+      <value>'25.07.2018'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -32,19 +32,19 @@
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
-      <path-element>D:\praca\NowaEra\vspm\example\src</path-element>
-      <path-element>D:\praca\NowaEra\vspm\framework\src</path-element>
-      <path-element>D:\praca\NowaEra\vspm\framework\lib</path-element>
-      <path-element>D:\praca\NowaEra\!common\!src</path-element>
+      <path-element>D:\praca\authKontoNEDesktopApp\srcOther\srcVSPM\example\src</path-element>
+      <path-element>D:\praca\authKontoNEDesktopApp\srcOther\srcVSPM\framework\src</path-element>
+      <path-element>D:\praca\authKontoNEDesktopApp\srcOther\srcVSPM\framework\lib</path-element>
+      <path-element>D:\praca\authKontoNEDesktopApp\srcOther\srcExt</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>D:\praca\NowaEra\vspm\framework\lib\analytics.swc</path-element>
-      <path-element>D:\praca\NowaEra\vspm\framework\lib\AppMeasurement.swc</path-element>
+      <path-element>D:\praca\authKontoNEDesktopApp\srcOther\srcVSPM\framework\lib\analytics.swc</path-element>
+      <path-element>D:\praca\authKontoNEDesktopApp\srcOther\srcVSPM\framework\lib\AppMeasurement.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>
-    <path-element>D:\praca\NowaEra\vspm\example\src\vspmExample\Main.as</path-element>
+    <path-element>D:\praca\authKontoNEDesktopApp\srcOther\srcVSPM\example\src\vspmExample\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>60</default-frame-rate>

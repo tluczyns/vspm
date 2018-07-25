@@ -18,6 +18,7 @@
     <class path="src" />
     <class path="..\framework\src" />
     <class path="..\framework\lib" />
+    <class path="..\..\srcExt" />
   </classpaths>
   <!-- Build options -->
   <build>

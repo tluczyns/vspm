@@ -78,7 +78,7 @@ package tl.flashUtils {
 			return result;
 		}
 		
-		static private const VEC_NAME_TYPE_FIELD: Vector.<String> = new <String>["constant", "variable", "accessor", "method", ];
+		static private const VEC_NAME_TYPE_FIELD: Vector.<String> = new <String>["constant", "variable", "accessor", "method"];
 		
 		static public function mixin(target: Object, ... rest):void {
 			var classTarget: Class = getDefinitionByName(getQualifiedClassName(target)) as Class;

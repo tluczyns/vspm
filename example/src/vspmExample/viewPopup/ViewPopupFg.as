@@ -1,7 +1,7 @@
 package vspmExample.viewPopup {
 	import tl.vspm.ViewPopup;
 	import vspmExample.viewSection.TileColorAndLabel;
-	import tl.vspm.ContentViewPopup;
+	import tl.vspm.DescriptionViewPopup;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import tl.vspm.SWFAddress;
@@ -12,9 +12,9 @@ package vspmExample.viewPopup {
 		
 		protected var tileColorAndLabel: TileColorAndLabel;
 		
-		public function ViewPopupFg(content: ContentViewPopup): void {
-			if (!content.dataClick) content.dataClick = "";
-			super(content);
+		public function ViewPopupFg(description: DescriptionViewPopup): void {
+			if (!description.content.dataClick) description.content.dataClick = "";
+			super(description);
 		}
 		
 		override public function init(): void {

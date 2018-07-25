@@ -1,10 +1,10 @@
 package vspmExample.viewPopup {
-	import tl.vspm.ContentViewPopup;
+	import tl.vspm.DescriptionViewPopup;
 	
 	public class ViewPopupHeader extends ViewPopupFg {
 		
-		public function ViewPopupHeader(content: ContentViewPopup): void {
-			super(content);
+		public function ViewPopupHeader(description: DescriptionViewPopup): void {
+			super(description);
 		}
 		
 	}

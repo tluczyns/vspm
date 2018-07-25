@@ -11,14 +11,14 @@ package tl.tf {
 	
 	public class TextFieldUtilsLite extends Singleton {
 		
-		public static function createTextField(tFormat: TextFormat = null, isDynamicInput: uint = 0, isSingleMultiLine: uint = 0, isAutoSizeLeftCenterNone: uint = 0, isSetEventForSelectionInInputTf: Boolean = false): TextField {
+		public static function createTextField(tFormat: TextFormat = null, isDynamicInput: uint = 0, isSingleMultiLine: uint = 0, isAutoSizeLeftCenterNone: uint = 0, isAntiAliasNormalAdvanced: uint = 1, isSetEventForSelectionInInputTf: Boolean = false): TextField {
 			var tf: TextField = new TextField();
 			tf.type = [TextFieldType.DYNAMIC, TextFieldType.INPUT][isDynamicInput];
 			if ((isDynamicInput == 1) && (isSetEventForSelectionInInputTf)) TextFieldUtilsLite.setEventForSelectionInInputTf(tf);
 			tf.selectable = [false, true][isDynamicInput];
 			tf.multiline = [false, true][isSingleMultiLine];
 			tf.wordWrap = [false, true][isSingleMultiLine];
-			tf.antiAliasType = AntiAliasType.ADVANCED;
+			tf.antiAliasType = [AntiAliasType.NORMAL, AntiAliasType.ADVANCED][isAntiAliasNormalAdvanced];
 			tf.autoSize = [[TextFieldAutoSize.LEFT, TextFieldAutoSize.CENTER, TextFieldAutoSize.NONE][isAutoSizeLeftCenterNone], TextFieldAutoSize.LEFT][isDynamicInput];
 			if (isDynamicInput == 1) {
 				var heightForInputText: Number = tf.height + 5;
@@ -89,6 +89,30 @@ package tl.tf {
 			} else {
 				return -1;
 			}
+		}
+		
+		public static function traceFonts():void {
+			var embeddedFonts:Array = Font.enumerateFonts(false);
+			embeddedFonts.sortOn("fontName", Array.CASEINSENSITIVE);
+			trace("\n\n----- Enumerate Fonts -----");
+			for (var i:int = 0; i < embeddedFonts.length; i++) {
+				var font: Font = embeddedFonts[i];
+				trace(font.fontName, font.fontStyle);
+			}
+			trace("---------------------------\n\n");
+		}
+		
+		//ustawia wysokość pola tekstowego bez zmieniania wielkości czcionki, ale z dostosowaniem pola tekstowego
+		public static function setHeightTF(tf: TextField, height: Number): void {
+			tf.width = tf.textWidth;
+			tf.height = tf.textHeight;	
+			tf.multiline = tf.wordWrap = true;
+			var step: Number = 3;
+			while (tf.height < height) {
+				tf.width = Number(tf.width) - step;
+				tf.height = tf.textHeight;	
+			}
+			tf.width = Number(tf.width) + step;
 		}
 		
 	}

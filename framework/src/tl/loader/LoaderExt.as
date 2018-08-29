@@ -4,8 +4,8 @@ package tl.loader {
 	import flash.events.ProgressEvent;
 	import flash.events.IOErrorEvent;	
 	import flash.net.URLRequest;
-	import tl.service.ExternalInterfaceExt;
-	import flash.net.URLVariables;
+	/*import tl.service.ExternalInterfaceExt;
+	import flash.net.URLVariables;*/
 	import flash.system.LoaderContext;
 	import flash.system.ApplicationDomain;
 	import flash.system.SecurityDomain;
@@ -27,11 +27,11 @@ package tl.loader {
 			this.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, this.onLoadProgress);
             this.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, this.onLoadError);
 			var request: URLRequest = new URLRequest(url);
-			if (ExternalInterfaceExt.isBrowser) {
+			/*if (ExternalInterfaceExt.isBrowser) {
 				var variables:URLVariables = new URLVariables();  
 				variables.nocache = new Date().getTime(); 
 				request.data = variables;
-			}
+			}*/
 			var applicationDomain: ApplicationDomain;
 			if (uint(objLoaderExt.isApplicationDomainCurrentNew) == 1) applicationDomain = new ApplicationDomain();
 			else applicationDomain = ApplicationDomain.currentDomain; //SecurityDomain.currentDomain

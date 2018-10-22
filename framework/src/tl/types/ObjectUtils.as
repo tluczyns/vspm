@@ -16,16 +16,20 @@ package tl.types {
 		static public function populateObj(objBase: Object, objPopulate: Object): Object {
 			objBase = objBase || {};
 			for (var prop: String in objPopulate) {
-				if (ObjectUtils.isObjClonable(objPopulate[prop])) {
-					if (objPopulate[prop] is Array) {
-						if (!objBase[prop]) objBase[prop] = [];
-						else if (!(objBase[prop] is Array)) objBase[prop] = [objBase[prop]];
-						for (var i: int = objPopulate[prop].length - 1; i >= 0; i--) {
-							if (objBase[prop].indexOf(objPopulate[prop][i]) == -1) objBase[prop].unshift(objPopulate[prop][i]);
-						}
-					} else objBase[prop] = ObjectUtils.populateObj(objBase[prop], objPopulate[prop]);
-				} else objBase[prop] = objPopulate[prop];
-				
+				var isPropObjPopulateClonable: Boolean = ObjectUtils.isObjClonable(objPopulate[prop]);
+				var isPropObjPopulateArray: Boolean = (objPopulate[prop] is Array);
+				var isPropObjBaseArray: Boolean = (objBase[prop] is Array);
+				if (isPropObjPopulateClonable && isPropObjPopulateArray) {
+					if (!objBase[prop]) objBase[prop] = [];
+					else if (!isPropObjBaseArray) objBase[prop] = [objBase[prop]];
+					for (var i: int = objPopulate[prop].length - 1; i >= 0; i--) {
+						if (objBase[prop].indexOf(objPopulate[prop][i]) == -1) objBase[prop].unshift(objPopulate[prop][i]);
+					}
+				} else {
+					if (isPropObjBaseArray) objBase[prop].push(objPopulate[prop]) 
+					if (!isPropObjPopulateClonable) objBase[prop] = objPopulate[prop];
+					else if (!isPropObjPopulateArray) objBase[prop] = ObjectUtils.populateObj(objBase[prop], objPopulate[prop]);
+				}
 			}
 			return objBase;
 		}

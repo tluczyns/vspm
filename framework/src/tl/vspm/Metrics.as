@@ -10,7 +10,7 @@
 package tl.vspm {
 	import flash.display.Sprite;
 	import flash.display.Stage;
-	import com.google.analytics.GATracker;
+	import libraries.uanalytics.tracker.WebTracker;
 
 	public class Metrics extends Sprite {
 		
@@ -48,7 +48,7 @@ package tl.vspm {
 				this.isOnlyForwardTrack = Boolean(uint(dataPrimitive.isOnlyForwardTrack));
 				if (this.data) {
 					//try {
-						if (this.type == Metrics.GA) this.tracker = new GATracker(this, String(this.data));
+						if (this.type == Metrics.GA) this.tracker = new WebTracker(String(this.data));
 						else if (this.type == Metrics.OMNITURE) this.tracker = new OmnitureTracker(this.data);
 					//} catch (e: Error) {}
 				} else throw new Error("No data in given metrics!");
@@ -57,8 +57,8 @@ package tl.vspm {
 		
 		internal function trackView(indView: String, isBackwardForward: uint): void {
 			if (!this.isOnlyForwardTrack || isBackwardForward == 1) {
-				//trace("trackPageview:", indView)
-				this.tracker.trackPageview(indView);
+				//trace("trackView:", indView)
+				this.tracker.pageview(indView);
 			}
 		}
 		

@@ -57,14 +57,14 @@ package tl.vspm {
 		override public function createView(): void {
 			if (this.view == null) super.createView();
 			if (this.view) {
-				this.trackPageView();
+				this.trackView();
 				this.view.show();
 			}
 		}
 		
-		private function trackPageView(): void {
+		private function trackView(): void {
 			if (!uint(this.content.isNotTrack))
-				StateModel.trackPageview("popup_" + this.ind);
+				StateModel.trackView("popup_" + this.ind);
 		}
 		
 	}

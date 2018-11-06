@@ -55,12 +55,8 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <element path="..\!common\!lib\analytics.swc" />
-    <element path="..\!common\!lib\AppMeasurement.swc" />
-    <element path="..\!common\!lib\starling1.8.swc" />
-    <element path="..\!common\!lib\Starling-Extension-Graphics.swc" />
-    <element path="..\framework\lib\analytics.swc" />
     <element path="..\framework\lib\AppMeasurement.swc" />
+    <element path="..\framework\lib\uanalytics.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

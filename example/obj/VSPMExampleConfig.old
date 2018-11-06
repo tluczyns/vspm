@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'25.07.2018'</value>
+      <value>'06.11.2018'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -39,8 +39,8 @@
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">
-      <path-element>D:\praca\authKontoNEDesktopApp\srcOther\srcVSPM\framework\lib\analytics.swc</path-element>
       <path-element>D:\praca\authKontoNEDesktopApp\srcOther\srcVSPM\framework\lib\AppMeasurement.swc</path-element>
+      <path-element>D:\praca\authKontoNEDesktopApp\srcOther\srcVSPM\framework\lib\uanalytics.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>

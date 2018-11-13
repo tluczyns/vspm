@@ -1,20 +1,22 @@
 package tl.so {
 	import flash.net.SharedObject;
 	
-	public class SharedObjectInstance extends Object {
+	public class SharedObjectInstance implements ISharedObject {
 		
 		protected var so: SharedObject;
 		
-		public function SharedObjectInstance(soName: String): void {
-			if (soName) this.so = SharedObject.getLocal(soName, "/");
+		public function SharedObjectInstance(nameSO: String): void {
+			if (nameSO) this.so = SharedObject.getLocal(nameSO, "/");
 		}
 			
 		public function setPropValue(propName: String, propValue: *): Boolean {
+			var result: Boolean;
 			if (this.so != null) {
 				this.so.data[propName] = propValue;
 				this.so.flush();
-				return true;
-			} return false;
+				result = true;
+			} result = false;
+			return result;
 		}
 		
 		public function getPropValue(propName: String, defaultValue: * = undefined): * {

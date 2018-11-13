@@ -15,7 +15,7 @@ package tl.vspm {
 		public var order: uint;
 		public var depth: uint;
 		
-		public function ContentViewSection(xmlContent: XML, order: uint, depth: uint): void {
+		public function ContentViewSection(xmlContent: XML = null, order: uint = 0, depth: uint = 0): void {
 			super(xmlContent);
 			this.order = order;
 			this.depth = depth;

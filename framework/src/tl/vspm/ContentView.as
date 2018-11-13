@@ -13,9 +13,11 @@ package tl.vspm {
 	public dynamic class ContentView extends Object {
 		
 		public function ContentView(xmlContent: XML): void {
-			var objContent: Object = URLLoaderExt.parseXMLToObject(xmlContent);
-			for (var i: String in objContent) {
-				this[i] = objContent[i];
+			if (xmlContent) {
+				var objContent: Object = URLLoaderExt.parseXMLToObject(xmlContent);
+				for (var i: String in objContent) {
+					this[i] = objContent[i];
+				}
 			}
 		}
 		

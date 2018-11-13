@@ -7,10 +7,10 @@ package tl.so {
 		private var soTimeStart: SharedObjectInstance;
 		private var soTimeExpire: SharedObjectInstance;
 		
-		public function SharedObjectExpireInstance(soName: String, timeExpire: uint = 3600000): void {
-			super(soName);
-			this.soTimeStart = new SharedObjectInstance(soName + "TimeStart");
-			this.soTimeExpire = new SharedObjectInstance(soName + "TimeExpire");
+		public function SharedObjectExpireInstance(nameSO: String, timeExpire: uint = 3600000): void {
+			super(nameSO);
+			this.soTimeStart = new SharedObjectInstance(nameSO + "TimeStart");
+			this.soTimeExpire = new SharedObjectInstance(nameSO + "TimeExpire");
 			this.timeExpire = timeExpire;
 		}
 		

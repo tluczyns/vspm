@@ -11,6 +11,7 @@ package tl.vspm {
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import libraries.uanalytics.tracker.WebTracker;
+	import libraries.uanalytics.utils.*;
 
 	public class Metrics extends Sprite {
 		
@@ -48,8 +49,11 @@ package tl.vspm {
 				this.isOnlyForwardTrack = Boolean(uint(dataPrimitive.isOnlyForwardTrack));
 				if (this.data) {
 					//try {
-						if (this.type == Metrics.GA) this.tracker = new WebTracker(String(this.data));
-						else if (this.type == Metrics.OMNITURE) this.tracker = new OmnitureTracker(this.data);
+						if (this.type == Metrics.GA) {
+							this.tracker = new WebTracker(String(this.data));
+							this.tracker.add(generateAIRAppInfo().toDictionary());
+							this.tracker.add(generateAIRSystemInfo().toDictionary());
+						} else if (this.type == Metrics.OMNITURE) this.tracker = new OmnitureTracker(this.data);
 					//} catch (e: Error) {}
 				} else throw new Error("No data in given metrics!");
 			} else throw new Error("Metrics is not of possible types!");

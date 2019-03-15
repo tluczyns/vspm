@@ -98,12 +98,15 @@ package tl.vspm.helper {
 				var btn: BtnHit = this.vecBtn[i];
 				this.containerBtns.removeChild(btn);
 				btn.removeEventListener(EventBtnHit.CLICKED, this.onBtnClicked);
+				this.deleteBtn(btn, i);
 				btn.destroy();
 				btn = null;
 			}
 			this.vecBtn = new <BtnHit>[];
 			this.deleteContainerBtns();
 		}
+		
+		protected function deleteBtn(btn: BtnHit, i: uint): void {}
 		
 		protected function deleteContainerBtns(): void {}
 		

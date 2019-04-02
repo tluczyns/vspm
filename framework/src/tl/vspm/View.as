@@ -16,7 +16,7 @@ package tl.vspm {
 	 * It is used here only to represent base hide/show animation of the view.
 	 * It can be easily replaced by Tweener (just comment/uncomment proper lines in this file) or any other animation library.
 	 */
-	import com.greensock.TimelineMax;
+	import com.greensock.core.Animation;
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Linear;
 
@@ -25,7 +25,7 @@ package tl.vspm {
 		public var description: DescriptionView;
 		
 		protected var isHideShow: uint;
-		public var tMaxHideShow: TimelineMax;
+		protected var animationHideShow: Animation;
 		
 		public function View(description: DescriptionView): void {
 			this.description = description;
@@ -37,16 +37,33 @@ package tl.vspm {
 		
 		public function init(): void {
 			//override it: add elements
-			if (!this.tMaxHideShow) this.alpha = 0;
+			this.createAnimationHideShow();
+			if (!this.animationHideShow) this.alpha = 0;
 		}
 		
-		protected function hideShowTimelineMax(isHideShow: uint): void {
+		protected function createAnimationHideShow(): void {
+			if (!this.animationHideShow) this.animationHideShow = this.getAnimationHideShow();
+		}
+		
+		protected function getAnimationHideShow(): Animation {
+			return null;
+			//override it: create animation hideShow
+		}
+		
+		private function deleteAnimationHideShow(): void {
+			if (this.animationHideShow) {
+				this.animationHideShow.kill();
+				this.animationHideShow = null;
+			}
+		}
+		
+		protected function hideShowByAnimation(isHideShow: uint): void {
 			if (isHideShow == 0) {
-				this.tMaxHideShow.reverse();
-				if (this.tMaxHideShow.totalProgress() == 0) this.hideComplete();
+				this.animationHideShow.reverse();
+				if (this.animationHideShow.totalProgress() == 0) this.hideComplete();
 			} else if (isHideShow == 1) {
-				this.tMaxHideShow.play();
-				if (this.tMaxHideShow.totalProgress() == 1) this.startAfterShow();
+				this.animationHideShow.play();
+				if (this.animationHideShow.totalProgress() == 1) this.startAfterShow();
 			}
 		}
 		
@@ -58,7 +75,7 @@ package tl.vspm {
 		
 		protected function hideShow(isHideShow: uint): void {
 			//Tweener.addTween(this, {alpha: isHideShow, time: 0.3, transition: "linear", onComplete: [this.hideComplete, this.startAfterShow][isHideShow]});
-			if (this.tMaxHideShow) this.hideShowTimelineMax(isHideShow);
+			if (this.animationHideShow) this.hideShowByAnimation(isHideShow);
 			else {
 				TweenMax.killTweensOf(this);
 				TweenMax.to(this, 0.3, {alpha: isHideShow, ease: Linear.easeNone, onComplete: [this.hideComplete, this.startAfterShow][isHideShow]});
@@ -85,15 +102,12 @@ package tl.vspm {
 		}
 		
 		protected function hideComplete(): void {
+			this.deleteAnimationHideShow();
 			this.destroy();
 		}
 		
 		protected function destroy(): void {
 			//override it to remove elements
-			if (this.tMaxHideShow) {
-				this.tMaxHideShow.kill();
-				this.tMaxHideShow = null;
-			}
 		}
 		
 	}

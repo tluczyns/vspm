@@ -18,6 +18,8 @@ package tl.vspm {
 			super(description);
 		}
 		
+		override public function init(): void {}
+		
 		override public function show(): void {
 			//trace("this.isLoading:" + this.isLoading, "this.isLoaded:" + this.isLoaded);
 			if (this.isNoneLoadingHidepreloaderLoaded == 0) {
@@ -64,6 +66,7 @@ package tl.vspm {
 			else if (this.isHideShowAfterHidePreloader == 1) {
 				this.isNoneLoadingHidepreloaderLoaded = 3;
 				this.initAfterLoading();
+				this.createAnimationHideShow();
 				this.showAfterLoading();
 			}
 		}
@@ -74,6 +77,10 @@ package tl.vspm {
 		
 		protected function initAfterLoading(): void {
 			trace("initAfterLoading: override this");
+		}
+		
+		override protected function createAnimationHideShow(): void {
+			if (this.isNoneLoadingHidepreloaderLoaded == 3) super.createAnimationHideShow();
 		}
 		
 		private function showAfterLoading(): void {

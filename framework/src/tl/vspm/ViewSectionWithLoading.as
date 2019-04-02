@@ -27,8 +27,7 @@ package tl.vspm {
 					this.isNoneLoadingHidepreloaderLoaded = 1;
 				} else {
 					this.isNoneLoadingHidepreloaderLoaded = 3;
-					this.initAfterLoading();
-					this.showAfterLoading();
+					this.initAndShowAfterLoading();
 				}
 			} else if (this.isNoneLoadingHidepreloaderLoaded == 1)
 				super.startAfterShow(); //gdy w czasie ładowania chcemy przejść sekcję głębiej
@@ -65,14 +64,18 @@ package tl.vspm {
 			if (this.isHideShowAfterHidePreloader == 0) super.hideComplete();
 			else if (this.isHideShowAfterHidePreloader == 1) {
 				this.isNoneLoadingHidepreloaderLoaded = 3;
-				this.initAfterLoading();
-				this.createAnimationHideShow();
-				this.showAfterLoading();
+				this.initAndShowAfterLoading();
 			}
 		}
 		
 		protected function abortLoading(): void {
 			trace("abortLoading: override this");
+		}
+		
+		private function initAndShowAfterLoading(): void {
+			this.initAfterLoading();
+			this.createAnimationHideShow();
+			this.showAfterLoading();
 		}
 		
 		protected function initAfterLoading(): void {

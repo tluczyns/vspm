@@ -10,7 +10,7 @@ package tl.vspm.helper {
 			var totalTime: Number = 0;
 			var descriptionViewSection: DescriptionViewSection = ManagerSection.getCurrentDescriptionViewSection();
 			while ((descriptionViewSection.ind != targetIndSection) && (descriptionViewSection.ind != "")) {
-				if ((descriptionViewSection.view) && (descriptionViewSection.view.tMaxHideShow)) totalTime += descriptionViewSection.view.tMaxHideShow.totalTime();
+				if ((descriptionViewSection.view) && (descriptionViewSection.view.animationHideShow)) totalTime += descriptionViewSection.view.animationHideShow.totalTime();
 				descriptionViewSection = DescriptionViewSection(LoaderXMLContentView.dictIndViewSectionToDescriptionParentViewSection[descriptionViewSection.ind]);
 			}
 			return totalTime;

@@ -25,7 +25,7 @@ package tl.vspm {
 		public var description: DescriptionView;
 		
 		protected var isHideShow: uint;
-		protected var animationHideShow: Animation;
+		public var animationHideShow: Animation;
 		
 		public function View(description: DescriptionView): void {
 			this.description = description;

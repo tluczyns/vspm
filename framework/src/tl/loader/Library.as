@@ -17,6 +17,11 @@ package tl.loader {
 			Library.arrSwf.push(swf);
 		}
 		
+		public static function removeSwf(swf: DisplayObject): void {
+			var indexOfSwf: int = Library.arrSwf.indexOf(swf);
+			if (indexOfSwf > -1) Library.arrSwf.removeAt(indexOfSwf);
+		}
+		
 		public static function getClassDefinition(nameClass: String): Class {
 			var i: uint = 0;
 			var classDef: Class;

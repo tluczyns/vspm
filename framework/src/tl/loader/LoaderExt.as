@@ -6,10 +6,10 @@ package tl.loader {
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
 	import flash.system.SecurityDomain;
-	import flash.filesystem.File;
+	/*import flash.filesystem.File;
 	import flash.utils.ByteArray;
 	import flash.filesystem.FileStream;
-	import flash.filesystem.FileMode;
+	import flash.filesystem.FileMode;*/
 	import flash.net.URLRequest;
 	/*import tl.service.ExternalInterfaceExt;
 	import flash.net.URLVariables;*/
@@ -37,7 +37,7 @@ package tl.loader {
 			var url: String = String(objLoaderExt.url);
 			if (objLoaderExt.isLoadByByteArray) {
 				try {
-					var file: File = new File(url);
+					/*var file: File = new File(url);
 					var ba: ByteArray = new ByteArray();  
 					var loadStream: FileStream = new FileStream();  
 					loadStream.open(file, FileMode.READ);
@@ -46,7 +46,7 @@ package tl.loader {
 					context.allowLoadBytesCodeExecution = true;  
 					this.loadBytes(ba, context);
 					ba.clear();
-					ba = null;
+					ba = null;*/
 				} catch(e: Error) {
 					this.onLoadError(new IOErrorEvent(IOErrorEvent.IO_ERROR));
 				}

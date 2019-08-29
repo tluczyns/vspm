@@ -23,7 +23,7 @@
 			for (var i: uint = 0; i < arrWord.length; i++) {
 				var word: String = arrWord[i];
 				if (i != arrWord.length - 1) {
-					if ((word.length == 1) || ((word.length == 2) && (new RegExp("[,.:;!?]")).test(word.charAt(1)))) strModified += (word + String.fromCharCode(160));//\u00A0
+					if ((word.length <= 2) || ((word.length == 3) && (new RegExp("[,.:;!?]")).test(word.charAt(1)))) strModified += (word + String.fromCharCode(160));//\u00A0
 					else strModified += (word + " ");
 				} else {
 					strModified += word;

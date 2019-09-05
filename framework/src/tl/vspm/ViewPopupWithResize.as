@@ -12,7 +12,7 @@ package tl.vspm {
 	
 	public class ViewPopupWithResize extends ViewPopup {
 		
-		public function ViewPopupWithResize(description: DescriptionViewPopup): void {
+		public function ViewPopupWithResize(description: DescriptionView): void {
 			super(description);
 		}
 		
@@ -26,9 +26,8 @@ package tl.vspm {
 			throw new Error("onStageResize must be implemented");
 		}
 		
-		override protected function hideComplete(): void {
-			this.stage.removeEventListener(Event.RESIZE, this.onStageResize);			
-			super.hideComplete();
+		override protected function destroy(): void {
+			this.stage.removeEventListener(Event.RESIZE, this.onStageResize);
 		}
 		
 	}

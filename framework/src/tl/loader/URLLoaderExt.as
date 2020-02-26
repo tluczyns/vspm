@@ -52,7 +52,7 @@ package tl.loader {
 			}
 			for (var nameParam: String in objParams)
 				data[nameParam] = objParams[nameParam];
-			if (arrHeader.length > 0) {
+			if ((arrHeader.length > 0) && (isGetPost == 0)) {
 				isGetPost = 1; //Due to a bug in Flash, a URLRequest with a GET request will not properly send headers.
 				addRandomValue = true; //Due to a bug in Flash, a URLRequest without a valid parameter will not properly send headers.
 			}

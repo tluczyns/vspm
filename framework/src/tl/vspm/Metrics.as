@@ -19,12 +19,12 @@ package tl.vspm {
 		static private const OMNITURE: String = "omniture";
 		static private const ARR_POSSIBLE_TYPE: Array = [GA, OMNITURE];
 		
-		static internal var vecMetrics: Vector.<Metrics>;
+		static public var vecMetrics: Vector.<Metrics>;
 		
 		private var type: String;
 		private var data: Object;
 		private var isOnlyForwardTrack: Boolean;
-		private var tracker: *;
+		private var _tracker: *;
 		
 		static internal function createVecMetricsFromContent(content: Object, stage: Stage): void {
 			Metrics.vecMetrics = new Vector.<Metrics>();
@@ -50,10 +50,10 @@ package tl.vspm {
 				if (this.data) {
 					//try {
 						if (this.type == Metrics.GA) {
-							this.tracker = new WebTracker(String(this.data));
-							this.tracker.add(generateAIRAppInfo().toDictionary());
-							this.tracker.add(generateAIRSystemInfo().toDictionary());
-						} else if (this.type == Metrics.OMNITURE) this.tracker = new OmnitureTracker(this.data);
+							this._tracker = new WebTracker(String(this.data));
+							this._tracker.add(generateAIRAppInfo().toDictionary());
+							this._tracker.add(generateAIRSystemInfo().toDictionary());
+						} else if (this.type == Metrics.OMNITURE) this._tracker = new OmnitureTracker(this.data);
 					//} catch (e: Error) {}
 				} else throw new Error("No data in given metrics!");
 			} else throw new Error("Metrics is not of possible types!");
@@ -62,8 +62,12 @@ package tl.vspm {
 		internal function trackView(indView: String, isBackwardForward: uint): void {
 			if (!this.isOnlyForwardTrack || isBackwardForward == 1) {
 				//trace("trackView:", indView)
-				this.tracker.pageview(indView);
+				this._tracker.pageview(indView);
 			}
+		}
+		
+		public function get tracker(): * {
+			return this._tracker;
 		}
 		
 	}

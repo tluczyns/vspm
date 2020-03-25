@@ -23,6 +23,7 @@ package tl.vspm {
 		public static function init(): void {
 			if (!SWFAddress.hasEventListener(SWFAddressEvent.CHANGE))
 				SWFAddress.addEventListener(SWFAddressEvent.CHANGE, StateModel.handleSWFAddress);
+			else SWFAddress.setValue(ManagerSection.startIndSection);
 		}
 		
 		public static function addEventListener(type: String, func: Function, priority: int = 0): void {
@@ -56,7 +57,6 @@ package tl.vspm {
 			var indSection: String;
 			if ((LoaderXMLContentView.dictAliasIndToIndSection) && (LoaderXMLContentView.dictAliasIndToIndSection[indSectionAlias])) indSection = LoaderXMLContentView.dictAliasIndToIndSection[indSectionAlias];
 			else indSection = indSectionAlias;
-			
 			if ((indSection != "") && (indSection != ManagerSection.currIndSection)) {
 				var descriptionViewSection: DescriptionViewSection = ManagerSection.dictDescriptionViewSection[indSection];
 				if (descriptionViewSection) {

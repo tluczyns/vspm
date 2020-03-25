@@ -71,7 +71,7 @@ package tl.vspm {
 		
 		public function removeView(): void {
 			var containerView: DisplayObjectContainer = this.getContainerView();
-			if (this.view != null) {
+			if ((this.view != null) && (containerView.contains(this.view))) {
 				containerView.removeChild(this.view);
 				this.view = null;
 			}

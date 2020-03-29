@@ -156,13 +156,14 @@ package tl.loader {
 		//static utils
 		
 		public static function parseXMLToObject(xmlNode: XML): Object {
+			var ns: Namespace = xmlNode.namespace()
 			//trace("xmlNode:", xmlNode)
 			var obj: Object = {/*xml: xmlNode*/};
-			var xmlListAttributes: XMLList = xmlNode.@*;
+			var xmlListAttributes: XMLList = xmlNode.@*; //.@ns::*
 			//trace("xmlListAttributes:", xmlListAttributes)
 			for (var i: uint = 0; i < xmlListAttributes.length(); i++)
 				obj[String(xmlListAttributes[i].name())] = xmlListAttributes[i];
-			var xmlListElements: XMLList = xmlNode.*;
+			var xmlListElements: XMLList = xmlNode.*; //.ns::*;
 			/*for (i = 0; i < xmlListElements.length(); i++) {
 				trace("xmlListElements[i]", xmlListElements[i], nameXMLListElement)
 				var nameXMLListElement: String = String(xmlListElements[i].name());
@@ -173,13 +174,15 @@ package tl.loader {
 			var nameXMLListElement: String;
 			for (i = 0; i < xmlListElements.length(); i++) {
 				nameXMLListElement = String(xmlListElements[i].name());
+				if ((ns.uri) && (nameXMLListElement.indexOf(ns.uri) == 0)) nameXMLListElement = nameXMLListElement.substring(ns.uri.length + 2);
 				if (nameXMLListElement == "null") nameXMLListElement = "text"; //element tekstowy
 				if (arrNameElementInXMLListElement.indexOf(nameXMLListElement) == -1) arrNameElementInXMLListElement.push(nameXMLListElement);
 			}
 			for (i = 0; i < arrNameElementInXMLListElement.length; i++) {
 				nameXMLListElement = arrNameElementInXMLListElement[i];
 				if (nameXMLListElement != "text") {
-					var xmlListElementsWithSameName: XMLList = xmlNode[nameXMLListElement];
+					var qNameXMLListElement: QName = new QName(ns, nameXMLListElement);
+					var xmlListElementsWithSameName: XMLList = xmlNode[qNameXMLListElement];
 					if (xmlListElementsWithSameName.length() > 1) obj[nameXMLListElement] = [];
 					for (var j: uint = 0; j < xmlListElementsWithSameName.length(); j++) {
 						var objElement: Object = URLLoaderExt.parseXMLToObject(xmlListElementsWithSameName[j]);

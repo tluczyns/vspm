@@ -24,14 +24,15 @@ package tl.vspm.helper {
 		
 		public var vecBtn: Vector.<BtnHit>;
 		
-		public function Menu(baseIndSection: String, suffIndSectionForBtn: String = "all", suffIndSectionToExclude: String = "", isOpenSectionFromFirstBtn: Boolean = true): void {
+		public function Menu(baseIndSection: String, suffIndSectionForBtn: * = "all", suffIndSectionToExclude: * = "", isOpenSectionFromFirstBtn: Boolean = true): void {
 			this.isOpenSectionFromFirstBtn = isOpenSectionFromFirstBtn;
 			this.lengthBaseIndSection = ManagerSection.getLengthIndSection(baseIndSection);
 			this.vecDescriptionViewSectionForBtn = Vector.<DescriptionViewSection>(LoaderXMLContentView.dictIndViewSectionToVecDescriptionSubViewSection[baseIndSection]);
 			if ((suffIndSectionForBtn != "all") || (suffIndSectionToExclude != "")) {
 				this.vecDescriptionViewSectionForBtn = this.vecDescriptionViewSectionForBtn.filter(function(descriptionViewSection: DescriptionViewSection, i: uint, vec: Vector.<DescriptionViewSection>): Boolean {
-					return (((suffIndSectionForBtn == "all") || (ManagerSection.getElementIndSection(this.lengthBaseIndSection, descriptionViewSection.indBase) == suffIndSectionForBtn))
-						 && ((suffIndSectionToExclude == "") || (ManagerSection.getElementIndSection(this.lengthBaseIndSection, descriptionViewSection.indBase) != suffIndSectionToExclude)));
+					var elementIndSectionAtBase: String = ManagerSection.getElementIndSection(this.lengthBaseIndSection, descriptionViewSection.indBase)
+					return (((suffIndSectionForBtn == "all") || (((suffIndSectionForBtn is String) && (elementIndSectionAtBase == suffIndSectionForBtn)) || ((suffIndSectionForBtn is RegExp) && (RegExp(suffIndSectionForBtn).test(elementIndSectionAtBase)))))
+						 && ((suffIndSectionToExclude == "") || (((suffIndSectionToExclude is String) && (elementIndSectionAtBase != suffIndSectionToExclude)) || ((suffIndSectionToExclude is RegExp) && (!RegExp(suffIndSectionToExclude).test(elementIndSectionAtBase))))));
 				}, this);
 			}
 			this.createBtns();

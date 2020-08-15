@@ -43,8 +43,8 @@ package tl.vspm {
 			_am.currencyCode = _currencyCode;
 			
 			/*** last update 2011-01-11  ***/
-			_am.trackingServer = "nmetrics.samsung.com";
-			_am.trackingServerSecure = "smetrics.samsung.com";
+			//_am.trackingServer = "nmetrics.samsung.com";
+			//_am.trackingServerSecure = "smetrics.samsung.com";
 		
 			/* Turn on and configure ClickMap tracking here */
 			_am.trackClickMap = true;
@@ -57,7 +57,7 @@ package tl.vspm {
 			/* WARNING: Changing any of the below variables will cause drastic changes
 			to how your visitor data is collected.  Changes should only be made
 			when instructed to do so by your account manager.*/
-			_am.visitorNamespace = "samsung";
+			//_am.visitorNamespace = "samsung";
 			_am.dc = "112";
 			
 			//_am.delayTracking = 500;

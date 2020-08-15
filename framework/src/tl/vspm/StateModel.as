@@ -43,8 +43,17 @@ package tl.vspm {
 		}
 		
 		static public function trackView(indView: String, isForward: Boolean = true): void {
-			for (var i: uint = 0; i < Metrics.vecMetrics.length; i++)
-				Metrics.vecMetrics[i].trackView(indView, uint(isForward));
+			if (Metrics.vecMetrics) {
+				for (var i: uint = 0; i < Metrics.vecMetrics.length; i++)
+					Metrics.vecMetrics[i].trackView(indView, uint(isForward));
+			}
+		}
+		
+		static public function trackEvent(category: String, action: String, label: String = "", value: int = -1): void {
+			if (Metrics.vecMetrics) {
+				for (var i: uint = 0; i < Metrics.vecMetrics.length; i++)
+					Metrics.vecMetrics[i].trackEvent(category, action, label, value);
+			}
 		}
 		
 		private static function handleSWFAddress(e: SWFAddressEvent): void {

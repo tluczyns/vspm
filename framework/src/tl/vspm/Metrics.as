@@ -66,6 +66,10 @@ package tl.vspm {
 			}
 		}
 		
+		internal function trackEvent(category: String, action: String, label: String="", value: int = -1): void {
+			if (this._tracker is WebTracker) WebTracker(this._tracker).event(category, action, label, value);
+		}
+		
 		public function get tracker(): * {
 			return this._tracker;
 		}

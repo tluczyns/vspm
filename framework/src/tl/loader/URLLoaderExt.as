@@ -25,6 +25,7 @@ package tl.loader {
 			var objParams: Object = objLoaderExt.objParams || {};
 			var addRandomValue: Boolean = (objLoaderExt.addRandomValue != undefined) ? objLoaderExt.addRandomValue : false;
 			var isGetPost: uint = (objLoaderExt.isGetPost != undefined) ? objLoaderExt.isGetPost : 1;
+			var method: String = (objLoaderExt.method != undefined) ? objLoaderExt.method : [URLRequestMethod.GET, URLRequestMethod.POST][isGetPost];
 			var isTextBinaryVariables: uint = (objLoaderExt.isTextBinaryVariables != undefined) ? objLoaderExt.isTextBinaryVariables : 0;
 			
 			this.createTimeoutForNetOperation(timeTimeout);
@@ -52,13 +53,13 @@ package tl.loader {
 			}
 			for (var nameParam: String in objParams)
 				data[nameParam] = objParams[nameParam];
-			if ((arrHeader.length > 0) && (isGetPost == 0)) {
-				isGetPost = 1; //Due to a bug in Flash, a URLRequest with a GET request will not properly send headers.
+			if ((arrHeader.length > 0) && (method == URLRequestMethod.GET)) {
+				method = URLRequestMethod.POST; //Due to a bug in Flash, a URLRequest with a GET request will not properly send headers.
 				addRandomValue = true; //Due to a bug in Flash, a URLRequest without a valid parameter will not properly send headers.
 			}
 			if (addRandomValue) data["random"] = Math.random() * 10000000;
 			if (data.toString()) request.data = data;
-			request.method = [URLRequestMethod.GET, URLRequestMethod.POST][isGetPost];
+			request.method = method;
             this.dataFormat = [URLLoaderDataFormat.TEXT, URLLoaderDataFormat.BINARY, URLLoaderDataFormat.VARIABLES][isTextBinaryVariables];
             try {
 				this.load(request);
@@ -149,7 +150,9 @@ package tl.loader {
 				this.removeEventListener(ProgressEvent.PROGRESS, this.onLoadProgress);
 				this.removeListeners();
 				this.removeTimeoutForNetOperation();
-				this.close();
+				try {
+					this.close();
+				} catch (error: Error) {}
 			}
 		}
 		

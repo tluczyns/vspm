@@ -1,6 +1,7 @@
 package tl.so {
 	import tl.sql.SQLTable;
 	import flash.filesystem.File;
+	import flash.system.Capabilities;
 	import flash.utils.ByteArray;
 	import flash.utils.getQualifiedClassName;
 	import flash.data.SQLResult;
@@ -14,7 +15,9 @@ package tl.so {
 		
 		public function SharedObjectSQLTable(nameSO: String, nameDirSO: String = ""): void {
 			this.nameSO = nameSO;
-			var dirSO: File = File.documentsDirectory;
+			var dirSO: File;
+			if (Capabilities.os.indexOf("Windows") != -1) dirSO = File.documentsDirectory;
+			else dirSO = File.applicationStorageDirectory;
 			if (nameDirSO) dirSO = dirSO.resolvePath(nameDirSO);
 			this.sqlTableSO = new SQLTable(dirSO, nameSO, Object, ["name", "value", "nameClassValue"], ["TEXT", "BLOB", "TEXT"], [], false);
 		}

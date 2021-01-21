@@ -27,14 +27,18 @@ package tl.vspm {
 			this.prefixClass = nameClassApplication.substr(0, nameClassApplication.indexOf('::'));
 		}
 		
-		public function init(pathAssets: String = "", pathFileXML: String = "xml/content.xml"): void {
-			this.loadXMLContent(pathAssets + pathFileXML);
+		public function init(pathAssets: String = "", pathXMLContent: String = "xml/content.xml", strKeyEncryption: String = "", xmlContent: XML = null): void {
+			this.loadXMLContent(pathAssets + pathXMLContent, strKeyEncryption, xmlContent);
 		}
 		
-		protected function loadXMLContent(pathXML: String, strKeyEncryption: String = ""): void {
+		protected function loadXMLContent(pathXMLContent: String, strKeyEncryption: String = "", xmlContent: XML = null): void {
 			this.loaderXMLContent = new LoaderXMLContentView(this.prefixClass);
-			this.loaderXMLContent.loadXML(pathXML, strKeyEncryption);
+			if (!xmlContent) this.loaderXMLContent.loadXML(pathXMLContent, strKeyEncryption);
 			this.loaderXMLContent.addEventListener(EventLoaderXML.XML_LOADED, this.initOnXMLContentLoaded);
+			if (xmlContent) {
+				this.loaderXMLContent.parseXML(xmlContent);
+				this.loaderXMLContent.dispatchEvent(new EventLoaderXML(EventLoaderXML.XML_LOADED, xmlContent));
+			}
 		}
 		
 		protected function initOnXMLContentLoaded(e: EventLoaderXML = null): void {

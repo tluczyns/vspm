@@ -10,18 +10,21 @@
 package tl.vspm {
 	import flash.display.Sprite;
 	import flash.display.Stage;
-	import libraries.uanalytics.tracker.WebTracker;
+	import libraries.uanalytics.tracker.AppTracker;
 	import libraries.uanalytics.utils.*;
+	import libraries.uanalytics.tracking.Tracker;
+	import pl.nowaera.piwik.PiwikTracker;
 
 	public class Metrics extends Sprite {
 		
-		static private const GA: String = "ga";
-		static private const OMNITURE: String = "omniture";
-		static private const ARR_POSSIBLE_TYPE: Array = [GA, OMNITURE];
+		static public const GA: String = "ga";
+		static public const OMNITURE: String = "omniture";
+		static public const PIWIK: String = "piwik";
+		static private const ARR_POSSIBLE_TYPE: Array = [GA, OMNITURE, PIWIK];
 		
 		static public var vecMetrics: Vector.<Metrics>;
 		
-		private var type: String;
+		private var _type: String;
 		private var data: Object;
 		private var isOnlyForwardTrack: Boolean;
 		private var _tracker: *;
@@ -43,17 +46,19 @@ package tl.vspm {
 		
 		private function init(type: String, dataPrimitive: Object): void {
 			if (Metrics.ARR_POSSIBLE_TYPE.indexOf(type) != -1) {
-				this.type = type;
-				if (this.type == Metrics.GA) this.data = String(dataPrimitive.value);
-				else if (this.type == Metrics.OMNITURE) this.data = dataPrimitive;
+				this._type = type;
+				if (type == Metrics.GA) this.data = String(dataPrimitive.value);
+				else if ((type == Metrics.OMNITURE) || (type == Metrics.PIWIK)) this.data = dataPrimitive;
 				this.isOnlyForwardTrack = Boolean(uint(dataPrimitive.isOnlyForwardTrack));
 				if (this.data) {
 					//try {
-						if (this.type == Metrics.GA) {
-							this._tracker = new WebTracker(String(this.data));
+						if (type == Metrics.GA) {
+							this._tracker = new AppTracker(String(this.data));
 							this._tracker.add(generateAIRAppInfo().toDictionary());
 							this._tracker.add(generateAIRSystemInfo().toDictionary());
-						} else if (this.type == Metrics.OMNITURE) this._tracker = new OmnitureTracker(this.data);
+						} else if ((type == Metrics.OMNITURE) || (type == Metrics.PIWIK)) {
+							this._tracker = new this.baseClassTracker(this.data);
+						}
 					//} catch (e: Error) {}
 				} else throw new Error("No data in given metrics!");
 			} else throw new Error("Metrics is not of possible types!");
@@ -67,11 +72,28 @@ package tl.vspm {
 		}
 		
 		internal function trackEvent(category: String, action: String, label: String="", value: int = -1): void {
-			if (this._tracker is WebTracker) WebTracker(this._tracker).event(category, action, label, value);
+			if (this.type == Metrics.GA) AppTracker(this._tracker).event(category, action, label, value);
+			else if (this.type == Metrics.PIWIK)  {}
+			
 		}
 		
 		public function get tracker(): * {
 			return this._tracker;
+		}
+		
+		public function get type(): String {
+			return this._type;
+		}
+		
+		public function get baseClassTracker(): Class {
+			var result: Class;
+			switch (this._type) {
+				case Metrics.GA: result = Tracker; break;
+				case Metrics.OMNITURE: result = OmnitureTracker; break;
+				case Metrics.PIWIK: result = PiwikTracker; break;
+				
+			}
+			return result;
 		}
 		
 	}

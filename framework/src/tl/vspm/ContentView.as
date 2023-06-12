@@ -21,6 +21,14 @@ package tl.vspm {
 			}
 		}
 		
+		public function set title(value: String): void {
+			this.label = value;
+		}
+		
+		public function get title(): String {
+			return this.name || this.label || "";
+		}
+		
 	}
 
 }

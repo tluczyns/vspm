@@ -33,8 +33,7 @@ package vspmExample {
 					var metrics: Metrics = Metrics.vecMetrics[i];
 					if ((metrics.type == Metrics.GA) || (metrics.type == Metrics.PIWIK)) {
 						metrics.tracker.set(metrics.baseClassTracker["APP_VERSION"], "1.0.0.RC1");
-						metrics.tracker.set(metrics.baseClassTracker["USER_AGENT_OVERRIDE"], Capabilities.os)
-						metrics.tracker.set(metrics.baseClassTracker["DATA_SOURCE"], "appInDevelopmentMode");
+						metrics.tracker.set(metrics.baseClassTracker["DATA_SOURCE"], "appInDevelopmentMode");	
 					}
 				}
 			}

@@ -65,7 +65,7 @@ package tl.vspm {
 		}
 		
 		//nowa funkcja do nowych projektów
-		public function pageview(pageName:String):void {
+		public function pageview(pageName:String, pageTitle: String = ""):void {
 			//TŁ
 			pageName = StringUtils.replace(pageName, "/", "_"); //":"
 			pageName = StringUtils.replace(pageName, "\\", "_"); //":"

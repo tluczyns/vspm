@@ -12,9 +12,10 @@ package tl.vspm {
 	import flash.display.Stage;
 	import libraries.uanalytics.tracker.AppTracker;
 	import libraries.uanalytics.utils.*;
+	import pl.nowaera.piwik.settings.PiwikSettings;
 	import libraries.uanalytics.tracking.Tracker;
 	import pl.nowaera.piwik.PiwikTracker;
-
+	
 	public class Metrics extends Sprite {
 		
 		static public const GA: String = "ga";
@@ -56,18 +57,20 @@ package tl.vspm {
 							this._tracker = new AppTracker(String(this.data));
 							this._tracker.add(generateAIRAppInfo().toDictionary());
 							this._tracker.add(generateAIRSystemInfo().toDictionary());
-						} else if ((type == Metrics.OMNITURE) || (type == Metrics.PIWIK)) {
+						} else if (type == Metrics.OMNITURE) {
 							this._tracker = new this.baseClassTracker(this.data);
+						} else if (type == Metrics.PIWIK) {
+							this._tracker = new this.baseClassTracker(new PiwikSettings(this.data.idSite, this.data.url));
 						}
 					//} catch (e: Error) {}
 				} else throw new Error("No data in given metrics!");
 			} else throw new Error("Metrics is not of possible types!");
 		}
 		
-		internal function trackView(indView: String, isBackwardForward: uint): void {
+		internal function trackView(indView: String, titleView: String, isBackwardForward: uint): void {
 			if (!this.isOnlyForwardTrack || isBackwardForward == 1) {
 				//trace("trackView:", indView)
-				this._tracker.pageview(indView);
+				this._tracker.pageview(indView, titleView);
 			}
 		}
 		

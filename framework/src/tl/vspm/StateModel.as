@@ -42,10 +42,10 @@ package tl.vspm {
 			return StateModel._parameters;
 		}
 		
-		static public function trackView(indView: String, isForward: Boolean = true): void {
+		static public function trackView(indView: String, titleView: String, isForward: Boolean = true): void {
 			if (Metrics.vecMetrics) {
 				for (var i: uint = 0; i < Metrics.vecMetrics.length; i++)
-					Metrics.vecMetrics[i].trackView(indView, uint(isForward));
+					Metrics.vecMetrics[i].trackView(indView, titleView, uint(isForward));
 			}
 		}
 		
@@ -72,7 +72,7 @@ package tl.vspm {
 					var contentViewSection: ContentViewSection = ContentViewSection(descriptionViewSection.content);
 					var isForward: Boolean = !ManagerSection.isEqualsElementsIndSection(indSection, ManagerSection.currIndSection);
 					if (!contentViewSection || (!uint(contentViewSection.isNotTrack) && (!uint(contentViewSection.isOnlyForwardTrack) || isForward)))
-						StateModel.trackView(indSectionAlias, isForward);
+						StateModel.trackView(indSectionAlias, contentViewSection.title, isForward);
 				}
 			}
 			if ((indSection == "") && (ManagerSection.startIndSection != "")) SWFAddress.setValue(ManagerSection.startIndSection);

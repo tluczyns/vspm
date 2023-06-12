@@ -55,8 +55,9 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <element path="..\framework\lib\AppMeasurement.swc" />
     <element path="..\framework\lib\uanalytics.swc" />
+    <element path="..\framework\lib\AppMeasurement.swc" />
+    <element path="..\framework\lib\piwik.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

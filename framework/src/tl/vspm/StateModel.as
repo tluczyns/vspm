@@ -72,7 +72,7 @@ package tl.vspm {
 					var contentViewSection: ContentViewSection = ContentViewSection(descriptionViewSection.content);
 					var isForward: Boolean = !ManagerSection.isEqualsElementsIndSection(indSection, ManagerSection.currIndSection);
 					if (!contentViewSection || (!uint(contentViewSection.isNotTrack) && (!uint(contentViewSection.isOnlyForwardTrack) || isForward)))
-						StateModel.trackView(indSectionAlias, contentViewSection.title, isForward);
+						StateModel.trackView(indSectionAlias, contentViewSection ? contentViewSection.title : "", isForward);
 				}
 			}
 			if ((indSection == "") && (ManagerSection.startIndSection != "")) SWFAddress.setValue(ManagerSection.startIndSection);

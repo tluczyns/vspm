@@ -21,11 +21,12 @@ package tl.vspm {
 			}
 		}
 		
-		public function set title(value: String): void {
+		public function set title(value: *): void {
+			if (!(value is String)) value = value.text;
 			this.label = value;
 		}
 		
-		public function get title(): String {
+		public function get title(): * {
 			return this.name || this.label || "";
 		}
 		

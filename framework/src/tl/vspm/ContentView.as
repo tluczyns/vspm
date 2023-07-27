@@ -12,6 +12,8 @@ package tl.vspm {
 
 	public dynamic class ContentView extends Object {
 		
+		private var objTitle: Object;
+		
 		public function ContentView(xmlContent: XML): void {
 			if (xmlContent) {
 				var objContent: Object = URLLoaderExt.parseXMLToObject(xmlContent);
@@ -22,12 +24,18 @@ package tl.vspm {
 		}
 		
 		public function set title(value: *): void {
-			if (!(value is String)) value = value.text;
-			this.label = value;
+			if ((!(value is String) && (value.text))) value = value.text;
+			if (value is String) 
+				this.label = value;
+			else this.objTitle = value;
 		}
 		
 		public function get title(): * {
-			return this.name || this.label || "";
+			var result: * ;
+			if (!this.objTitle)
+				result = this.name || this.label || "";
+			else result = this.objTitle;
+			return result;
 		}
 		
 	}

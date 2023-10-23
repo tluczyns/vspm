@@ -11,6 +11,7 @@ package tl.vspm {
 	import flash.display.Sprite;
 	import tl.loader.Library;
 	import flash.utils.getQualifiedClassName;
+	import tl.app.HandlerInvokeWithParams;
 	import tl.loader.EventLoaderXML;
 	import flash.utils.getDefinitionByName;
 
@@ -28,6 +29,7 @@ package tl.vspm {
 		}
 		
 		public function init(pathAssets: String = "", pathXMLContent: String = "xml/content.xml", strKeyEncryption: String = "", xmlContent: XML = null): void {
+			HandlerInvokeWithParams.init(this.stage, this.handleInvokeWithParams, this.paramsInvoke);
 			this.loadXMLContent(pathAssets + pathXMLContent, strKeyEncryption, xmlContent);
 		}
 		
@@ -70,12 +72,19 @@ package tl.vspm {
 			ManagerPopup.init(containerApplication.containerViewPopup);
 			ManagerSection.init(containerApplication.containerViewSection, startIndSection);
 			this.createMetrics();
+			HandlerInvokeWithParams.setAppReadyAndCallFunctionHandleParams();
 		}
 		
 		protected function createMetrics(): void {
 			Metrics.createVecMetricsFromContent(LoaderXMLContentView.content, this.stage);
 		}
 		
+		protected function get paramsInvoke(): Array {
+			return [];
+		}
+		
+		public function handleInvokeWithParams(...params): void {}
+	
 	}
 
 }

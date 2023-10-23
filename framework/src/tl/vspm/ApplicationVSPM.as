@@ -29,7 +29,7 @@ package tl.vspm {
 		}
 		
 		public function init(pathAssets: String = "", pathXMLContent: String = "xml/content.xml", strKeyEncryption: String = "", xmlContent: XML = null): void {
-			HandlerInvokeWithParams.init(this.stage, this.handleInvokeWithParams, this.paramsInvoke);
+			HandlerInvokeWithParams.init(this.stage, this.handleInvokeWithParams, this.paramsInvoke, false, true);
 			this.loadXMLContent(pathAssets + pathXMLContent, strKeyEncryption, xmlContent);
 		}
 		
@@ -72,7 +72,7 @@ package tl.vspm {
 			ManagerPopup.init(containerApplication.containerViewPopup);
 			ManagerSection.init(containerApplication.containerViewSection, startIndSection);
 			this.createMetrics();
-			HandlerInvokeWithParams.setAppReadyAndCallFunctionHandleParams();
+			HandlerInvokeWithParams.setAppReadyAndCallFunctionHandle();
 		}
 		
 		protected function createMetrics(): void {
@@ -83,7 +83,16 @@ package tl.vspm {
 			return [];
 		}
 		
-		public function handleInvokeWithParams(...params): void {}
+		public function handleInvokeWithParams(...params): void {
+			if ((params) && (params.length >= 1)) {
+				var indSection: String = params[0];
+				if (indSection)	this.handleInvokeWithIndSection(indSection);
+			}
+		}
+			
+		protected function handleInvokeWithIndSection(indSection: String): void {
+			SWFAddress.setValueWithParameters(indSection);
+		}
 	
 	}
 

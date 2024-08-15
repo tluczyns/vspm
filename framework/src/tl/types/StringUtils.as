@@ -131,12 +131,7 @@
 		}
 		
 		static public function replace(str:String, p:*= null, repl:*= null): String {
-			var strSrc: String;
-			do {
-				strSrc = str;
-				str = strSrc.replace(p, repl);
-			} while (str != strSrc);
-			return str;
+			return str.replace(new RegExp(p, "g"), repl);
 		}
 		
 		static public function depolonize(str: String): String {

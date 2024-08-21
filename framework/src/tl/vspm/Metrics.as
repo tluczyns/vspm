@@ -74,10 +74,12 @@ package tl.vspm {
 			}
 		}
 		
-		internal function trackEvent(category: String, action: String, label: String="", value: int = -1): void {
-			if (this.type == Metrics.GA) AppTracker(this._tracker).event(category, action, label, value);
-			else if (this.type == Metrics.PIWIK)  {}
-			
+		internal function trackLink(urlLink: String, titleLink: String): void {
+			if (this.type == Metrics.PIWIK) PiwikTracker(this._tracker).link(urlLink, titleLink);
+		}
+		
+		internal function trackEvent(category: String, action: String, label: String = "", value: int = -1): void {
+			if ((this.type == Metrics.GA) || (this.type == Metrics.PIWIK)) this._tracker.event(category, action, label, value);
 		}
 		
 		public function get tracker(): * {

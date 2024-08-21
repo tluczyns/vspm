@@ -49,6 +49,13 @@ package tl.vspm {
 			}
 		}
 		
+		static public function trackLink(urlLink: String, titleLink: String): void {
+			if (Metrics.vecMetrics) {
+				for (var i: uint = 0; i < Metrics.vecMetrics.length; i++)
+					Metrics.vecMetrics[i].trackLink(urlLink, titleLink);
+			}
+		}
+		
 		static public function trackEvent(category: String, action: String, label: String = "", value: int = -1): void {
 			if (Metrics.vecMetrics) {
 				for (var i: uint = 0; i < Metrics.vecMetrics.length; i++)

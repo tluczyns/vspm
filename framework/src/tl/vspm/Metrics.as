@@ -30,7 +30,7 @@ package tl.vspm {
 		private var isOnlyForwardTrack: Boolean;
 		private var _tracker: *;
 		
-		static internal function createVecMetricsFromContent(content: Object, stage: Stage): void {
+		static public function createVecMetricsFromContent(content: Object, stage: Stage): void {
 			Metrics.vecMetrics = new Vector.<Metrics>();
 			for (var i: uint = 0; i < Metrics.ARR_POSSIBLE_TYPE.length; i++) {
 				var possibleType: String = Metrics.ARR_POSSIBLE_TYPE[i];

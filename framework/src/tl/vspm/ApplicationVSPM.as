@@ -33,6 +33,21 @@ package tl.vspm {
 			this.loadXMLContent(pathAssets + pathXMLContent, strKeyEncryption, xmlContent);
 		}
 		
+		public function handleInvokeWithParams(...params): void {
+			if ((params) && (params.length >= 1)) {
+				var indSection: String = params[0];
+				if (indSection)	this.handleInvokeWithIndSection(indSection);
+			}
+		}
+		
+		protected function handleInvokeWithIndSection(indSection: String): void {
+			SWFAddress.setValueWithParameters(indSection);
+		}
+		
+		protected function get paramsInvoke(): Array {
+			return [];
+		}
+		
 		protected function loadXMLContent(pathXMLContent: String, strKeyEncryption: String = "", xmlContent: XML = null): void {
 			this.loaderXMLContent = new LoaderXMLContentView(this.prefixClass);
 			if (!xmlContent) this.loaderXMLContent.loadXML(pathXMLContent, strKeyEncryption);
@@ -84,21 +99,6 @@ package tl.vspm {
 			return false;
 		}
 		
-		protected function get paramsInvoke(): Array {
-			return [];
-		}
-		
-		public function handleInvokeWithParams(...params): void {
-			if ((params) && (params.length >= 1)) {
-				var indSection: String = params[0];
-				if (indSection)	this.handleInvokeWithIndSection(indSection);
-			}
-		}
-			
-		protected function handleInvokeWithIndSection(indSection: String): void {
-			SWFAddress.setValueWithParameters(indSection);
-		}
-	
 	}
 
 }

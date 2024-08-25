@@ -77,6 +77,11 @@ package tl.vspm {
 		
 		protected function createMetrics(): void {
 			Metrics.createVecMetricsFromContent(LoaderXMLContentView.content, this.stage);
+			Metrics.isAnonymous = this.isAnonymousMetrics;
+		}
+		
+		protected function get isAnonymousMetrics(): Boolean {
+			return false;
 		}
 		
 		protected function get paramsInvoke(): Array {

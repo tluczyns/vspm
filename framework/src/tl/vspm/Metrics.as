@@ -43,6 +43,14 @@ package tl.vspm {
 			}
 		}
 		
+		static public function set isAnonymous(value: Boolean): void {
+			for (var i: uint = 0; i < Metrics.vecMetrics.length; i++) {
+				var  metrics: Metrics =  Metrics.vecMetrics[i];
+				if (metrics.type == Metrics.GA) AppTracker(metrics.tracker).config.anonymizeIp = value;
+				else if (metrics.type == Metrics.PIWIK) PiwikTracker(metrics.tracker).settings.isAnonymous = value;
+			}
+		}
+		
 		public function Metrics(): void {}
 		
 		private function init(type: String, dataPrimitive: Object): void {

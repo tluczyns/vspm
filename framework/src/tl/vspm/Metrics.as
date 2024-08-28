@@ -30,14 +30,14 @@ package tl.vspm {
 		private var isOnlyForwardTrack: Boolean;
 		private var _tracker: *;
 		
-		static public function createVecMetricsFromContent(content: Object, stage: Stage, isFirstNewVisit: Boolean = true): void {
+		static public function createVecMetricsFromContent(content: Object, stage: Stage, isFirstNewVisit: Boolean = true, originId: String = ""): void {
 			Metrics.vecMetrics = new Vector.<Metrics>();
 			for (var i: uint = 0; i < Metrics.ARR_POSSIBLE_TYPE.length; i++) {
 				var possibleType: String = Metrics.ARR_POSSIBLE_TYPE[i];
 				if (content[possibleType]) {
 					var metrics: Metrics = new Metrics();
 					stage.addChild(metrics);
-					metrics.init(possibleType, content[possibleType], isFirstNewVisit);
+					metrics.init(possibleType, content[possibleType], isFirstNewVisit, originId);
 					Metrics.vecMetrics.push(metrics);
 				}
 			}
@@ -53,7 +53,7 @@ package tl.vspm {
 		
 		public function Metrics(): void {}
 		
-		private function init(type: String, dataPrimitive: Object, isFirstNewVisit: Boolean): void {
+		private function init(type: String, dataPrimitive: Object, isFirstNewVisit: Boolean, originId: String): void {
 			if (Metrics.ARR_POSSIBLE_TYPE.indexOf(type) != -1) {
 				this._type = type;
 				if (type == Metrics.GA) this.data = String(dataPrimitive.value);
@@ -68,7 +68,7 @@ package tl.vspm {
 						} else if (type == Metrics.OMNITURE) {
 							this._tracker = new this.baseClassTracker(this.data);
 						} else if (type == Metrics.PIWIK) {
-							this._tracker = new this.baseClassTracker(new PiwikSettings(this.data.idSite, this.data.url), null, isFirstNewVisit);
+							this._tracker = new this.baseClassTracker(new PiwikSettings(this.data.idSite, this.data.url, "", "", true, originId), null, isFirstNewVisit);
 						}
 					//} catch (e: Error) {}
 				} else throw new Error("No data in given metrics!");

@@ -51,6 +51,29 @@ package tl.vspm {
 			}
 		}
 		
+		static public function trackView(indView: String, titleView: String, isForward: Boolean = true, additionalData: Object = null): void {
+			if (Metrics.vecMetrics) {
+				for (var i: uint = 0; i < Metrics.vecMetrics.length; i++)
+					Metrics.vecMetrics[i].trackView(indView, titleView, uint(isForward), additionalData);
+			}
+		}
+		
+		static public function trackLink(urlLink: String, titleLink: String, additionalData: Object = null): void {
+			if (Metrics.vecMetrics) {
+				for (var i: uint = 0; i < Metrics.vecMetrics.length; i++)
+					Metrics.vecMetrics[i].trackLink(urlLink, titleLink, additionalData);
+			}
+		}
+		
+		static public function trackEvent(category: String, action: String, label: String = "", value: int = -1): void {
+			if (Metrics.vecMetrics) {
+				for (var i: uint = 0; i < Metrics.vecMetrics.length; i++)
+					Metrics.vecMetrics[i].trackEvent(category, action, label, value);
+			}
+		}
+		
+		//
+		
 		public function Metrics(): void {}
 		
 		private function init(type: String, dataPrimitive: Object, isFirstNewVisit: Boolean, originId: String): void {
@@ -75,15 +98,15 @@ package tl.vspm {
 			} else throw new Error("Metrics is not of possible types!");
 		}
 		
-		internal function trackView(indView: String, titleView: String, isBackwardForward: uint): void {
+		internal function trackView(indView: String, titleView: String, isBackwardForward: uint, additionalData: Object = null): void {
 			if (!this.isOnlyForwardTrack || isBackwardForward == 1) {
 				//trace("trackView:", indView)
-				this._tracker.pageview(indView, titleView);
+				this._tracker.pageview(indView, titleView, additionalData);
 			}
 		}
 		
-		internal function trackLink(urlLink: String, titleLink: String): void {
-			if (this.type == Metrics.PIWIK) PiwikTracker(this._tracker).link(urlLink, titleLink);
+		internal function trackLink(urlLink: String, titleLink: String, additionalData: Object = null): void {
+			if (this.type == Metrics.PIWIK) PiwikTracker(this._tracker).link(urlLink, titleLink, additionalData);
 		}
 		
 		internal function trackEvent(category: String, action: String, label: String = "", value: int = -1): void {

@@ -51,14 +51,14 @@ package tl.vspm {
 			}
 		}
 		
-		static public function trackView(indView: String, titleView: String, isForward: Boolean = true, additionalData: Object = null): void {
+		static public function trackView(indView: String, titleView: String, isForward: Boolean = true, additionalData: * = null): void {
 			if (Metrics.vecMetrics) {
 				for (var i: uint = 0; i < Metrics.vecMetrics.length; i++)
 					Metrics.vecMetrics[i].trackView(indView, titleView, uint(isForward), additionalData);
 			}
 		}
 		
-		static public function trackLink(urlLink: String, titleLink: String, additionalData: Object = null): void {
+		static public function trackLink(urlLink: String, titleLink: String, additionalData: * = null): void {
 			if (Metrics.vecMetrics) {
 				for (var i: uint = 0; i < Metrics.vecMetrics.length; i++)
 					Metrics.vecMetrics[i].trackLink(urlLink, titleLink, additionalData);
@@ -98,14 +98,14 @@ package tl.vspm {
 			} else throw new Error("Metrics is not of possible types!");
 		}
 		
-		internal function trackView(indView: String, titleView: String, isBackwardForward: uint, additionalData: Object = null): void {
+		internal function trackView(indView: String, titleView: String, isBackwardForward: uint, additionalData: * = null): void {
 			if (!this.isOnlyForwardTrack || isBackwardForward == 1) {
 				//trace("trackView:", indView)
 				this._tracker.pageview(indView, titleView, additionalData);
 			}
 		}
 		
-		internal function trackLink(urlLink: String, titleLink: String, additionalData: Object = null): void {
+		internal function trackLink(urlLink: String, titleLink: String, additionalData: * = null): void {
 			if (this.type == Metrics.PIWIK) PiwikTracker(this._tracker).link(urlLink, titleLink, additionalData);
 		}
 		

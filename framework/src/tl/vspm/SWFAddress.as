@@ -425,7 +425,7 @@ package tl.vspm {
 			//TŁ
 			var path: String = getPath(value);
 			if (path.charAt(0) == "/") path = path.substring(1, path.length);
-			var queryString: String = getQueryString(value);
+			var queryString: String = SWFAddress.getQueryString(value);
 			if ((LoaderXMLContentView.dictIndToAliasIndSection) && (LoaderXMLContentView.dictIndToAliasIndSection[path])) path = LoaderXMLContentView.dictIndToAliasIndSection[path];
 			value = path + ((queryString && queryString.length) ? ("?" + queryString) : "");
 			//end TŁ
@@ -483,8 +483,8 @@ package tl.vspm {
          * Provides the value of a specific query parameter as a string or array of strings.
          * @param param Parameter name.
          */
-        public static function getParameter(param:String):Object {
-            var value:String = SWFAddress.getValue();
+        public static function getParameter(param:String, value: String = null): Object {
+            if (!value) value = SWFAddress.getValue();
             var index:Number = value.indexOf('?');
             if (index != -1) {
                 value = value.substr(index + 1);
@@ -508,8 +508,8 @@ package tl.vspm {
         /**
          * Provides a list of all the query parameter names.
          */
-        public static function getParameterNames():Array {
-            var value:String = SWFAddress.getValue();
+        public static function getParameterNames(value: String = null): Array {
+            if (!value) value = SWFAddress.getValue();
             var index:Number = value.indexOf('?');
             var names:Array = new Array();
             if (index != -1) {
@@ -528,11 +528,11 @@ package tl.vspm {
 
 		//TŁ
 	
-		public static function getParametersObject(): Object {
-			var arrParamName: Array = SWFAddress.getParameterNames();
+		public static function getParametersObject(value: String = null): Object {
+			var arrParamName: Array = SWFAddress.getParameterNames(value);
 			var parameters: Object = {};
 			for (var i:int = 0; i < arrParamName.length; i++) {
-				parameters[arrParamName[i]] = SWFAddress.getParameter(arrParamName[i]);
+				parameters[arrParamName[i]] = SWFAddress.getParameter(arrParamName[i], value);
 			}
 			return parameters;
 		}
@@ -590,11 +590,15 @@ package tl.vspm {
 			if (isReplaceParams) objParamsCurrent = objParamsNewAndChanged;
 			else {
 				objParamsCurrent = SWFAddress.getParametersObject();
-				for (var prop: String in objParamsNewAndChanged)
+				var objParamsNewAndChangedInValue: Object = SWFAddress.getParametersObject(value);
+				var prop: String;
+				for (prop in objParamsNewAndChangedInValue)
+					objParamsCurrent[prop] = objParamsNewAndChangedInValue[prop];
+				for (prop in objParamsNewAndChanged)
 					objParamsCurrent[prop] = objParamsNewAndChanged[prop];
 			}
 			var oldValue: String = SWFAddress.getValue();
-			var newValue: String = value + SWFAddress.getParametersString(objParamsCurrent);
+			var newValue: String = SWFAddress.getPath(value) + SWFAddress.getParametersString(objParamsCurrent);
 			SWFAddress.setValue(newValue);
 			if ((newValue == oldValue) && (ManagerSection.isForceRefresh)) 
 				SWFAddress.dispatchEvent(new SWFAddressEvent(SWFAddressEvent.CHANGE));
